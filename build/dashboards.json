@@ -9,6 +9,7 @@
     ]},
     { "name": "Observability", "items": [
       { "stem": "pdc-command-center", "title": "Estate Observability Command Center", "kind": "Custom", "blurb": "Single pane of glass: catalog health, governance, sensitivity, freshness, completeness — every panel drills into its domain." },
+      { "stem": "i-cdf-command-center", "title": "Observability Command Center", "kind": "Framework", "blurb": "The single-pane-of-glass rebuilt natively on Pentaho CDF — KPIs, CCC charts, and a source scorecard." },
       { "stem": "i-cdf-overview", "title": "Catalog Observability", "kind": "Framework", "blurb": "True Pentaho CDF dashboard — CCC charts and CDF filters over CDA." }
     ]},
     { "name": "Governance & Privacy", "items": [
