@@ -44,6 +44,12 @@
           "title": "Catalog Observability",
           "kind": "Framework",
           "blurb": "True Pentaho CDF dashboard \u2014 CCC charts and CDF filters over CDA."
+        },
+        {
+          "stem": "i-cdf-freshness",
+          "title": "Data Freshness & Staleness",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 scan-freshness pie, modified-age and stale-by-source bars."
         }
       ]
     },
