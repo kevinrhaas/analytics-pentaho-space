@@ -92,8 +92,29 @@
       margin: 0 auto;
     }
 
+    .hero-scene {
+      position: relative;
+      min-height: 760px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(6, 14, 29, .95) 0%, rgba(7, 18, 38, .82) 42%, rgba(7, 18, 38, .35) 100%),
+        linear-gradient(180deg, rgba(4, 12, 25, .25) 0%, rgba(7, 18, 38, .92) 100%),
+        url("assets/pentaho-command-center-hero.png") center right / cover no-repeat;
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+    }
+    .hero-scene::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 170px;
+      background: linear-gradient(180deg, rgba(7, 18, 38, 0), var(--bg));
+      pointer-events: none;
+    }
     .hero {
-      padding: 48px 0 22px;
+      position: relative;
+      z-index: 1;
+      padding: 76px 0 88px;
       display: grid;
       grid-template-columns: minmax(0, 1.02fr) minmax(420px, .98fr);
       gap: 28px;
@@ -104,7 +125,7 @@
       align-items: center;
       gap: 8px;
       margin: 0 0 16px;
-      color: var(--pdc);
+      color: #d8b7ff;
       font-size: 12px;
       font-weight: 900;
       letter-spacing: 0;
@@ -115,7 +136,7 @@
       width: 34px;
       height: 3px;
       border-radius: 99px;
-      background: var(--pdc);
+      background: #d8b7ff;
     }
     h1 {
       margin: 0;
@@ -124,12 +145,20 @@
       line-height: .96;
       letter-spacing: 0;
     }
+    .hero h1 {
+      color: #fff;
+      text-shadow: 0 18px 54px rgba(0, 0, 0, .42);
+    }
     .lede {
       margin: 20px 0 0;
       max-width: 760px;
       color: #35445a;
       font-size: 21px;
       line-height: 1.5;
+    }
+    .hero .lede {
+      color: #d7e4f6;
+      text-shadow: 0 10px 32px rgba(0, 0, 0, .42);
     }
     .hero-actions {
       display: flex;
@@ -154,10 +183,21 @@
       box-shadow: 0 6px 16px rgba(16, 36, 69, .08);
       white-space: normal;
     }
+    .hero .button {
+      border-color: rgba(255, 255, 255, .24);
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .2);
+    }
     .button.primary {
       background: var(--pentaho);
       border-color: var(--pentaho);
       color: #fff;
+    }
+    .hero .button.primary {
+      background: #0877e6;
+      border-color: #38a5ff;
     }
     .button:hover { transform: translateY(-1px); }
 
@@ -171,6 +211,12 @@
       overflow: hidden;
       box-shadow: var(--shadow);
     }
+    .hero .evidence-panel {
+      background: rgba(8, 20, 40, .72);
+      border-color: rgba(255, 255, 255, .16);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .36);
+      backdrop-filter: blur(18px);
+    }
     .panel-head {
       display: flex;
       align-items: center;
@@ -178,6 +224,13 @@
       padding: 16px 18px;
       border-bottom: 1px solid var(--line);
       background: #f8fafc;
+    }
+    .hero .panel-head {
+      background: rgba(255, 255, 255, .09);
+      border-bottom-color: rgba(255, 255, 255, .14);
+    }
+    .hero .panel-head span {
+      color: #adc2de;
     }
     .status-dot {
       width: 11px;
@@ -199,6 +252,9 @@
       gap: 1px;
       background: var(--line);
     }
+    .hero .metric-board {
+      background: rgba(255, 255, 255, .14);
+    }
     .metric {
       min-height: 126px;
       padding: 18px;
@@ -206,6 +262,18 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+    .hero .metric {
+      background: rgba(255, 255, 255, .08);
+    }
+    .hero .metric b {
+      color: #fff;
+    }
+    .hero .metric span {
+      color: #aebed4;
+    }
+    .hero .metric small {
+      color: #c5d3e5;
     }
     .metric b {
       font-size: 38px;
@@ -230,6 +298,9 @@
       border-radius: 99px;
       background: #e6edf6;
       overflow: hidden;
+    }
+    .hero .meter {
+      background: rgba(255, 255, 255, .14);
     }
     .meter i {
       display: block;
@@ -276,6 +347,22 @@
       padding: 20px;
       min-height: 250px;
       border-top: 4px solid var(--accent, var(--pentaho));
+      position: relative;
+      overflow: hidden;
+    }
+    .story-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 14px 14px auto;
+      width: 92px;
+      height: 92px;
+      border: 1px solid color-mix(in srgb, var(--accent, var(--pentaho)) 42%, transparent);
+      border-radius: 50%;
+      opacity: .38;
+      background:
+        radial-gradient(circle at center, color-mix(in srgb, var(--accent, var(--pentaho)) 18%, transparent) 0 26%, transparent 27%),
+        conic-gradient(from 180deg, color-mix(in srgb, var(--accent, var(--pentaho)) 52%, transparent), transparent 52%, color-mix(in srgb, var(--accent, var(--pentaho)) 34%, transparent));
+    }
     }
     .story-card h3, .tech-card h3, .proof-card h3, .dashboard-card h3 {
       margin: 0;
@@ -303,6 +390,70 @@
       color: #7b8797;
       font-size: 12px;
       line-height: 1.4;
+    }
+
+    .visual-showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
+      gap: 18px;
+      align-items: stretch;
+      padding-top: 20px;
+    }
+    .visual-card {
+      margin: 0;
+      min-height: 430px;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid rgba(16, 36, 69, .16);
+      box-shadow: 0 26px 70px rgba(16, 36, 69, .18);
+      background: #091526;
+    }
+    .visual-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 430px;
+      object-fit: cover;
+    }
+    .visual-card figcaption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: var(--radius);
+      background: rgba(8, 20, 40, .72);
+      color: #d9e6f7;
+      backdrop-filter: blur(16px);
+      font-size: 13px;
+      line-height: 1.45;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .24);
+    }
+    .visual-copy {
+      display: grid;
+      gap: 12px;
+    }
+    .visual-stat {
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 10px 26px rgba(16, 36, 69, .08);
+    }
+    .visual-stat b {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      color: var(--accent, var(--pentaho));
+    }
+    .visual-stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
     }
 
     .architecture {
@@ -547,7 +698,15 @@
     @media (max-width: 980px) {
       .topbar { padding: 0 20px; }
       .navlinks { display: none; }
-      .hero, .proof-grid, .brief { grid-template-columns: 1fr; }
+      .hero, .proof-grid, .brief, .visual-showcase { grid-template-columns: 1fr; }
+      .hero-scene {
+        min-height: 0;
+        background:
+          linear-gradient(90deg, rgba(6, 14, 29, .96) 0%, rgba(7, 18, 38, .78) 70%, rgba(7, 18, 38, .55) 100%),
+          linear-gradient(180deg, rgba(4, 12, 25, .18) 0%, rgba(7, 18, 38, .95) 100%),
+          url("assets/pentaho-command-center-hero.png") center / cover no-repeat;
+      }
+      .hero { padding-bottom: 68px; }
       .evidence-panel { min-height: 0; }
       .story-grid, .tech-grid, .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .arch-copy { grid-template-columns: 1fr; }
@@ -568,6 +727,8 @@
       .lede { font-size: 16px; }
       .metric b { font-size: 29px; }
       .metric { padding: 16px 18px; }
+      .visual-card, .visual-card img { min-height: 360px; }
+      .visual-card figcaption { position: static; border-radius: 0; border-left: 0; border-right: 0; border-bottom: 0; }
       .hero-actions { display: grid; grid-template-columns: 1fr; }
       .button { width: 100%; }
       .panel-head { display: grid; grid-template-columns: 18px 1fr; }
@@ -588,62 +749,64 @@
   </header>
 
   <main>
-    <div class="shell hero">
-      <div>
-        <p class="eyebrow">Pentaho platform demonstration</p>
-        <h1>Pentaho turns catalog metadata into operational intelligence.</h1>
-        <p class="lede">This briefing is built from the live Pentaho Data Catalog analytics suite published under <strong>/public/pdc-iteration/v1</strong>. It shows a platform story technical leaders care about: one governed analytics surface spanning metadata, lineage, cost, quality, privacy, usage, and data-integration reliability.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#leader-brief">Read the technical leader brief</a>
-          <a class="button" href="#architecture">See the architecture</a>
+    <section class="hero-scene" aria-label="Pentaho analytics command center">
+      <div class="shell hero">
+        <div>
+          <p class="eyebrow">Pentaho platform demonstration</p>
+          <h1>Pentaho turns catalog metadata into operational intelligence.</h1>
+          <p class="lede">This briefing is built from the live Pentaho Data Catalog analytics suite published under <strong>/public/pdc-iteration/v1</strong>. It shows a platform story technical leaders care about: one governed analytics surface spanning metadata, lineage, cost, quality, privacy, usage, and data-integration reliability.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#leader-brief">Read the technical leader brief</a>
+            <a class="button" href="#architecture">See the architecture</a>
+          </div>
         </div>
+        <aside class="evidence-panel" aria-label="Evidence metrics from live CDA queries">
+          <div class="panel-head">
+            <i class="status-dot"></i>
+            <strong>Live CDA evidence snapshot</strong>
+            <span>localhost Pentaho, v1</span>
+          </div>
+          <div class="metric-board">
+            <div class="metric">
+              <span>Catalog assets</span>
+              <b>13,975</b>
+              <small>Discovered assets across structured and unstructured estates.</small>
+              <div class="meter"><i style="--w: 86%; --c: var(--pentaho)"></i></div>
+            </div>
+            <div class="metric">
+              <span>Storage footprint</span>
+              <b>2.76 PB</b>
+              <small>Modeled across data sources for cost and sustainability analysis.</small>
+              <div class="meter"><i style="--w: 79%; --c: var(--cyan)"></i></div>
+            </div>
+            <div class="metric">
+              <span>Integration reliability</span>
+              <b>92.2%</b>
+              <small>Success across 8,230 lineage and pipeline runs.</small>
+              <div class="meter"><i style="--w: 92.2%; --c: var(--green)"></i></div>
+            </div>
+            <div class="metric">
+              <span>Annual storage cost</span>
+              <b>$3.82M</b>
+              <small>With $27,476/month reclaimable from duplicate data signals.</small>
+              <div class="meter"><i style="--w: 68%; --c: var(--gold)"></i></div>
+            </div>
+            <div class="metric">
+              <span>Lineage volume</span>
+              <b>16.7 TB</b>
+              <small>Tracked through 7 integrations and cross-platform movement.</small>
+              <div class="meter"><i style="--w: 74%; --c: var(--pdc)"></i></div>
+            </div>
+            <div class="metric">
+              <span>Governance gap</span>
+              <b>12,565</b>
+              <small>Ungoverned assets surfaced as measurable remediation backlog.</small>
+              <div class="meter"><i style="--w: 90%; --c: var(--red)"></i></div>
+            </div>
+          </div>
+        </aside>
       </div>
-      <aside class="evidence-panel" aria-label="Evidence metrics from live CDA queries">
-        <div class="panel-head">
-          <i class="status-dot"></i>
-          <strong>Live CDA evidence snapshot</strong>
-          <span>localhost Pentaho, v1</span>
-        </div>
-        <div class="metric-board">
-          <div class="metric">
-            <span>Catalog assets</span>
-            <b>13,975</b>
-            <small>Discovered assets across structured and unstructured estates.</small>
-            <div class="meter"><i style="--w: 86%; --c: var(--pentaho)"></i></div>
-          </div>
-          <div class="metric">
-            <span>Storage footprint</span>
-            <b>2.76 PB</b>
-            <small>Modeled across data sources for cost and sustainability analysis.</small>
-            <div class="meter"><i style="--w: 79%; --c: var(--cyan)"></i></div>
-          </div>
-          <div class="metric">
-            <span>Integration reliability</span>
-            <b>92.2%</b>
-            <small>Success across 8,230 lineage and pipeline runs.</small>
-            <div class="meter"><i style="--w: 92.2%; --c: var(--green)"></i></div>
-          </div>
-          <div class="metric">
-            <span>Annual storage cost</span>
-            <b>$3.82M</b>
-            <small>With $27,476/month reclaimable from duplicate data signals.</small>
-            <div class="meter"><i style="--w: 68%; --c: var(--gold)"></i></div>
-          </div>
-          <div class="metric">
-            <span>Lineage volume</span>
-            <b>16.7 TB</b>
-            <small>Tracked through 7 integrations and cross-platform movement.</small>
-            <div class="meter"><i style="--w: 74%; --c: var(--pdc)"></i></div>
-          </div>
-          <div class="metric">
-            <span>Governance gap</span>
-            <b>12,565</b>
-            <small>Ungoverned assets surfaced as measurable remediation backlog.</small>
-            <div class="meter"><i style="--w: 90%; --c: var(--red)"></i></div>
-          </div>
-        </div>
-      </aside>
-    </div>
+    </section>
 
     <section id="evidence" class="shell">
       <div class="section-head">
@@ -675,6 +838,31 @@
           <div class="number">24</div>
           <small>Restricted-to-ungoverned flows, the kind of signal leaders can route into remediation.</small>
         </article>
+      </div>
+    </section>
+
+    <section class="shell visual-showcase" aria-label="Lineage and governance visual proof">
+      <figure class="visual-card">
+        <img src="assets/pentaho-lineage-governance-wall.png" alt="Premium visualization of enterprise data lineage, governance signals, and observability dashboards">
+        <figcaption>Generated visual interpretation of what the v1 suite makes tangible: lineage, governance, privacy, cost, and operational health as one executive-grade observability plane.</figcaption>
+      </figure>
+      <div class="visual-copy">
+        <div class="visual-stat" style="--accent: var(--pdc)">
+          <b>21</b>
+          <span>Self-contained HTML dashboard experiences across observability, governance, privacy, storage, cost, usage, and lineage.</span>
+        </div>
+        <div class="visual-stat" style="--accent: var(--pentaho)">
+          <b>20</b>
+          <span>CDA descriptors exposing reusable query services over the Pentaho-managed datasource.</span>
+        </div>
+        <div class="visual-stat" style="--accent: var(--cyan)">
+          <b>221</b>
+          <span>Analyzer-ready artifacts preserved alongside the custom dashboard layer for semantic-model continuity.</span>
+        </div>
+        <div class="visual-stat" style="--accent: var(--gold)">
+          <b>1</b>
+          <span>Versioned repository path, so each iteration can be demonstrated, compared, and extended without breaking the previous story.</span>
+        </div>
       </div>
     </section>
 
