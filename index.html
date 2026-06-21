@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Analytics.Pentaho.Space | Pentaho Platform Power</title>
-  <meta name="description" content="A technical-leader briefing on the Pentaho platform, demonstrated through live Pentaho Data Catalog analytics, CDA dashboards, CDF runtime, lineage, governance, cost, quality, and operational observability.">
+  <title>Analytics.Pentaho.Space | Pentaho Enterprise Platform Value</title>
+  <meta name="description" content="A technical-leader briefing on the value of the Pentaho platform: data integration, governed metadata, reusable analytics services, semantic models, embedded dashboards, lineage, and operational observability.">
   <style>
     :root {
       --pentaho: #005bb5;
@@ -308,6 +308,67 @@
       width: var(--w);
       border-radius: inherit;
       background: var(--c, var(--pentaho));
+    }
+
+    .value-band {
+      position: relative;
+      margin-top: -74px;
+      z-index: 2;
+    }
+    .value-panel {
+      display: grid;
+      grid-template-columns: 1.08fr 1.92fr;
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid rgba(16, 36, 69, .14);
+      border-radius: var(--radius);
+      background: var(--line);
+      box-shadow: 0 26px 70px rgba(16, 36, 69, .18);
+    }
+    .value-lead {
+      padding: 24px;
+      background: var(--nav);
+      color: #fff;
+    }
+    .value-lead h2 {
+      color: #fff;
+      font-size: 31px;
+      line-height: 1.08;
+    }
+    .value-lead p {
+      margin: 14px 0 0;
+      color: #c9d7e9;
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .value-pillars {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+    }
+    .value-pillar {
+      min-height: 216px;
+      padding: 18px;
+      background: var(--panel);
+    }
+    .value-pillar b {
+      display: block;
+      color: var(--accent, var(--pentaho));
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .value-pillar h3 {
+      margin: 13px 0 0;
+      font-size: 18px;
+      line-height: 1.16;
+    }
+    .value-pillar p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     section { padding: 44px 0; }
@@ -707,6 +768,9 @@
           url("assets/pentaho-command-center-hero.png") center / cover no-repeat;
       }
       .hero { padding-bottom: 68px; }
+      .value-band { margin-top: -28px; }
+      .value-panel { grid-template-columns: 1fr; }
+      .value-pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .evidence-panel { min-height: 0; }
       .story-grid, .tech-grid, .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .arch-copy { grid-template-columns: 1fr; }
@@ -719,6 +783,9 @@
       }
       .hero { padding-top: 34px; }
       .metric-board, .story-grid, .tech-grid, .dashboard-grid { grid-template-columns: 1fr; }
+      .value-pillars { grid-template-columns: 1fr; }
+      .value-pillar { min-height: 0; }
+      .value-lead h2 { font-size: 25px; }
       .section-head { display: block; }
       .section-head p { margin-top: 10px; }
       .bar-row { grid-template-columns: 100px 1fr 58px; }
@@ -740,6 +807,7 @@
   <header class="topbar">
     <div class="brand"><span class="brand-mark">P</span><span>analytics.pentaho.space</span></div>
     <nav class="navlinks" aria-label="Page sections">
+      <a href="#platform-value">Value</a>
       <a href="#evidence">Evidence</a>
       <a href="#architecture">Architecture</a>
       <a href="#proof">Proof Points</a>
@@ -752,9 +820,9 @@
     <section class="hero-scene" aria-label="Pentaho analytics command center">
       <div class="shell hero">
         <div>
-          <p class="eyebrow">Pentaho platform demonstration</p>
-          <h1>Pentaho turns catalog metadata into operational intelligence.</h1>
-          <p class="lede">This briefing is built from the live Pentaho Data Catalog analytics suite published under <strong>/public/pdc-iteration/v1</strong>. It shows a platform story technical leaders care about: one governed analytics surface spanning metadata, lineage, cost, quality, privacy, usage, and data-integration reliability.</p>
+          <p class="eyebrow">Pentaho enterprise platform value</p>
+          <h1>Pentaho operationalizes data from integration to insight.</h1>
+          <p class="lede">This briefing uses the live Pentaho Data Catalog analytics suite under <strong>/public/pdc-iteration/v1</strong> to demonstrate the broader Pentaho platform: connecting enterprise data, governing metadata, modeling trusted facts, publishing reusable analytics services, embedding decision surfaces, and operating lineage-aware data products.</p>
           <div class="hero-actions">
             <a class="button primary" href="#leader-brief">Read the technical leader brief</a>
             <a class="button" href="#architecture">See the architecture</a>
@@ -808,33 +876,69 @@
       </div>
     </section>
 
+    <section id="platform-value" class="shell value-band">
+      <div class="value-panel">
+        <div class="value-lead">
+          <h2>The value is the platform, not the page.</h2>
+          <p>The visuals are the proof layer. The real story is that Pentaho provides an enterprise spine for data integration, catalog intelligence, governed analytics, and operational observability without forcing every team into a single presentation model.</p>
+        </div>
+        <div class="value-pillars">
+          <article class="value-pillar" style="--accent: var(--pentaho)">
+            <b>Connect</b>
+            <h3>Meet data where it lives</h3>
+            <p>Managed connections and integration lineage show Postgres, Snowflake, MSSQL, object storage, Oracle, AWS, and GCS as one analyzable estate.</p>
+          </article>
+          <article class="value-pillar" style="--accent: var(--pdc)">
+            <b>Govern</b>
+            <h3>Make metadata actionable</h3>
+            <p>Catalog facts become stewardship queues: ownership gaps, policy coverage, sensitivity, privacy terms, completeness, and freshness.</p>
+          </article>
+          <article class="value-pillar" style="--accent: var(--cyan)">
+            <b>Model</b>
+            <h3>Reuse trusted semantics</h3>
+            <p>Mondrian cubes and Analyzer-ready assets preserve governed semantic-model workflows while custom dashboards use the same facts.</p>
+          </article>
+          <article class="value-pillar" style="--accent: var(--gold)">
+            <b>Embed</b>
+            <h3>Publish through many surfaces</h3>
+            <p>CDA, CDF, repository content, HTML/SVG, and Analyzer artifacts let the platform serve builders, operators, analysts, and executives.</p>
+          </article>
+          <article class="value-pillar" style="--accent: var(--red)">
+            <b>Operate</b>
+            <h3>Turn lineage into control</h3>
+            <p>Run volume, failures, cross-boundary flows, sensitive movement, cost, and reliability become measurable operating signals.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="evidence" class="shell">
       <div class="section-head">
-        <h2>What the analytics demonstrate</h2>
-        <p>The value is not a single chart. It is the platform pattern: Pentaho can convert technical metadata, lineage events, warehouse facts, and governed models into an integrated decision system.</p>
+        <h2>Platform value demonstrated with real signals</h2>
+        <p>The dashboards matter because they expose what Pentaho already knows and orchestrates: metadata, lineage, operational events, governance facts, cost signals, and reusable analytical models.</p>
       </div>
       <div class="story-grid">
         <article class="story-card" style="--accent: var(--pentaho)">
-          <h3>Estate observability</h3>
-          <p>Catalog health is summarized through assets, metadata completeness, freshness, profiling, scan recency, source scorecards, and operational dashboards.</p>
+          <h3>Trust the estate</h3>
+          <p>Pentaho turns discovery and profiling into a control plane for assets, metadata completeness, freshness, source scorecards, and quality gaps.</p>
           <div class="number">31.3%</div>
           <small>Metadata completeness, exposed as an improvement lever instead of a hidden data-quality complaint.</small>
         </article>
         <article class="story-card" style="--accent: var(--pdc)">
-          <h3>Lineage and integration control</h3>
-          <p>Lineage facts become a command surface for runtime, success rate, failed runs, sensitive movement, top flows, and cross-boundary movement.</p>
+          <h3>Operate data pipelines</h3>
+          <p>Lineage and integration facts become a command surface for runtime, success rate, failed runs, sensitive movement, and cross-boundary flow.</p>
           <div class="number">7,440</div>
           <small>Cross-boundary data movements visible through the lineage model.</small>
         </article>
         <article class="story-card" style="--accent: var(--gold)">
-          <h3>Cost and sustainability</h3>
-          <p>Storage facts are tied to data source, resource type, sensitivity, duplicates, estimated spend, and CO2e, allowing portfolio-level decisions.</p>
+          <h3>Quantify economic impact</h3>
+          <p>Storage facts connect to data source, sensitivity, duplicates, estimated spend, reclaimable footprint, and CO2e for portfolio decisions.</p>
           <div class="number">2,487.7</div>
           <small>Metric tonnes of estimated CO2e represented in the sustainability dashboard.</small>
         </article>
         <article class="story-card" style="--accent: var(--red)">
-          <h3>Governance and risk</h3>
-          <p>Policy coverage, sensitive assets, privacy terms, ownership gaps, and restricted-to-ungoverned movement are made explicit and actionable.</p>
+          <h3>Govern with evidence</h3>
+          <p>Policy coverage, sensitive assets, privacy terms, ownership gaps, and restricted-to-ungoverned movement become explicit and actionable.</p>
           <div class="number">24</div>
           <small>Restricted-to-ungoverned flows, the kind of signal leaders can route into remediation.</small>
         </article>
@@ -844,32 +948,32 @@
     <section class="shell visual-showcase" aria-label="Lineage and governance visual proof">
       <figure class="visual-card">
         <img src="assets/pentaho-lineage-governance-wall.png" alt="Premium visualization of enterprise data lineage, governance signals, and observability dashboards">
-        <figcaption>Generated visual interpretation of what the v1 suite makes tangible: lineage, governance, privacy, cost, and operational health as one executive-grade observability plane.</figcaption>
+        <figcaption>Generated visual interpretation of Pentaho as a platform layer: data integration, lineage, governance, privacy, cost, and operational health converging into one executive-grade observability plane.</figcaption>
       </figure>
       <div class="visual-copy">
         <div class="visual-stat" style="--accent: var(--pdc)">
           <b>21</b>
-          <span>Self-contained HTML dashboard experiences across observability, governance, privacy, storage, cost, usage, and lineage.</span>
+          <span>Decision surfaces generated from one governed Pentaho content repository rather than separate one-off reporting assets.</span>
         </div>
         <div class="visual-stat" style="--accent: var(--pentaho)">
           <b>20</b>
-          <span>CDA descriptors exposing reusable query services over the Pentaho-managed datasource.</span>
+          <span>CDA services turning Pentaho-managed connections into reusable APIs for dashboards, automation, and embedded analytics.</span>
         </div>
         <div class="visual-stat" style="--accent: var(--cyan)">
           <b>221</b>
-          <span>Analyzer-ready artifacts preserved alongside the custom dashboard layer for semantic-model continuity.</span>
+          <span>Analyzer-ready artifacts preserving semantic-model continuity for teams that work natively inside Pentaho.</span>
         </div>
         <div class="visual-stat" style="--accent: var(--gold)">
           <b>1</b>
-          <span>Versioned repository path, so each iteration can be demonstrated, compared, and extended without breaking the previous story.</span>
+          <span>Versioned deployment pattern showing how platform content can evolve without breaking a validated baseline.</span>
         </div>
       </div>
     </section>
 
     <section id="architecture" class="shell">
       <div class="section-head">
-        <h2>Architecture that matters</h2>
-        <p>The v1 suite demonstrates multiple Pentaho surfaces working together: repository content, managed JDBC, CDA, CDF, Analyzer artifacts, Mondrian cubes, reusable build tooling, and versioned deployment.</p>
+        <h2>Platform architecture that matters</h2>
+        <p>The v1 suite demonstrates why Pentaho is more than a visualization tier: repository content, managed JDBC, CDA, CDF, Analyzer artifacts, Mondrian cubes, reusable build tooling, and versioned deployment all work as one delivery system.</p>
       </div>
       <div class="architecture">
         <svg viewBox="0 0 1180 500" role="img" aria-labelledby="arch-title arch-desc">
@@ -940,16 +1044,16 @@
         </svg>
         <div class="arch-copy">
           <div>
-            <b>Reusable pattern</b>
-            <p>Each iteration is a complete suite published to its own repository folder, allowing v1, v2, and future releases to coexist without breaking demos or buyers' validation paths.</p>
+            <b>Repeatable delivery</b>
+            <p>Each iteration is a complete platform content package published to its own repository folder, so validated assets can coexist with future improvements.</p>
           </div>
           <div>
-            <b>Open analytics surface</b>
-            <p>CDA exposes data as queryable services, CDF provides native dashboard runtime capability, and dependency-free HTML/SVG dashboards make demos reliable in locked-down environments.</p>
+            <b>Composable consumption</b>
+            <p>CDA exposes query services, CDF provides native dashboard runtime capability, and dependency-free HTML/SVG experiences show how Pentaho can serve multiple consumption patterns.</p>
           </div>
           <div>
             <b>Governed enterprise spine</b>
-            <p>Managed JNDI connections and modeled warehouse facts keep the analytics grounded in Pentaho-managed infrastructure rather than hard-coded extracts.</p>
+            <p>Managed JNDI connections, modeled warehouse facts, and semantic assets keep decisions grounded in Pentaho-managed infrastructure rather than disconnected extracts.</p>
           </div>
         </div>
       </div>
@@ -957,14 +1061,14 @@
 
     <section id="proof" class="shell">
       <div class="section-head">
-        <h2>Proof points from the contained analytics</h2>
-        <p>These are selected findings from the live CDA-backed dashboards. They form a practical executive conversation while still exposing enough technical depth to satisfy architects.</p>
+        <h2>Proof points from platform telemetry</h2>
+        <p>These selected findings matter because they show Pentaho converting platform telemetry into decisions: govern this, fix that, reduce spend here, investigate this movement.</p>
       </div>
       <div class="proof-grid">
         <div class="chart-card">
           <header>
-            <h3>Catalog footprint by source</h3>
-            <p>Source scorecard from <strong>pdc-command-center.cda</strong>.</p>
+            <h3>Connected estate by source</h3>
+            <p>One Pentaho-managed analytical service exposes the multi-platform estate behind the command center.</p>
           </header>
           <div class="chart-wrap" aria-label="Assets by source">
             <div class="bar-row"><span class="bar-label">POSTGRES</span><span class="bar-track"><i style="--w: 100%; --c: var(--pentaho)"></i></span><span class="bar-value">8,231</span></div>
@@ -977,10 +1081,10 @@
         </div>
         <aside class="proof-card">
           <ul class="proof-list">
-            <li><span class="badge-icon">G</span><span><b>Governance is measurable.</b><span>Only 10.1% of assets are governed, which makes a clear remediation backlog visible to stewards, architects, and leaders.</span></span></li>
-            <li><span class="badge-icon">L</span><span><b>Lineage has operating value.</b><span>8,230 runs, 639 failures, 16.7 TB moved, 704 sensitive connections, and 24 restricted-to-ungoverned flows are visible through the lineage layer.</span></span></li>
-            <li><span class="badge-icon">$</span><span><b>Cost is not abstract.</b><span>The suite connects 2.76 PB of storage to $318,669/month estimated spend and $27,476/month duplicate-data savings.</span></span></li>
-            <li><span class="badge-icon">Q</span><span><b>Quality becomes accountable.</b><span>13,975 missing owners and 36,539 missing date fields move data quality from opinion to assignable work.</span></span></li>
+            <li><span class="badge-icon">G</span><span><b>Governance becomes operational.</b><span>Only 10.1% of assets are governed, which turns policy coverage into a measurable remediation backlog.</span></span></li>
+            <li><span class="badge-icon">L</span><span><b>Lineage becomes control.</b><span>8,230 runs, 639 failures, 16.7 TB moved, 704 sensitive connections, and 24 restricted-to-ungoverned flows are visible through Pentaho lineage facts.</span></span></li>
+            <li><span class="badge-icon">$</span><span><b>Economics become visible.</b><span>Pentaho connects 2.76 PB of storage to $318,669/month estimated spend and $27,476/month duplicate-data savings.</span></span></li>
+            <li><span class="badge-icon">Q</span><span><b>Quality becomes assignable.</b><span>13,975 missing owners and 36,539 missing date fields move stewardship from opinion to platform-managed work.</span></span></li>
           </ul>
         </aside>
       </div>
@@ -988,38 +1092,38 @@
 
     <section id="platform" class="shell">
       <div class="section-head">
-        <h2>Why this is a platform story</h2>
-        <p>The strongest message for technical leaders is breadth plus composability. Pentaho is not only rendering reports; it is orchestrating repeatable analytics over enterprise metadata and operational signals.</p>
+        <h2>Why Pentaho wins as a platform</h2>
+        <p>The strongest message for technical leaders is breadth plus composability. Pentaho is not only rendering reports; it is integrating, governing, modeling, serving, embedding, and operating analytics over enterprise data.</p>
       </div>
       <div class="tech-grid">
         <article class="tech-card">
           <span class="tech-tag">CDA services</span>
-          <h3>Data APIs without app sprawl</h3>
-          <p>CDA descriptors expose reusable query endpoints over managed data connections, so the same governed facts can power command centers, CDF dashboards, custom HTML, and automation checks.</p>
+          <h3>Reusable data services without app sprawl</h3>
+          <p>CDA descriptors expose reusable query endpoints over managed Pentaho data connections, so the same governed facts can power command centers, CDF dashboards, custom HTML, and automation checks.</p>
         </article>
         <article class="tech-card">
           <span class="tech-tag">CDF runtime</span>
-          <h3>Native dashboard composition</h3>
+          <h3>Native composition when teams need it</h3>
           <p>The suite includes a true CDF dashboard using the Pentaho CDF runtime, CCC chart components, CDF filters, and tables over CDA queries, proving native extensibility alongside custom dashboard experiences.</p>
         </article>
         <article class="tech-card">
           <span class="tech-tag">Mondrian and Analyzer</span>
           <h3>Semantic model continuity</h3>
-          <p>Analyzer and .xdash artifacts sit beside the HTML/CDA dashboards, preserving semantic-model workflows while allowing richer technical demos where Analyzer is available.</p>
+          <p>Analyzer and .xdash artifacts sit beside the HTML/CDA layer, preserving semantic-model workflows while allowing richer technical experiences where Analyzer is available.</p>
         </article>
         <article class="tech-card">
           <span class="tech-tag">Lineage facts</span>
-          <h3>Operational control plane</h3>
-          <p>Lineage is treated as an operating dataset: success rates, runtime, cross-boundary flow, sensitive movement, top producers, top consumers, and blast-radius style questions.</p>
+          <h3>Operational control plane for data movement</h3>
+          <p>Lineage is treated as an operating dataset: success rates, runtime, cross-boundary flow, sensitive movement, top producers, top consumers, and impact questions.</p>
         </article>
         <article class="tech-card">
           <span class="tech-tag">Governance model</span>
-          <h3>Risk becomes routeable</h3>
-          <p>Policy assignments, sensitivity, privacy terms, ownership, freshness, and completeness roll into dashboards that support remediation, audit prep, and accountable stewardship.</p>
+          <h3>Risk becomes routeable work</h3>
+          <p>Policy assignments, sensitivity, privacy terms, ownership, freshness, and completeness roll into platform surfaces that support remediation, audit prep, and accountable stewardship.</p>
         </article>
         <article class="tech-card">
           <span class="tech-tag">Versioned delivery</span>
-          <h3>Demoable and repeatable</h3>
+          <h3>Demoable, repeatable, extensible</h3>
           <p>The suite is built as a self-contained iteration with deploy scripts, stamped repository paths, and local verification through Pentaho APIs, making it easier to demo, extend, compare, and preserve.</p>
         </article>
       </div>
@@ -1027,8 +1131,8 @@
 
     <section class="shell">
       <div class="section-head">
-        <h2>Coverage breadth</h2>
-        <p>The public story is backed by a broad suite, not a one-off dashboard. These domains are already represented in the v1 content.</p>
+        <h2>Platform value coverage</h2>
+        <p>The public story is backed by a broad Pentaho content suite, not a one-off dashboard. Each domain shows a different way the platform converts data operations into governed decisions.</p>
       </div>
       <div class="dashboard-grid">
         <article class="dashboard-card" style="--accent: var(--pentaho)"><small>Observability</small><h3>Estate command center</h3><p>Assets, storage, governance, reliability, sensitivity, freshness, completeness, and source scorecards.</p></article>
@@ -1044,13 +1148,13 @@
       <div class="brief">
         <aside class="brief-aside">
           <h2>The technical leader brief</h2>
-          <p>Pentaho's power is that it can meet the enterprise where the data already lives, model the operational and governance facts around that estate, and publish decision-grade analytics through multiple native and open surfaces.</p>
-          <p>This v1 suite shows the connective tissue: repository deployment, managed connections, CDA query services, CDF dashboards, HTML/SVG experiences, Analyzer-ready artifacts, and versioned iteration. That is more than BI. It is a platform for data product observability.</p>
+          <p>Pentaho's power is end-to-end leverage: it can connect to enterprise data, integrate and observe movement, govern the metadata around that estate, model trusted analytical facts, and publish decision-grade experiences through multiple native and open surfaces.</p>
+          <p>This v1 suite shows the connective tissue: repository deployment, managed connections, CDA query services, CDF dashboards, HTML/SVG experiences, Analyzer-ready artifacts, semantic continuity, and versioned iteration. That is more than BI. It is a platform for governed data products.</p>
         </aside>
         <div class="brief-points">
           <div class="brief-point">
             <b>For CIOs and CDOs</b>
-            <p>The platform connects technical metadata to business-control questions: where risk lives, where spend accumulates, where data quality blocks trust, and which integration flows deserve operational attention.</p>
+            <p>Pentaho connects technical metadata to business-control questions: where risk lives, where spend accumulates, where data quality blocks trust, and which integration flows deserve operational attention.</p>
           </div>
           <div class="brief-point">
             <b>For enterprise architects</b>
@@ -1058,11 +1162,11 @@
           </div>
           <div class="brief-point">
             <b>For platform owners</b>
-            <p>The suite is operationally practical: dependency-free dashboards, explicit managed datasource requirements, cacheable query services, version-stamped repository paths, and repeatable deployment scripts.</p>
+            <p>The suite is operationally practical: dependency-free experiences, explicit managed datasource requirements, cacheable query services, version-stamped repository paths, and repeatable deployment scripts.</p>
           </div>
           <div class="brief-point">
             <b>For data governance leaders</b>
-            <p>The dashboards turn vague governance language into counts, percentages, rankings, and flows: 12,565 ungoverned assets, 625 privacy-related assets, 161 terms, 305 policy assignments, and measurable owner gaps.</p>
+            <p>Pentaho turns vague governance language into counts, percentages, rankings, and flows: 12,565 ungoverned assets, 625 privacy-related assets, 161 terms, 305 policy assignments, and measurable owner gaps.</p>
           </div>
         </div>
       </div>
