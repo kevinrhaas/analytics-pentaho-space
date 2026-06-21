@@ -8,7 +8,7 @@ import json, os, datetime
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 M = json.load(open(os.path.join(HERE, "dashboards.json")))
-SHOT = "assets/dashboards/%s.png"
+SHOT = "assets/dashboards/%s.jpg"
 def has(stem): return os.path.exists(os.path.join(ROOT, SHOT % stem))
 updated = datetime.date.today().isoformat()
 ndash = sum(len(g["items"]) for g in M["groups"])

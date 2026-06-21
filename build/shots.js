@@ -16,7 +16,7 @@ for (const g of M.groups) for (const it of g.items) targets.push({ stem: it.stem
 
 (async () => {
   const browser = await chromium.launch({ channel: 'chrome' });
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
   await ctx.request.post(`${M.server}/j_spring_security_check`, { form: { j_username: 'admin', j_password: 'password' } });
   const page = await ctx.newPage();
   let ok = 0, fail = 0;
@@ -25,8 +25,8 @@ for (const g of M.groups) for (const it of g.items) targets.push({ stem: it.stem
     try {
       await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
       await page.waitForTimeout(3800);                 // let charts draw
-      const out = path.join(OUT, t.stem + '.png');
-      await page.screenshot({ path: out, fullPage: t.full });
+      const out = path.join(OUT, t.stem + '.jpg');
+      await page.screenshot({ path: out, fullPage: t.full, type: 'jpeg', quality: 80 });
       const kb = Math.round(fs.statSync(out).size / 1024);
       console.log(`  ✓ ${t.stem}  (${kb} KB)`);
       ok++;
