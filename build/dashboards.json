@@ -15,7 +15,8 @@
     { "name": "Governance & Privacy", "items": [
       { "stem": "i-sensitive-domains", "title": "Sensitive Data Domains", "kind": "Custom", "blurb": "Governance risk map: which business domains carry HIGH/MEDIUM sensitive data, as a domain × sensitivity heatmap." },
       { "stem": "i-cdf-sensitive-domains", "title": "Sensitive Data Domains", "kind": "Framework", "blurb": "CDF twin rendering the cross-tab as a stacked CCC bar — same data, native framework." },
-      { "stem": "pdc-governance", "title": "Policy & Governance Coverage", "kind": "Custom", "blurb": "Governed vs ungoverned assets, policy assignments, and coverage trended over time." }
+      { "stem": "pdc-governance", "title": "Policy & Governance Coverage", "kind": "Custom", "blurb": "Governed vs ungoverned assets, policy assignments, and coverage trended over time." },
+      { "stem": "i-cdf-governance", "title": "Policy & Governance Coverage", "kind": "Framework", "blurb": "CDF twin — coverage pie, governed-by-source bars, policy types, and a 2-series coverage-over-time line." }
     ]},
     { "name": "Data Quality & Structure", "items": [
       { "stem": "pdc-data-quality", "title": "Data Quality & Metadata Completeness", "kind": "Custom", "blurb": "Completeness distribution, most-missing attributes, and an actionable lowest-completeness remediation list." },
