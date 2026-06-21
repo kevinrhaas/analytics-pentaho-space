@@ -30,3 +30,4 @@ i-column-health
 i-cdf-column-health
 lineage-explorer
 i-cdf-lineage
+i-cdf-data-quality

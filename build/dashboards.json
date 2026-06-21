@@ -1,37 +1,155 @@
 {
   "server": "http://localhost:8080/pentaho",
   "repo": ":public:pdc-iteration:v2:",
-  "launcher": { "stem": "i-home", "title": "The full suite", "blurb": "29 analytical dashboards over live Pentaho Data Catalog metadata — one launcher." },
+  "launcher": {
+    "stem": "i-home",
+    "title": "The full suite",
+    "blurb": "29 analytical dashboards over live Pentaho Data Catalog metadata \u2014 one launcher."
+  },
   "groups": [
-    { "name": "Executive", "items": [
-      { "stem": "i-exec-scorecard", "title": "Unified Executive Scorecard", "kind": "Custom", "blurb": "Every domain's headline KPI on one board, with trend sparklines and drill-through into each dashboard." },
-      { "stem": "i-cdf-scorecard", "title": "Executive Scorecard", "kind": "Framework", "blurb": "The same board built natively on the Pentaho CDF framework (CCC charts) — toggle Custom ⇄ Framework in the header." }
-    ]},
-    { "name": "Observability", "items": [
-      { "stem": "pdc-command-center", "title": "Estate Observability Command Center", "kind": "Custom", "blurb": "Single pane of glass: catalog health, governance, sensitivity, freshness, completeness — every panel drills into its domain." },
-      { "stem": "i-cdf-command-center", "title": "Observability Command Center", "kind": "Framework", "blurb": "The single-pane-of-glass rebuilt natively on Pentaho CDF — KPIs, CCC charts, and a source scorecard." },
-      { "stem": "i-cdf-overview", "title": "Catalog Observability", "kind": "Framework", "blurb": "True Pentaho CDF dashboard — CCC charts and CDF filters over CDA." }
-    ]},
-    { "name": "Governance & Privacy", "items": [
-      { "stem": "i-sensitive-domains", "title": "Sensitive Data Domains", "kind": "Custom", "blurb": "Governance risk map: which business domains carry HIGH/MEDIUM sensitive data, as a domain × sensitivity heatmap." },
-      { "stem": "i-cdf-sensitive-domains", "title": "Sensitive Data Domains", "kind": "Framework", "blurb": "CDF twin rendering the cross-tab as a stacked CCC bar — same data, native framework." },
-      { "stem": "pdc-governance", "title": "Policy & Governance Coverage", "kind": "Custom", "blurb": "Governed vs ungoverned assets, policy assignments, and coverage trended over time." },
-      { "stem": "i-cdf-governance", "title": "Policy & Governance Coverage", "kind": "Framework", "blurb": "CDF twin — coverage pie, governed-by-source bars, policy types, and a 2-series coverage-over-time line." }
-    ]},
-    { "name": "Data Quality & Structure", "items": [
-      { "stem": "pdc-data-quality", "title": "Data Quality & Metadata Completeness", "kind": "Custom", "blurb": "Completeness distribution, most-missing attributes, and an actionable lowest-completeness remediation list." },
-      { "stem": "i-column-health", "title": "Column Health & Key Discovery", "kind": "Custom", "blurb": "Key-candidate detection (cardinality ≈ rows), dead/constant columns, and type mix across 10K+ columns." },
-      { "stem": "i-cdf-column-health", "title": "Column Health & Key Discovery", "kind": "Framework", "blurb": "CDF twin — health-mix pie, type bars, and key/dead-column tables on the framework." }
-    ]},
-    { "name": "Storage, Cost & Lineage", "items": [
-      { "stem": "pdc-storage", "title": "Storage Footprint & Capacity", "kind": "Custom", "blurb": "TB by source and type, top-heavy objects, and a cumulative storage-growth trend." },
-      { "stem": "pdc-cost", "title": "Cost Optimization & Sustainability", "kind": "Custom", "blurb": "Monthly cost by source and sensitivity, reclaimable spend, and CO₂e footprint." },
-      { "stem": "i-cdf-lineage", "title": "Data Movement Observability", "kind": "Framework", "blurb": "Lineage throughput and pipeline reliability (16.7 TB moved) on the CDF framework." },
-      { "stem": "i-data-integration", "title": "Data Integration Health", "kind": "Custom", "blurb": "Platform-movement matrix, throughput trend, success rate, and top cross-platform flows." }
-    ]},
-    { "name": "Glossary & Stewardship", "items": [
-      { "stem": "i-term-stewardship", "title": "Glossary Hierarchy & Term Stewardship", "kind": "Custom", "blurb": "Term adoption gap (576 defined vs in-use), hierarchy, types, and reach across 23 business glossaries." },
-      { "stem": "i-cdf-term-stewardship", "title": "Glossary Hierarchy & Term Stewardship", "kind": "Framework", "blurb": "CDF twin — adoption pie, glossary/type/depth bars and reach on the framework." }
-    ]}
+    {
+      "name": "Executive",
+      "items": [
+        {
+          "stem": "i-exec-scorecard",
+          "title": "Unified Executive Scorecard",
+          "kind": "Custom",
+          "blurb": "Every domain's headline KPI on one board, with trend sparklines and drill-through into each dashboard."
+        },
+        {
+          "stem": "i-cdf-scorecard",
+          "title": "Executive Scorecard",
+          "kind": "Framework",
+          "blurb": "The same board built natively on the Pentaho CDF framework (CCC charts) \u2014 toggle Custom \u21c4 Framework in the header."
+        }
+      ]
+    },
+    {
+      "name": "Observability",
+      "items": [
+        {
+          "stem": "pdc-command-center",
+          "title": "Estate Observability Command Center",
+          "kind": "Custom",
+          "blurb": "Single pane of glass: catalog health, governance, sensitivity, freshness, completeness \u2014 every panel drills into its domain."
+        },
+        {
+          "stem": "i-cdf-command-center",
+          "title": "Observability Command Center",
+          "kind": "Framework",
+          "blurb": "The single-pane-of-glass rebuilt natively on Pentaho CDF \u2014 KPIs, CCC charts, and a source scorecard."
+        },
+        {
+          "stem": "i-cdf-overview",
+          "title": "Catalog Observability",
+          "kind": "Framework",
+          "blurb": "True Pentaho CDF dashboard \u2014 CCC charts and CDF filters over CDA."
+        }
+      ]
+    },
+    {
+      "name": "Governance & Privacy",
+      "items": [
+        {
+          "stem": "i-sensitive-domains",
+          "title": "Sensitive Data Domains",
+          "kind": "Custom",
+          "blurb": "Governance risk map: which business domains carry HIGH/MEDIUM sensitive data, as a domain \u00d7 sensitivity heatmap."
+        },
+        {
+          "stem": "i-cdf-sensitive-domains",
+          "title": "Sensitive Data Domains",
+          "kind": "Framework",
+          "blurb": "CDF twin rendering the cross-tab as a stacked CCC bar \u2014 same data, native framework."
+        },
+        {
+          "stem": "pdc-governance",
+          "title": "Policy & Governance Coverage",
+          "kind": "Custom",
+          "blurb": "Governed vs ungoverned assets, policy assignments, and coverage trended over time."
+        },
+        {
+          "stem": "i-cdf-governance",
+          "title": "Policy & Governance Coverage",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 coverage pie, governed-by-source bars, policy types, and a 2-series coverage-over-time line."
+        }
+      ]
+    },
+    {
+      "name": "Data Quality & Structure",
+      "items": [
+        {
+          "stem": "pdc-data-quality",
+          "title": "Data Quality & Metadata Completeness",
+          "kind": "Custom",
+          "blurb": "Completeness distribution, most-missing attributes, and an actionable lowest-completeness remediation list."
+        },
+        {
+          "stem": "i-cdf-data-quality",
+          "title": "Data Quality & Metadata Completeness",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 completeness & profiling pies, most-missing attributes, and a remediation table."
+        },
+        {
+          "stem": "i-column-health",
+          "title": "Column Health & Key Discovery",
+          "kind": "Custom",
+          "blurb": "Key-candidate detection (cardinality \u2248 rows), dead/constant columns, and type mix across 10K+ columns."
+        },
+        {
+          "stem": "i-cdf-column-health",
+          "title": "Column Health & Key Discovery",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 health-mix pie, type bars, and key/dead-column tables on the framework."
+        }
+      ]
+    },
+    {
+      "name": "Storage, Cost & Lineage",
+      "items": [
+        {
+          "stem": "pdc-storage",
+          "title": "Storage Footprint & Capacity",
+          "kind": "Custom",
+          "blurb": "TB by source and type, top-heavy objects, and a cumulative storage-growth trend."
+        },
+        {
+          "stem": "pdc-cost",
+          "title": "Cost Optimization & Sustainability",
+          "kind": "Custom",
+          "blurb": "Monthly cost by source and sensitivity, reclaimable spend, and CO\u2082e footprint."
+        },
+        {
+          "stem": "i-cdf-lineage",
+          "title": "Data Movement Observability",
+          "kind": "Framework",
+          "blurb": "Lineage throughput and pipeline reliability (16.7 TB moved) on the CDF framework."
+        },
+        {
+          "stem": "i-data-integration",
+          "title": "Data Integration Health",
+          "kind": "Custom",
+          "blurb": "Platform-movement matrix, throughput trend, success rate, and top cross-platform flows."
+        }
+      ]
+    },
+    {
+      "name": "Glossary & Stewardship",
+      "items": [
+        {
+          "stem": "i-term-stewardship",
+          "title": "Glossary Hierarchy & Term Stewardship",
+          "kind": "Custom",
+          "blurb": "Term adoption gap (576 defined vs in-use), hierarchy, types, and reach across 23 business glossaries."
+        },
+        {
+          "stem": "i-cdf-term-stewardship",
+          "title": "Glossary Hierarchy & Term Stewardship",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 adoption pie, glossary/type/depth bars and reach on the framework."
+        }
+      ]
+    }
   ]
 }
