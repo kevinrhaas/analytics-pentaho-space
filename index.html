@@ -3,53 +3,54 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Analytics.Pentaho.Space | Pentaho Enterprise Platform Value</title>
-  <meta name="description" content="A technical-leader briefing on the value of the Pentaho platform: data integration, governed metadata, reusable analytics services, semantic models, embedded dashboards, lineage, and operational observability.">
+  <title>Analytics.Pentaho.Space | Pentaho Platform Analytics</title>
+  <meta name="description" content="A polished external demonstration of how Pentaho turns data integration, catalog metadata, lineage, governance, and operations into executive-grade analytics dashboards.">
   <style>
     :root {
       --pentaho: #005bb5;
       --pdc: #7d3c98;
-      --ink: #182235;
-      --muted: #5d6b7d;
-      --line: #d9e2ee;
-      --panel: #ffffff;
-      --panel-soft: #f6f9fc;
-      --bg: #eef3fa;
       --nav: #102445;
-      --green: #27ae60;
-      --amber: #e67e22;
-      --red: #d9365f;
+      --ink: #162235;
+      --muted: #5e6d82;
+      --soft: #eef3fa;
+      --panel: #ffffff;
+      --line: #d8e2ef;
       --cyan: #0e9aa7;
+      --green: #27ae60;
       --gold: #f2a900;
-      --shadow: 0 16px 45px rgba(16, 36, 69, .12);
+      --red: #d9365f;
+      --shadow: 0 22px 68px rgba(16, 36, 69, .14);
       --radius: 8px;
-      color-scheme: light;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: light;
     }
 
     * { box-sizing: border-box; min-width: 0; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background:
-        linear-gradient(180deg, #f8fbff 0, var(--bg) 560px, #f7f9fc 100%);
       color: var(--ink);
+      background: linear-gradient(180deg, #f8fbff 0, #eef3fa 620px, #f7f9fc 100%);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-
     a { color: inherit; }
     main { overflow-x: hidden; }
+    .shell {
+      width: min(1220px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 40;
       display: flex;
       align-items: center;
       gap: 18px;
       min-height: 64px;
       padding: 0 32px;
-      background: rgba(16, 36, 69, .96);
+      background: rgba(16, 36, 69, .97);
       color: #fff;
       border-bottom: 3px solid var(--pentaho);
       backdrop-filter: blur(14px);
@@ -59,7 +60,7 @@
       align-items: center;
       gap: 11px;
       min-width: max-content;
-      font-weight: 800;
+      font-weight: 850;
     }
     .brand-mark {
       width: 34px;
@@ -68,62 +69,62 @@
       place-items: center;
       border-radius: 8px;
       background: linear-gradient(135deg, var(--pentaho), var(--pdc));
-      box-shadow: 0 5px 16px rgba(0, 0, 0, .25);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .28);
       font-size: 17px;
     }
     .navlinks {
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 16px;
-      color: #c5d4e8;
+      gap: 17px;
+      color: #c4d2e7;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 750;
     }
     .navlinks a {
       text-decoration: none;
       padding: 8px 0;
       border-bottom: 2px solid transparent;
     }
-    .navlinks a:hover { color: #fff; border-bottom-color: #7cc4ff; }
-
-    .shell {
-      width: min(1220px, calc(100% - 40px));
-      margin: 0 auto;
+    .navlinks a:hover {
+      color: #fff;
+      border-bottom-color: #78bcff;
     }
 
-    .hero-scene {
+    .hero {
       position: relative;
       min-height: 760px;
       overflow: hidden;
-      background:
-        linear-gradient(90deg, rgba(6, 14, 29, .95) 0%, rgba(7, 18, 38, .82) 42%, rgba(7, 18, 38, .35) 100%),
-        linear-gradient(180deg, rgba(4, 12, 25, .25) 0%, rgba(7, 18, 38, .92) 100%),
-        url("assets/pentaho-command-center-hero.png") center right / cover no-repeat;
       color: #fff;
-      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      background:
+        linear-gradient(90deg, rgba(5, 13, 29, .96) 0%, rgba(6, 17, 36, .87) 45%, rgba(6, 17, 36, .28) 100%),
+        linear-gradient(180deg, rgba(5, 13, 29, .22) 0%, rgba(5, 13, 29, .92) 100%),
+        url("assets/pentaho-command-center-hero.png") center right / cover no-repeat;
+      border-bottom: 1px solid rgba(255, 255, 255, .14);
     }
-    .hero-scene::after {
+    .hero::after {
       content: "";
       position: absolute;
-      inset: auto 0 0;
-      height: 170px;
-      background: linear-gradient(180deg, rgba(7, 18, 38, 0), var(--bg));
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 165px;
+      background: linear-gradient(180deg, rgba(5, 13, 29, 0), var(--soft));
       pointer-events: none;
     }
-    .hero {
+    .hero-inner {
       position: relative;
-      z-index: 1;
-      padding: 76px 0 88px;
+      z-index: 2;
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(420px, .98fr);
-      gap: 28px;
-      align-items: stretch;
+      grid-template-columns: minmax(0, 1fr) minmax(390px, .82fr);
+      gap: 36px;
+      align-items: center;
+      padding: 78px 0 110px;
     }
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       margin: 0 0 16px;
       color: #d8b7ff;
       font-size: 12px;
@@ -133,7 +134,7 @@
     }
     .eyebrow::before {
       content: "";
-      width: 34px;
+      width: 36px;
       height: 3px;
       border-radius: 99px;
       background: #d8b7ff;
@@ -141,343 +142,288 @@
     h1 {
       margin: 0;
       max-width: 760px;
-      font-size: 68px;
-      line-height: .96;
-      letter-spacing: 0;
-    }
-    .hero h1 {
       color: #fff;
-      text-shadow: 0 18px 54px rgba(0, 0, 0, .42);
+      font-size: 66px;
+      line-height: .98;
+      letter-spacing: 0;
+      text-shadow: 0 20px 58px rgba(0, 0, 0, .44);
     }
     .lede {
-      margin: 20px 0 0;
-      max-width: 760px;
-      color: #35445a;
+      margin: 22px 0 0;
+      max-width: 720px;
+      color: #d9e7f8;
       font-size: 21px;
-      line-height: 1.5;
-    }
-    .hero .lede {
-      color: #d7e4f6;
-      text-shadow: 0 10px 32px rgba(0, 0, 0, .42);
+      line-height: 1.52;
+      text-shadow: 0 12px 34px rgba(0, 0, 0, .42);
     }
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 26px;
+      margin-top: 28px;
     }
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      min-height: 42px;
-      padding: 0 16px;
+      min-height: 44px;
+      padding: 0 17px;
       border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--ink);
-      font-weight: 800;
-      font-size: 14px;
-      text-decoration: none;
-      box-shadow: 0 6px 16px rgba(16, 36, 69, .08);
-      white-space: normal;
-    }
-    .hero .button {
-      border-color: rgba(255, 255, 255, .24);
+      border: 1px solid rgba(255, 255, 255, .24);
       background: rgba(255, 255, 255, .12);
       color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 850;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, .22);
       backdrop-filter: blur(12px);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, .2);
     }
     .button.primary {
-      background: var(--pentaho);
-      border-color: var(--pentaho);
-      color: #fff;
-    }
-    .hero .button.primary {
       background: #0877e6;
       border-color: #38a5ff;
     }
+    .button.dark {
+      background: var(--nav);
+      border-color: var(--nav);
+    }
     .button:hover { transform: translateY(-1px); }
 
-    .evidence-panel {
-      display: grid;
-      grid-template-rows: auto 1fr;
-      min-height: 520px;
-      background: var(--panel);
-      border: 1px solid var(--line);
+    .hero-proof {
+      border: 1px solid rgba(255, 255, 255, .17);
       border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-    .hero .evidence-panel {
       background: rgba(8, 20, 40, .72);
-      border-color: rgba(255, 255, 255, .16);
-      box-shadow: 0 28px 80px rgba(0, 0, 0, .36);
+      box-shadow: 0 28px 84px rgba(0, 0, 0, .36);
       backdrop-filter: blur(18px);
     }
-    .panel-head {
+    .hero-proof header {
+      padding: 16px 18px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 16px 18px;
-      border-bottom: 1px solid var(--line);
-      background: #f8fafc;
-    }
-    .hero .panel-head {
+      gap: 10px;
       background: rgba(255, 255, 255, .09);
-      border-bottom-color: rgba(255, 255, 255, .14);
+      border-bottom: 1px solid rgba(255, 255, 255, .14);
     }
-    .hero .panel-head span {
-      color: #adc2de;
-    }
-    .status-dot {
+    .dot {
       width: 11px;
       height: 11px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 0 5px rgba(39, 174, 96, .12);
+      box-shadow: 0 0 0 6px rgba(39, 174, 96, .15);
     }
-    .panel-head strong { font-size: 14px; }
-    .panel-head span {
+    .hero-proof header b { font-size: 14px; }
+    .hero-proof header span {
       margin-left: auto;
-      color: var(--muted);
+      color: #adc2de;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 750;
     }
-    .metric-board {
+    .proof-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1px;
-      background: var(--line);
-    }
-    .hero .metric-board {
       background: rgba(255, 255, 255, .14);
     }
-    .metric {
-      min-height: 126px;
+    .proof-cell {
+      min-height: 138px;
       padding: 18px;
-      background: var(--panel);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .hero .metric {
       background: rgba(255, 255, 255, .08);
     }
-    .hero .metric b {
+    .proof-cell b {
+      display: block;
       color: #fff;
+      font-size: 28px;
+      line-height: 1.05;
     }
-    .hero .metric span {
+    .proof-cell span {
+      display: block;
+      margin-bottom: 9px;
       color: #aebed4;
-    }
-    .hero .metric small {
-      color: #c5d3e5;
-    }
-    .metric b {
-      font-size: 38px;
-      line-height: 1;
-      letter-spacing: 0;
-    }
-    .metric span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
+      font-size: 11px;
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0;
     }
-    .metric small {
-      color: #7a8797;
+    .proof-cell p {
+      margin: 9px 0 0;
+      color: #cbd8e8;
       font-size: 12px;
-      line-height: 1.35;
-      overflow-wrap: anywhere;
+      line-height: 1.42;
     }
     .meter {
       height: 8px;
+      margin-top: 12px;
       border-radius: 99px;
-      background: #e6edf6;
+      background: rgba(255, 255, 255, .15);
       overflow: hidden;
-    }
-    .hero .meter {
-      background: rgba(255, 255, 255, .14);
     }
     .meter i {
       display: block;
-      height: 100%;
       width: var(--w);
+      height: 100%;
       border-radius: inherit;
       background: var(--c, var(--pentaho));
     }
 
-    .value-band {
-      position: relative;
-      margin-top: -74px;
-      z-index: 2;
-    }
-    .value-panel {
-      display: grid;
-      grid-template-columns: 1.08fr 1.92fr;
-      gap: 1px;
-      overflow: hidden;
-      border: 1px solid rgba(16, 36, 69, .14);
-      border-radius: var(--radius);
-      background: var(--line);
-      box-shadow: 0 26px 70px rgba(16, 36, 69, .18);
-    }
-    .value-lead {
-      padding: 24px;
-      background: var(--nav);
-      color: #fff;
-    }
-    .value-lead h2 {
-      color: #fff;
-      font-size: 31px;
-      line-height: 1.08;
-    }
-    .value-lead p {
-      margin: 14px 0 0;
-      color: #c9d7e9;
-      line-height: 1.55;
-      font-size: 15px;
-    }
-    .value-pillars {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 1px;
-      background: var(--line);
-    }
-    .value-pillar {
-      min-height: 216px;
-      padding: 18px;
-      background: var(--panel);
-    }
-    .value-pillar b {
-      display: block;
-      color: var(--accent, var(--pentaho));
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-    .value-pillar h3 {
-      margin: 13px 0 0;
-      font-size: 18px;
-      line-height: 1.16;
-    }
-    .value-pillar p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    section { padding: 44px 0; }
+    section { padding: 56px 0; }
     .section-head {
       display: flex;
       align-items: end;
       justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 18px;
+      gap: 24px;
+      margin-bottom: 22px;
     }
     h2 {
       margin: 0;
+      color: var(--ink);
       font-size: 40px;
-      line-height: 1.05;
+      line-height: 1.06;
       letter-spacing: 0;
     }
     .section-head p {
-      max-width: 560px;
+      max-width: 570px;
       margin: 0;
       color: var(--muted);
-      line-height: 1.55;
       font-size: 15px;
+      line-height: 1.58;
     }
 
-    .story-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .story-card, .tech-card, .proof-card, .dashboard-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: 0 7px 22px rgba(16, 36, 69, .07);
-    }
-    .story-card {
-      padding: 20px;
-      min-height: 250px;
-      border-top: 4px solid var(--accent, var(--pentaho));
+    .promise {
       position: relative;
+      z-index: 3;
+      margin-top: -82px;
+    }
+    .promise-panel {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
       overflow: hidden;
+      border: 1px solid rgba(16, 36, 69, .14);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
     }
-    .story-card::after {
-      content: "";
-      position: absolute;
-      inset: auto 14px 14px auto;
-      width: 92px;
-      height: 92px;
-      border: 1px solid color-mix(in srgb, var(--accent, var(--pentaho)) 42%, transparent);
-      border-radius: 50%;
-      opacity: .38;
-      background:
-        radial-gradient(circle at center, color-mix(in srgb, var(--accent, var(--pentaho)) 18%, transparent) 0 26%, transparent 27%),
-        conic-gradient(from 180deg, color-mix(in srgb, var(--accent, var(--pentaho)) 52%, transparent), transparent 52%, color-mix(in srgb, var(--accent, var(--pentaho)) 34%, transparent));
+    .promise-copy {
+      padding: 30px;
+      color: #fff;
+      background: var(--nav);
     }
+    .promise-copy h2 {
+      color: #fff;
+      font-size: 34px;
+      line-height: 1.08;
     }
-    .story-card h3, .tech-card h3, .proof-card h3, .dashboard-card h3 {
-      margin: 0;
-      font-size: 18px;
-      line-height: 1.2;
-      letter-spacing: 0;
+    .promise-copy p {
+      margin: 16px 0 0;
+      color: #cbd9ea;
+      line-height: 1.6;
     }
-    .story-card p, .tech-card p, .proof-card p, .dashboard-card p {
+    .promise-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+    }
+    .promise-point {
+      padding: 22px;
+      background: #fff;
+    }
+    .promise-point b {
+      display: block;
+      color: var(--accent, var(--pentaho));
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .promise-point h3 {
       margin: 12px 0 0;
+      font-size: 19px;
+      line-height: 1.18;
+    }
+    .promise-point p {
+      margin: 10px 0 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.55;
-      overflow-wrap: anywhere;
-    }
-    .story-card .number {
-      margin-top: 18px;
-      font-size: 34px;
-      line-height: 1;
-      font-weight: 900;
-      color: var(--accent, var(--pentaho));
-    }
-    .story-card small {
-      display: block;
-      margin-top: 7px;
-      color: #7b8797;
-      font-size: 12px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
-    .visual-showcase {
+    .capability-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
-      gap: 18px;
-      align-items: stretch;
-      padding-top: 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
-    .visual-card {
-      margin: 0;
-      min-height: 430px;
+    .capability {
+      min-height: 260px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 9px 26px rgba(16, 36, 69, .08);
       position: relative;
       overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid rgba(16, 36, 69, .16);
-      box-shadow: 0 26px 70px rgba(16, 36, 69, .18);
-      background: #091526;
     }
-    .visual-card img {
+    .capability::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      opacity: .35;
+      background:
+        radial-gradient(circle at center, color-mix(in srgb, var(--accent, var(--pentaho)) 18%, transparent) 0 26%, transparent 27%),
+        conic-gradient(from 180deg, color-mix(in srgb, var(--accent, var(--pentaho)) 58%, transparent), transparent 55%, color-mix(in srgb, var(--accent, var(--pentaho)) 38%, transparent));
+      border: 1px solid color-mix(in srgb, var(--accent, var(--pentaho)) 35%, transparent);
+    }
+    .capability small {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--accent, var(--pentaho));
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .capability h3 {
+      margin: 18px 0 0;
+      font-size: 23px;
+      line-height: 1.13;
+    }
+    .capability p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      position: relative;
+      z-index: 1;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .showcase figure {
+      margin: 0;
+      min-height: 470px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(16, 36, 69, .16);
+      border-radius: var(--radius);
+      background: #091526;
+      box-shadow: var(--shadow);
+    }
+    .showcase img {
       display: block;
       width: 100%;
       height: 100%;
-      min-height: 430px;
+      min-height: 470px;
       object-fit: cover;
     }
-    .visual-card figcaption {
+    .showcase figcaption {
       position: absolute;
       left: 18px;
       right: 18px;
@@ -490,257 +436,164 @@
       backdrop-filter: blur(16px);
       font-size: 13px;
       line-height: 1.45;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .24);
     }
-    .visual-copy {
+    .showcase-copy {
       display: grid;
       gap: 12px;
     }
-    .visual-stat {
-      padding: 18px;
-      border-radius: var(--radius);
+    .showcase-card {
+      padding: 20px;
       border: 1px solid var(--line);
-      background: var(--panel);
-      box-shadow: 0 10px 26px rgba(16, 36, 69, .08);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(16, 36, 69, .08);
     }
-    .visual-stat b {
+    .showcase-card b {
       display: block;
+      color: var(--accent, var(--pentaho));
       font-size: 30px;
       line-height: 1;
-      color: var(--accent, var(--pentaho));
     }
-    .visual-stat span {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.45;
+    .showcase-card h3 {
+      margin: 10px 0 0;
+      font-size: 18px;
     }
-
-    .architecture {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .architecture svg {
-      display: block;
-      width: 100%;
-      height: auto;
-      background: #fbfdff;
-    }
-    .arch-copy {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1px;
-      background: var(--line);
-    }
-    .arch-copy div {
-      padding: 18px;
-      background: var(--panel);
-    }
-    .arch-copy b {
-      display: block;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0;
-      color: var(--pdc);
-    }
-    .arch-copy p {
+    .showcase-card p {
       margin: 8px 0 0;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.5;
     }
 
-    .proof-grid {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 14px;
+    .platform-band {
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(16, 36, 69, .97), rgba(19, 48, 88, .94)),
+        url("assets/pentaho-lineage-governance-wall.png") center / cover no-repeat;
+      border-top: 1px solid rgba(255, 255, 255, .12);
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
     }
-    .chart-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
+    .platform-band h2,
+    .platform-band .section-head p { color: #fff; }
+    .platform-band .section-head p { color: #cbd9ea; }
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .18);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: rgba(255, 255, 255, .18);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
     }
-    .chart-card header {
-      padding: 16px 18px;
-      border-bottom: 1px solid var(--line);
-      background: #f8fafc;
+    .platform-card {
+      min-height: 230px;
+      padding: 22px;
+      background: rgba(255, 255, 255, .1);
+      backdrop-filter: blur(12px);
     }
-    .chart-card h3 {
-      margin: 0;
-      font-size: 16px;
-    }
-    .chart-card p {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .chart-wrap { padding: 16px 18px 18px; }
-    .bar-row {
-      display: grid;
-      grid-template-columns: 132px 1fr 78px;
-      align-items: center;
-      gap: 12px;
-      margin: 13px 0;
-      font-size: 13px;
-      font-weight: 800;
-    }
-    .bar-label {
-      color: #344359;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .bar-track {
-      height: 14px;
-      border-radius: 99px;
-      background: #e8eef6;
-      overflow: hidden;
-    }
-    .bar-track i {
+    .platform-card b {
       display: block;
-      height: 100%;
-      width: var(--w);
-      background: var(--c, var(--pentaho));
-      border-radius: inherit;
-    }
-    .bar-value {
-      color: var(--muted);
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-    .proof-card { padding: 18px; }
-    .proof-list {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    .proof-list li {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 11px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--panel-soft);
-    }
-    .badge-icon {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: #e7f1fb;
-      color: var(--pentaho);
+      color: #a8d9ff;
+      font-size: 13px;
+      text-transform: uppercase;
       font-weight: 900;
     }
-    .proof-list b {
-      display: block;
-      font-size: 14px;
+    .platform-card h3 {
+      margin: 13px 0 0;
+      color: #fff;
+      font-size: 20px;
+      line-height: 1.18;
     }
-    .proof-list span {
+    .platform-card p {
+      margin: 10px 0 0;
+      color: #d7e4f5;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .proof-tile {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 9px 26px rgba(16, 36, 69, .08);
+      border-top: 4px solid var(--accent, var(--pentaho));
+    }
+    .proof-tile b {
       display: block;
-      margin-top: 3px;
+      color: var(--accent, var(--pentaho));
+      font-size: 30px;
+      line-height: 1;
+    }
+    .proof-tile h3 {
+      margin: 12px 0 0;
+      font-size: 18px;
+    }
+    .proof-tile p {
+      margin: 8px 0 0;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.45;
-      overflow-wrap: anywhere;
     }
 
-    .tech-grid {
+    .cta {
+      padding-bottom: 70px;
+    }
+    .cta-panel {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 1px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--line);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
     }
-    .tech-card {
-      padding: 18px;
-      min-height: 205px;
-    }
-    .tech-tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 0 9px;
-      margin-bottom: 14px;
-      border-radius: 999px;
-      background: #edf4fb;
-      color: var(--pentaho);
-      font-size: 11px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .dashboard-card {
-      min-height: 166px;
-      padding: 18px;
-      border-left: 4px solid var(--accent, var(--pentaho));
-    }
-    .dashboard-card small {
-      display: inline-flex;
-      align-items: center;
-      min-height: 23px;
-      padding: 0 8px;
-      margin-bottom: 12px;
-      border-radius: 999px;
-      color: #fff;
-      background: var(--accent, var(--pentaho));
-      font-size: 11px;
-      font-weight: 900;
-    }
-
-    .brief {
-      display: grid;
-      grid-template-columns: .82fr 1.18fr;
-      gap: 14px;
-      align-items: stretch;
-    }
-    .brief-aside {
-      padding: 24px;
+    .cta-main {
+      padding: 30px;
       background: var(--nav);
       color: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
     }
-    .brief-aside h2 { color: #fff; }
-    .brief-aside p {
-      color: #c5d4e8;
+    .cta-main h2 { color: #fff; }
+    .cta-main p {
+      max-width: 780px;
+      margin: 16px 0 0;
+      color: #cbd9ea;
+      font-size: 16px;
       line-height: 1.6;
     }
-    .brief-points {
+    .cta-side {
+      padding: 30px;
+      background: #fff;
+    }
+    .cta-side ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
       display: grid;
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
+      gap: 12px;
     }
-    .brief-point {
-      padding: 20px;
-      background: var(--panel);
-    }
-    .brief-point b {
-      display: block;
-      font-size: 17px;
-    }
-    .brief-point p {
-      margin: 8px 0 0;
+    .cta-side li {
+      padding-left: 20px;
+      position: relative;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.5;
+    }
+    .cta-side li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pentaho);
     }
 
     footer {
@@ -756,50 +609,66 @@
       color: #334155;
     }
 
-    @media (max-width: 980px) {
-      .topbar { padding: 0 20px; }
+    @media (max-width: 1060px) {
       .navlinks { display: none; }
-      .hero, .proof-grid, .brief, .visual-showcase { grid-template-columns: 1fr; }
-      .hero-scene {
-        min-height: 0;
-        background:
-          linear-gradient(90deg, rgba(6, 14, 29, .96) 0%, rgba(7, 18, 38, .78) 70%, rgba(7, 18, 38, .55) 100%),
-          linear-gradient(180deg, rgba(4, 12, 25, .18) 0%, rgba(7, 18, 38, .95) 100%),
-          url("assets/pentaho-command-center-hero.png") center / cover no-repeat;
+      .hero-inner,
+      .promise-panel,
+      .showcase,
+      .cta-panel {
+        grid-template-columns: 1fr;
       }
-      .hero { padding-bottom: 68px; }
-      .value-band { margin-top: -28px; }
-      .value-panel { grid-template-columns: 1fr; }
-      .value-pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .evidence-panel { min-height: 0; }
-      .story-grid, .tech-grid, .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .arch-copy { grid-template-columns: 1fr; }
+      .promise-points,
+      .capability-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .platform-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .proof-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
       h1 { font-size: 52px; }
     }
     @media (max-width: 640px) {
+      .topbar { padding: 0 20px; }
       .shell {
         width: 320px;
         max-width: calc(100vw - 64px);
       }
-      .hero { padding-top: 34px; }
-      .metric-board, .story-grid, .tech-grid, .dashboard-grid { grid-template-columns: 1fr; }
-      .value-pillars { grid-template-columns: 1fr; }
-      .value-pillar { min-height: 0; }
-      .value-lead h2 { font-size: 25px; }
-      .section-head { display: block; }
-      .section-head p { margin-top: 10px; }
-      .bar-row { grid-template-columns: 100px 1fr 58px; }
-      h1 { font-size: 32px; line-height: 1.08; }
-      h2 { font-size: 25px; line-height: 1.12; }
+      .hero { min-height: 0; }
+      .hero-inner { padding: 48px 0 92px; }
+      h1 { font-size: 34px; line-height: 1.08; }
+      h2 { font-size: 27px; line-height: 1.12; }
       .lede { font-size: 16px; }
-      .metric b { font-size: 29px; }
-      .metric { padding: 16px 18px; }
-      .visual-card, .visual-card img { min-height: 360px; }
-      .visual-card figcaption { position: static; border-radius: 0; border-left: 0; border-right: 0; border-bottom: 0; }
       .hero-actions { display: grid; grid-template-columns: 1fr; }
       .button { width: 100%; }
-      .panel-head { display: grid; grid-template-columns: 18px 1fr; }
-      .panel-head span { margin-left: 0; grid-column: 2; }
+      .proof-grid,
+      .promise-points,
+      .capability-grid,
+      .platform-grid,
+      .proof-strip {
+        grid-template-columns: 1fr;
+      }
+      .hero-proof header {
+        display: grid;
+        grid-template-columns: 18px 1fr;
+      }
+      .hero-proof header span {
+        margin-left: 0;
+        grid-column: 2;
+      }
+      .promise { margin-top: -34px; }
+      .promise-copy, .cta-main, .cta-side { padding: 24px; }
+      .showcase figure, .showcase img { min-height: 360px; }
+      .showcase figcaption {
+        position: static;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+      }
+      .section-head { display: block; }
+      .section-head p { margin-top: 10px; }
     }
   </style>
 </head>
@@ -807,374 +676,236 @@
   <header class="topbar">
     <div class="brand"><span class="brand-mark">P</span><span>analytics.pentaho.space</span></div>
     <nav class="navlinks" aria-label="Page sections">
-      <a href="#platform-value">Value</a>
-      <a href="#evidence">Evidence</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#proof">Proof Points</a>
+      <a href="#capabilities">Dashboards</a>
+      <a href="#demo">Demo</a>
       <a href="#platform">Platform</a>
-      <a href="#leader-brief">Leader Brief</a>
+      <a href="#proof">Proof</a>
+      <a href="#publish">Publish</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero-scene" aria-label="Pentaho analytics command center">
-      <div class="shell hero">
+    <section class="hero">
+      <div class="shell hero-inner">
         <div>
-          <p class="eyebrow">Pentaho enterprise platform value</p>
-          <h1>Pentaho operationalizes data from integration to insight.</h1>
-          <p class="lede">This briefing uses the live Pentaho Data Catalog analytics suite under <strong>/public/pdc-iteration/v1</strong> to demonstrate the broader Pentaho platform: connecting enterprise data, governing metadata, modeling trusted facts, publishing reusable analytics services, embedding decision surfaces, and operating lineage-aware data products.</p>
+          <p class="eyebrow">Pentaho platform analytics demonstration</p>
+          <h1>Dashboards that reveal what your data platform already knows.</h1>
+          <p class="lede">Pentaho brings integration, catalog metadata, lineage, governance, semantic modeling, and analytics delivery into one platform. This site demonstrates the kinds of executive and operational dashboards that become possible when Pentaho is in place.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#leader-brief">Read the technical leader brief</a>
-            <a class="button" href="#architecture">See the architecture</a>
+            <a class="button primary" href="#capabilities">Explore dashboard capabilities</a>
+            <a class="button" href="#platform">See the platform story</a>
           </div>
         </div>
-        <aside class="evidence-panel" aria-label="Evidence metrics from live CDA queries">
-          <div class="panel-head">
-            <i class="status-dot"></i>
-            <strong>Live CDA evidence snapshot</strong>
-            <span>localhost Pentaho, v1</span>
-          </div>
-          <div class="metric-board">
-            <div class="metric">
-              <span>Catalog assets</span>
-              <b>13,975</b>
-              <small>Discovered assets across structured and unstructured estates.</small>
-              <div class="meter"><i style="--w: 86%; --c: var(--pentaho)"></i></div>
+        <aside class="hero-proof" aria-label="Dashboard capability summary">
+          <header><i class="dot"></i><b>What the demo reveals</b><span>Made possible by Pentaho</span></header>
+          <div class="proof-grid">
+            <div class="proof-cell">
+              <span>Visibility</span>
+              <b>Estate command</b>
+              <p>Bring assets, sources, freshness, ownership, quality, policy, and usage into one leadership view.</p>
+              <div class="meter"><i style="--w: 88%; --c: var(--pentaho)"></i></div>
             </div>
-            <div class="metric">
-              <span>Storage footprint</span>
-              <b>2.76 PB</b>
-              <small>Modeled across data sources for cost and sustainability analysis.</small>
-              <div class="meter"><i style="--w: 79%; --c: var(--cyan)"></i></div>
+            <div class="proof-cell">
+              <span>Control</span>
+              <b>Lineage awareness</b>
+              <p>Track how data moves, where it crosses boundaries, and which flows deserve attention.</p>
+              <div class="meter"><i style="--w: 82%; --c: var(--pdc)"></i></div>
             </div>
-            <div class="metric">
-              <span>Integration reliability</span>
-              <b>92.2%</b>
-              <small>Success across 8,230 lineage and pipeline runs.</small>
-              <div class="meter"><i style="--w: 92.2%; --c: var(--green)"></i></div>
+            <div class="proof-cell">
+              <span>Trust</span>
+              <b>Governance signals</b>
+              <p>Turn policy coverage, sensitivity, privacy, ownership, and stewardship into measurable work.</p>
+              <div class="meter"><i style="--w: 78%; --c: var(--red)"></i></div>
             </div>
-            <div class="metric">
-              <span>Annual storage cost</span>
-              <b>$3.82M</b>
-              <small>With $27,476/month reclaimable from duplicate data signals.</small>
-              <div class="meter"><i style="--w: 68%; --c: var(--gold)"></i></div>
-            </div>
-            <div class="metric">
-              <span>Lineage volume</span>
-              <b>16.7 TB</b>
-              <small>Tracked through 7 integrations and cross-platform movement.</small>
-              <div class="meter"><i style="--w: 74%; --c: var(--pdc)"></i></div>
-            </div>
-            <div class="metric">
-              <span>Governance gap</span>
-              <b>12,565</b>
-              <small>Ungoverned assets surfaced as measurable remediation backlog.</small>
-              <div class="meter"><i style="--w: 90%; --c: var(--red)"></i></div>
+            <div class="proof-cell">
+              <span>Value</span>
+              <b>Cost intelligence</b>
+              <p>Connect storage, duplication, utilization, and sustainability to business-facing decisions.</p>
+              <div class="meter"><i style="--w: 72%; --c: var(--gold)"></i></div>
             </div>
           </div>
         </aside>
       </div>
     </section>
 
-    <section id="platform-value" class="shell value-band">
-      <div class="value-panel">
-        <div class="value-lead">
-          <h2>The value is the platform, not the page.</h2>
-          <p>The visuals are the proof layer. The real story is that Pentaho provides an enterprise spine for data integration, catalog intelligence, governed analytics, and operational observability without forcing every team into a single presentation model.</p>
+    <section class="shell promise" id="capabilities">
+      <div class="promise-panel">
+        <div class="promise-copy">
+          <h2>A marketing-ready demonstration of Pentaho in action.</h2>
+          <p>This is not a generic dashboard gallery. It is an external-facing demonstration of how Pentaho can expose hidden platform intelligence: what data exists, where it moves, how it is governed, where risk accumulates, and which actions leaders should prioritize.</p>
         </div>
-        <div class="value-pillars">
-          <article class="value-pillar" style="--accent: var(--pentaho)">
-            <b>Connect</b>
-            <h3>Meet data where it lives</h3>
-            <p>Managed connections and integration lineage show Postgres, Snowflake, MSSQL, object storage, Oracle, AWS, and GCS as one analyzable estate.</p>
+        <div class="promise-points">
+          <article class="promise-point" style="--accent: var(--pentaho)">
+            <b>Executive ready</b>
+            <h3>Lead with business impact</h3>
+            <p>Give leaders a crisp command center for health, risk, cost, reliability, and adoption.</p>
           </article>
-          <article class="value-pillar" style="--accent: var(--pdc)">
-            <b>Govern</b>
-            <h3>Make metadata actionable</h3>
-            <p>Catalog facts become stewardship queues: ownership gaps, policy coverage, sensitivity, privacy terms, completeness, and freshness.</p>
+          <article class="promise-point" style="--accent: var(--pdc)">
+            <b>Technically credible</b>
+            <h3>Built from platform facts</h3>
+            <p>Use catalog metadata, lineage, policies, models, and operational events instead of static slides.</p>
           </article>
-          <article class="value-pillar" style="--accent: var(--cyan)">
-            <b>Model</b>
-            <h3>Reuse trusted semantics</h3>
-            <p>Mondrian cubes and Analyzer-ready assets preserve governed semantic-model workflows while custom dashboards use the same facts.</p>
-          </article>
-          <article class="value-pillar" style="--accent: var(--gold)">
-            <b>Embed</b>
-            <h3>Publish through many surfaces</h3>
-            <p>CDA, CDF, repository content, HTML/SVG, and Analyzer artifacts let the platform serve builders, operators, analysts, and executives.</p>
-          </article>
-          <article class="value-pillar" style="--accent: var(--red)">
-            <b>Operate</b>
-            <h3>Turn lineage into control</h3>
-            <p>Run volume, failures, cross-boundary flows, sensitive movement, cost, and reliability become measurable operating signals.</p>
+          <article class="promise-point" style="--accent: var(--cyan)">
+            <b>Demo extensible</b>
+            <h3>Show what comes next</h3>
+            <p>Present a reusable pattern that can expand by domain, persona, data source, or workflow.</p>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section id="evidence" class="shell">
-      <div class="section-head">
-        <h2>Platform value demonstrated with real signals</h2>
-        <p>The dashboards matter because they expose what Pentaho already knows and orchestrates: metadata, lineage, operational events, governance facts, cost signals, and reusable analytical models.</p>
-      </div>
-      <div class="story-grid">
-        <article class="story-card" style="--accent: var(--pentaho)">
-          <h3>Trust the estate</h3>
-          <p>Pentaho turns discovery and profiling into a control plane for assets, metadata completeness, freshness, source scorecards, and quality gaps.</p>
-          <div class="number">31.3%</div>
-          <small>Metadata completeness, exposed as an improvement lever instead of a hidden data-quality complaint.</small>
-        </article>
-        <article class="story-card" style="--accent: var(--pdc)">
-          <h3>Operate data pipelines</h3>
-          <p>Lineage and integration facts become a command surface for runtime, success rate, failed runs, sensitive movement, and cross-boundary flow.</p>
-          <div class="number">7,440</div>
-          <small>Cross-boundary data movements visible through the lineage model.</small>
-        </article>
-        <article class="story-card" style="--accent: var(--gold)">
-          <h3>Quantify economic impact</h3>
-          <p>Storage facts connect to data source, sensitivity, duplicates, estimated spend, reclaimable footprint, and CO2e for portfolio decisions.</p>
-          <div class="number">2,487.7</div>
-          <small>Metric tonnes of estimated CO2e represented in the sustainability dashboard.</small>
-        </article>
-        <article class="story-card" style="--accent: var(--red)">
-          <h3>Govern with evidence</h3>
-          <p>Policy coverage, sensitive assets, privacy terms, ownership gaps, and restricted-to-ungoverned movement become explicit and actionable.</p>
-          <div class="number">24</div>
-          <small>Restricted-to-ungoverned flows, the kind of signal leaders can route into remediation.</small>
-        </article>
-      </div>
-    </section>
-
-    <section class="shell visual-showcase" aria-label="Lineage and governance visual proof">
-      <figure class="visual-card">
-        <img src="assets/pentaho-lineage-governance-wall.png" alt="Premium visualization of enterprise data lineage, governance signals, and observability dashboards">
-        <figcaption>Generated visual interpretation of Pentaho as a platform layer: data integration, lineage, governance, privacy, cost, and operational health converging into one executive-grade observability plane.</figcaption>
-      </figure>
-      <div class="visual-copy">
-        <div class="visual-stat" style="--accent: var(--pdc)">
-          <b>21</b>
-          <span>Decision surfaces generated from one governed Pentaho content repository rather than separate one-off reporting assets.</span>
-        </div>
-        <div class="visual-stat" style="--accent: var(--pentaho)">
-          <b>20</b>
-          <span>CDA services turning Pentaho-managed connections into reusable APIs for dashboards, automation, and embedded analytics.</span>
-        </div>
-        <div class="visual-stat" style="--accent: var(--cyan)">
-          <b>221</b>
-          <span>Analyzer-ready artifacts preserving semantic-model continuity for teams that work natively inside Pentaho.</span>
-        </div>
-        <div class="visual-stat" style="--accent: var(--gold)">
-          <b>1</b>
-          <span>Versioned deployment pattern showing how platform content can evolve without breaking a validated baseline.</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="architecture" class="shell">
-      <div class="section-head">
-        <h2>Platform architecture that matters</h2>
-        <p>The v1 suite demonstrates why Pentaho is more than a visualization tier: repository content, managed JDBC, CDA, CDF, Analyzer artifacts, Mondrian cubes, reusable build tooling, and versioned deployment all work as one delivery system.</p>
-      </div>
-      <div class="architecture">
-        <svg viewBox="0 0 1180 500" role="img" aria-labelledby="arch-title arch-desc">
-          <title id="arch-title">Pentaho analytics architecture</title>
-          <desc id="arch-desc">A flow from data platforms into Pentaho Data Catalog metadata, warehouse facts, Pentaho analytics services, and leader-facing dashboards.</desc>
-          <defs>
-            <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
-              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#102445" flood-opacity=".14"/>
-            </filter>
-            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-              <path d="M0,0 L10,5 L0,10 z" fill="#7d8ca3"/>
-            </marker>
-          </defs>
-          <rect width="1180" height="500" fill="#fbfdff"/>
-          <g font-family="Inter, system-ui, sans-serif">
-            <g filter="url(#softShadow)">
-              <rect x="34" y="62" width="214" height="124" rx="8" fill="#fff" stroke="#d9e2ee"/>
-              <text x="58" y="94" font-size="14" font-weight="800" fill="#005bb5">Enterprise data estate</text>
-              <text x="58" y="126" font-size="13" fill="#5d6b7d">Postgres, Snowflake, MSSQL</text>
-              <text x="58" y="151" font-size="13" fill="#5d6b7d">Azure Blob, AWS, Oracle, GCS</text>
-            </g>
-            <g filter="url(#softShadow)">
-              <rect x="34" y="250" width="214" height="124" rx="8" fill="#fff" stroke="#d9e2ee"/>
-              <text x="58" y="282" font-size="14" font-weight="800" fill="#7d3c98">Operational activity</text>
-              <text x="58" y="314" font-size="13" fill="#5d6b7d">Scans, profiles, applications</text>
-              <text x="58" y="339" font-size="13" fill="#5d6b7d">Pipeline runs and lineage events</text>
-            </g>
-
-            <line x1="248" y1="124" x2="340" y2="210" stroke="#7d8ca3" stroke-width="2.5" marker-end="url(#arrow)"/>
-            <line x1="248" y1="312" x2="340" y2="250" stroke="#7d8ca3" stroke-width="2.5" marker-end="url(#arrow)"/>
-
-            <g filter="url(#softShadow)">
-              <rect x="340" y="118" width="230" height="226" rx="8" fill="#fff" stroke="#d9e2ee"/>
-              <text x="370" y="154" font-size="15" font-weight="900" fill="#102445">PDC metadata warehouse</text>
-              <circle cx="380" cy="194" r="7" fill="#005bb5"/><text x="396" y="199" font-size="13" fill="#5d6b7d">fact_entity_snapshot</text>
-              <circle cx="380" cy="226" r="7" fill="#7d3c98"/><text x="396" y="231" font-size="13" fill="#5d6b7d">fact_lineage_event</text>
-              <circle cx="380" cy="258" r="7" fill="#0e9aa7"/><text x="396" y="263" font-size="13" fill="#5d6b7d">fact_lineage_connection</text>
-              <circle cx="380" cy="290" r="7" fill="#f2a900"/><text x="396" y="295" font-size="13" fill="#5d6b7d">entity_storage_demo</text>
-            </g>
-
-            <line x1="570" y1="231" x2="658" y2="231" stroke="#7d8ca3" stroke-width="2.5" marker-end="url(#arrow)"/>
-
-            <g filter="url(#softShadow)">
-              <rect x="658" y="72" width="214" height="318" rx="8" fill="#fff" stroke="#d9e2ee"/>
-              <text x="688" y="108" font-size="15" font-weight="900" fill="#102445">Pentaho platform layer</text>
-              <rect x="688" y="137" width="154" height="34" rx="8" fill="#e8f2fc"/><text x="712" y="159" font-size="13" font-weight="800" fill="#005bb5">Managed JDBC</text>
-              <rect x="688" y="185" width="154" height="34" rx="8" fill="#f0e9f6"/><text x="732" y="207" font-size="13" font-weight="800" fill="#7d3c98">CDA</text>
-              <rect x="688" y="233" width="154" height="34" rx="8" fill="#e8f7f7"/><text x="732" y="255" font-size="13" font-weight="800" fill="#0e9aa7">CDF</text>
-              <rect x="688" y="281" width="154" height="34" rx="8" fill="#fff5d9"/><text x="710" y="303" font-size="13" font-weight="800" fill="#9a6500">Mondrian</text>
-              <rect x="688" y="329" width="154" height="34" rx="8" fill="#fdebf0"/><text x="710" y="351" font-size="13" font-weight="800" fill="#b82f51">Analyzer</text>
-            </g>
-
-            <line x1="872" y1="231" x2="954" y2="231" stroke="#7d8ca3" stroke-width="2.5" marker-end="url(#arrow)"/>
-
-            <g filter="url(#softShadow)">
-              <rect x="954" y="62" width="190" height="324" rx="8" fill="#102445" stroke="#102445"/>
-              <text x="984" y="102" font-size="15" font-weight="900" fill="#fff">Decision surfaces</text>
-              <text x="984" y="140" font-size="13" fill="#c5d4e8">21 HTML dashboards</text>
-              <text x="984" y="168" font-size="13" fill="#c5d4e8">20 CDA descriptors</text>
-              <text x="984" y="196" font-size="13" fill="#c5d4e8">True CDF dashboard</text>
-              <text x="984" y="224" font-size="13" fill="#c5d4e8">Lineage explorer</text>
-              <text x="984" y="252" font-size="13" fill="#c5d4e8">221 Analyzer artifacts</text>
-              <text x="984" y="280" font-size="13" fill="#c5d4e8">Versioned repository path</text>
-              <rect x="984" y="318" width="128" height="36" rx="8" fill="#005bb5"/>
-              <text x="1013" y="341" font-size="13" font-weight="900" fill="#fff">v1 live</text>
-            </g>
-          </g>
-        </svg>
-        <div class="arch-copy">
-          <div>
-            <b>Repeatable delivery</b>
-            <p>Each iteration is a complete platform content package published to its own repository folder, so validated assets can coexist with future improvements.</p>
-          </div>
-          <div>
-            <b>Composable consumption</b>
-            <p>CDA exposes query services, CDF provides native dashboard runtime capability, and dependency-free HTML/SVG experiences show how Pentaho can serve multiple consumption patterns.</p>
-          </div>
-          <div>
-            <b>Governed enterprise spine</b>
-            <p>Managed JNDI connections, modeled warehouse facts, and semantic assets keep decisions grounded in Pentaho-managed infrastructure rather than disconnected extracts.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="proof" class="shell">
-      <div class="section-head">
-        <h2>Proof points from platform telemetry</h2>
-        <p>These selected findings matter because they show Pentaho converting platform telemetry into decisions: govern this, fix that, reduce spend here, investigate this movement.</p>
-      </div>
-      <div class="proof-grid">
-        <div class="chart-card">
-          <header>
-            <h3>Connected estate by source</h3>
-            <p>One Pentaho-managed analytical service exposes the multi-platform estate behind the command center.</p>
-          </header>
-          <div class="chart-wrap" aria-label="Assets by source">
-            <div class="bar-row"><span class="bar-label">POSTGRES</span><span class="bar-track"><i style="--w: 100%; --c: var(--pentaho)"></i></span><span class="bar-value">8,231</span></div>
-            <div class="bar-row"><span class="bar-label">AZURE BLOB</span><span class="bar-track"><i style="--w: 28.4%; --c: var(--cyan)"></i></span><span class="bar-value">2,335</span></div>
-            <div class="bar-row"><span class="bar-label">SNOWFLAKE</span><span class="bar-track"><i style="--w: 21%; --c: var(--pdc)"></i></span><span class="bar-value">1,731</span></div>
-            <div class="bar-row"><span class="bar-label">MSSQL</span><span class="bar-track"><i style="--w: 8.2%; --c: var(--amber)"></i></span><span class="bar-value">674</span></div>
-            <div class="bar-row"><span class="bar-label">AWS</span><span class="bar-track"><i style="--w: 8.1%; --c: var(--green)"></i></span><span class="bar-value">663</span></div>
-            <div class="bar-row"><span class="bar-label">ORACLE</span><span class="bar-track"><i style="--w: 4.1%; --c: var(--gold)"></i></span><span class="bar-value">337</span></div>
-          </div>
-        </div>
-        <aside class="proof-card">
-          <ul class="proof-list">
-            <li><span class="badge-icon">G</span><span><b>Governance becomes operational.</b><span>Only 10.1% of assets are governed, which turns policy coverage into a measurable remediation backlog.</span></span></li>
-            <li><span class="badge-icon">L</span><span><b>Lineage becomes control.</b><span>8,230 runs, 639 failures, 16.7 TB moved, 704 sensitive connections, and 24 restricted-to-ungoverned flows are visible through Pentaho lineage facts.</span></span></li>
-            <li><span class="badge-icon">$</span><span><b>Economics become visible.</b><span>Pentaho connects 2.76 PB of storage to $318,669/month estimated spend and $27,476/month duplicate-data savings.</span></span></li>
-            <li><span class="badge-icon">Q</span><span><b>Quality becomes assignable.</b><span>13,975 missing owners and 36,539 missing date fields move stewardship from opinion to platform-managed work.</span></span></li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-
-    <section id="platform" class="shell">
-      <div class="section-head">
-        <h2>Why Pentaho wins as a platform</h2>
-        <p>The strongest message for technical leaders is breadth plus composability. Pentaho is not only rendering reports; it is integrating, governing, modeling, serving, embedding, and operating analytics over enterprise data.</p>
-      </div>
-      <div class="tech-grid">
-        <article class="tech-card">
-          <span class="tech-tag">CDA services</span>
-          <h3>Reusable data services without app sprawl</h3>
-          <p>CDA descriptors expose reusable query endpoints over managed Pentaho data connections, so the same governed facts can power command centers, CDF dashboards, custom HTML, and automation checks.</p>
-        </article>
-        <article class="tech-card">
-          <span class="tech-tag">CDF runtime</span>
-          <h3>Native composition when teams need it</h3>
-          <p>The suite includes a true CDF dashboard using the Pentaho CDF runtime, CCC chart components, CDF filters, and tables over CDA queries, proving native extensibility alongside custom dashboard experiences.</p>
-        </article>
-        <article class="tech-card">
-          <span class="tech-tag">Mondrian and Analyzer</span>
-          <h3>Semantic model continuity</h3>
-          <p>Analyzer and .xdash artifacts sit beside the HTML/CDA layer, preserving semantic-model workflows while allowing richer technical experiences where Analyzer is available.</p>
-        </article>
-        <article class="tech-card">
-          <span class="tech-tag">Lineage facts</span>
-          <h3>Operational control plane for data movement</h3>
-          <p>Lineage is treated as an operating dataset: success rates, runtime, cross-boundary flow, sensitive movement, top producers, top consumers, and impact questions.</p>
-        </article>
-        <article class="tech-card">
-          <span class="tech-tag">Governance model</span>
-          <h3>Risk becomes routeable work</h3>
-          <p>Policy assignments, sensitivity, privacy terms, ownership, freshness, and completeness roll into platform surfaces that support remediation, audit prep, and accountable stewardship.</p>
-        </article>
-        <article class="tech-card">
-          <span class="tech-tag">Versioned delivery</span>
-          <h3>Demoable, repeatable, extensible</h3>
-          <p>The suite is built as a self-contained iteration with deploy scripts, stamped repository paths, and local verification through Pentaho APIs, making it easier to demo, extend, compare, and preserve.</p>
-        </article>
       </div>
     </section>
 
     <section class="shell">
       <div class="section-head">
-        <h2>Platform value coverage</h2>
-        <p>The public story is backed by a broad Pentaho content suite, not a one-off dashboard. Each domain shows a different way the platform converts data operations into governed decisions.</p>
+        <h2>Dashboard capabilities that sell the platform</h2>
+        <p>Each dashboard category demonstrates a platform capability, not just a chart type. Together they show what Pentaho can reveal when integration, catalog, lineage, and analytics are connected.</p>
       </div>
-      <div class="dashboard-grid">
-        <article class="dashboard-card" style="--accent: var(--pentaho)"><small>Observability</small><h3>Estate command center</h3><p>Assets, storage, governance, reliability, sensitivity, freshness, completeness, and source scorecards.</p></article>
-        <article class="dashboard-card" style="--accent: var(--pdc)"><small>Lineage</small><h3>Interactive data flow</h3><p>Source-target movement, top flows, integration filters, throughput, sensitive movement, and operational status.</p></article>
-        <article class="dashboard-card" style="--accent: var(--red)"><small>Governance</small><h3>Compliance radar</h3><p>Policy coverage, sensitive assets, restricted-to-ungoverned movements, cross-boundary trends, and privacy reach.</p></article>
-        <article class="dashboard-card" style="--accent: var(--gold)"><small>Cost</small><h3>Optimization and sustainability</h3><p>Monthly and annual spend, CO2e, storage by source, duplicate savings, and reclaimable footprint.</p></article>
-        <article class="dashboard-card" style="--accent: var(--cyan)"><small>Quality</small><h3>Metadata completeness</h3><p>Profiling coverage, missing attributes, completeness bands, high-cardinality columns, and schema structure.</p></article>
-        <article class="dashboard-card" style="--accent: var(--green)"><small>Usage</small><h3>Application and glossary reach</h3><p>Application access, glossary terms, classified assets, policy assignments, and stewardship gaps.</p></article>
+      <div class="capability-grid">
+        <article class="capability" style="--accent: var(--pentaho)">
+          <small>Command center</small>
+          <h3>Turn the data estate into an executive operating view.</h3>
+          <p>Surface catalog health, source coverage, governance status, quality posture, freshness, reliability, and value opportunities in one polished cockpit.</p>
+        </article>
+        <article class="capability" style="--accent: var(--pdc)">
+          <small>Lineage intelligence</small>
+          <h3>Show movement, dependency, and impact.</h3>
+          <p>Reveal source-to-target flows, integration health, cross-boundary movement, sensitive data movement, and impact paths for operational decisions.</p>
+        </article>
+        <article class="capability" style="--accent: var(--red)">
+          <small>Governance radar</small>
+          <h3>Make stewardship measurable and visible.</h3>
+          <p>Expose ownership gaps, policy coverage, privacy terms, sensitive assets, restricted flows, and remediation priorities in leader-friendly language.</p>
+        </article>
+        <article class="capability" style="--accent: var(--gold)">
+          <small>Cost and sustainability</small>
+          <h3>Connect data sprawl to financial decisions.</h3>
+          <p>Use storage footprint, duplication, lifecycle, source mix, reclaimable footprint, and sustainability signals to make platform economics actionable.</p>
+        </article>
+        <article class="capability" style="--accent: var(--cyan)">
+          <small>Quality and profiling</small>
+          <h3>Move quality from debate to evidence.</h3>
+          <p>Translate profiling, completeness, missing attributes, freshness, schema structure, and high-cardinality columns into visible improvement queues.</p>
+        </article>
+        <article class="capability" style="--accent: var(--green)">
+          <small>Adoption and glossary</small>
+          <h3>Prove whether the data product is being used.</h3>
+          <p>Show application reach, glossary coverage, classification progress, policy assignments, term adoption, and stewardship momentum.</p>
+        </article>
       </div>
     </section>
 
-    <section id="leader-brief" class="shell">
-      <div class="brief">
-        <aside class="brief-aside">
-          <h2>The technical leader brief</h2>
-          <p>Pentaho's power is end-to-end leverage: it can connect to enterprise data, integrate and observe movement, govern the metadata around that estate, model trusted analytical facts, and publish decision-grade experiences through multiple native and open surfaces.</p>
-          <p>This v1 suite shows the connective tissue: repository deployment, managed connections, CDA query services, CDF dashboards, HTML/SVG experiences, Analyzer-ready artifacts, semantic continuity, and versioned iteration. That is more than BI. It is a platform for governed data products.</p>
-        </aside>
-        <div class="brief-points">
-          <div class="brief-point">
-            <b>For CIOs and CDOs</b>
-            <p>Pentaho connects technical metadata to business-control questions: where risk lives, where spend accumulates, where data quality blocks trust, and which integration flows deserve operational attention.</p>
+    <section class="shell showcase" id="demo">
+      <figure>
+        <img src="assets/pentaho-lineage-governance-wall.png" alt="Premium visualization of enterprise data lineage, governance signals, and dashboard intelligence">
+        <figcaption>The demonstration frames Pentaho as the connective tissue between data movement, catalog metadata, governed models, and decision-ready analytics.</figcaption>
+      </figure>
+      <div class="showcase-copy">
+        <article class="showcase-card" style="--accent: var(--pdc)">
+          <b>01</b>
+          <h3>Reveal what is hidden</h3>
+          <p>Most organizations have the facts. They are just scattered across pipelines, catalogs, storage, logs, glossaries, and governance systems. Pentaho brings those facts together.</p>
+        </article>
+        <article class="showcase-card" style="--accent: var(--pentaho)">
+          <b>02</b>
+          <h3>Package it for every audience</h3>
+          <p>Executives get outcomes. Architects get lineage and models. Stewards get remediation. Operators get reliability and flow. The same platform facts support each view.</p>
+        </article>
+        <article class="showcase-card" style="--accent: var(--gold)">
+          <b>03</b>
+          <h3>Make the demonstration repeatable</h3>
+          <p>The current suite is versioned and self-contained, so it can be extended without losing the working baseline or the story it already proves.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="platform-band" id="platform">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Why this sells Pentaho as a platform</h2>
+          <p>The dashboards are the visible output. The platform value is underneath: integration, metadata, governance, lineage, semantic modeling, service delivery, and governed content management working together.</p>
+        </div>
+        <div class="platform-grid">
+          <article class="platform-card">
+            <b>Connect</b>
+            <h3>Meet data where it lives</h3>
+            <p>Show many data sources as one estate, with integration and catalog context around them.</p>
+          </article>
+          <article class="platform-card">
+            <b>Govern</b>
+            <h3>Make metadata actionable</h3>
+            <p>Turn policies, terms, sensitivity, ownership, and completeness into visible work.</p>
+          </article>
+          <article class="platform-card">
+            <b>Model</b>
+            <h3>Reuse trusted semantics</h3>
+            <p>Preserve governed semantic-model workflows while enabling modern dashboard experiences.</p>
+          </article>
+          <article class="platform-card">
+            <b>Serve</b>
+            <h3>Expose reusable analytics services</h3>
+            <p>Use CDA and native platform services to power dashboards, automation, and embedded analytics.</p>
+          </article>
+          <article class="platform-card">
+            <b>Operate</b>
+            <h3>Manage data as a product</h3>
+            <p>Translate lineage, quality, usage, and economics into an operating model for leaders.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="proof">
+      <div class="section-head">
+        <h2>Proof that the demo is grounded in real platform content</h2>
+        <p>The site stays marketing-led, but the message is backed by a real Pentaho-hosted dashboard suite with CDA services, CDF runtime, repository content, Analyzer artifacts, and local validation.</p>
+      </div>
+      <div class="proof-strip">
+        <article class="proof-tile" style="--accent: var(--pentaho)">
+          <b>21</b>
+          <h3>Dashboard experiences</h3>
+          <p>Executive, operational, governance, lineage, cost, quality, adoption, and glossary views.</p>
+        </article>
+        <article class="proof-tile" style="--accent: var(--pdc)">
+          <b>20</b>
+          <h3>CDA-backed services</h3>
+          <p>Reusable Pentaho query services behind the dashboard experiences.</p>
+        </article>
+        <article class="proof-tile" style="--accent: var(--cyan)">
+          <b>221</b>
+          <h3>Analyzer artifacts</h3>
+          <p>Semantic-model continuity for native Pentaho analysis and dashboarding.</p>
+        </article>
+        <article class="proof-tile" style="--accent: var(--gold)">
+          <b>v1</b>
+          <h3>Versioned suite</h3>
+          <p>A repeatable deployable demonstration path under the Pentaho repository.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell cta" id="publish">
+      <div class="cta-panel">
+        <div class="cta-main">
+          <h2>Position analytics.pentaho.space as a polished external showcase.</h2>
+          <p>This page now sells Pentaho broadly while using the v1 dashboards as a concrete demonstration of what the platform can reveal once it is connected to enterprise data, catalog metadata, lineage, governance, and operations.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#capabilities">Review capabilities</a>
+            <a class="button" href="#proof">See proof points</a>
           </div>
-          <div class="brief-point">
-            <b>For enterprise architects</b>
-            <p>The implementation proves composability. CDA, CDF, Mondrian, Analyzer, repository content, and custom HTML can coexist around the same governed facts instead of forcing every use case into one presentation layer.</p>
-          </div>
-          <div class="brief-point">
-            <b>For platform owners</b>
-            <p>The suite is operationally practical: dependency-free experiences, explicit managed datasource requirements, cacheable query services, version-stamped repository paths, and repeatable deployment scripts.</p>
-          </div>
-          <div class="brief-point">
-            <b>For data governance leaders</b>
-            <p>Pentaho turns vague governance language into counts, percentages, rankings, and flows: 12,565 ungoverned assets, 625 privacy-related assets, 161 terms, 305 policy assignments, and measurable owner gaps.</p>
-          </div>
+        </div>
+        <div class="cta-side">
+          <ul>
+            <li>External marketing posture, not an internal metrics report.</li>
+            <li>Dashboard capabilities described as business outcomes.</li>
+            <li>Pentaho platform value explained clearly for technical leaders.</li>
+            <li>Static, self-contained, and GitHub Pages ready for the custom domain.</li>
+          </ul>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="shell">
-    Source snapshot: local Pentaho User Console at <code>http://localhost:8080/pentaho</code>, repository folder <code>/public/pdc-iteration/v1</code>, exported workspace <code>solution-engineering/iteration/v1</code>. Public page is static and intentionally does not expose private Pentaho credentials or localhost APIs.
+    Demonstration source: Pentaho User Console at <code>http://localhost:8080/pentaho</code>, repository folder <code>/public/pdc-iteration/v1</code>, and exported workspace <code>solution-engineering/iteration/v1</code>. Public page is static and does not expose private Pentaho credentials or localhost APIs.
   </footer>
 </body>
 </html>
