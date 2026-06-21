@@ -1,0 +1,136 @@
+#!/usr/bin/env python3
+"""gen_site.py — regenerate index.html for analytics.pentaho.space as a showcase of the
+ACTUAL Pentaho dashboards (real screenshots from assets/dashboards/). A demonstration of
+the platform's analytical value — Custom (self-contained HTML over CDA) and Framework
+(true Pentaho CDF) dashboards built on live Pentaho Data Catalog metadata. Run after shots.js.
+"""
+import json, os, datetime
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+M = json.load(open(os.path.join(HERE, "dashboards.json")))
+SHOT = "assets/dashboards/%s.png"
+def has(stem): return os.path.exists(os.path.join(ROOT, SHOT % stem))
+updated = datetime.date.today().isoformat()
+ndash = sum(len(g["items"]) for g in M["groups"])
+
+KIND_BADGE = {
+  "Custom": '<span class="badge custom" title="Self-contained HTML dashboard over Pentaho CDA">Custom</span>',
+  "Framework": '<span class="badge framework" title="True Pentaho CDF framework dashboard (CCC charts)">Framework · CDF</span>',
+}
+
+def card(it):
+    stem = it["stem"]
+    img = (SHOT % stem) if has(stem) else ""
+    media = ('<a class="shot" href="%s" target="_blank" rel="noopener"><img loading="lazy" src="%s" alt="%s"/></a>'
+             % (img, img, it["title"])) if img else '<div class="shot empty">screenshot pending</div>'
+    return ('<figure class="card">%s<figcaption><div class="ct">%s %s</div>'
+            '<div class="cb">%s</div></figcaption></figure>'
+            % (media, it["title"], KIND_BADGE.get(it["kind"], ""), it["blurb"]))
+
+def group(g):
+    return ('<section class="grp"><h3>%s</h3><div class="grid">%s</div></section>'
+            % (g["name"], "".join(card(it) for it in g["items"])))
+
+hero_img = SHOT % M["launcher"]["stem"]
+hero = ('<a class="hero-shot" href="%s" target="_blank" rel="noopener"><img src="%s" alt="The dashboard suite"/></a>'
+        % (hero_img, hero_img)) if has(M["launcher"]["stem"]) else ""
+
+HTML = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Pentaho Data Catalog Analytics — live dashboard showcase</title>
+<meta name="description" content="A demonstration of the Pentaho platform: analytical dashboards built on live Pentaho Data Catalog metadata — observability, governance, lineage, cost, and data quality. Custom HTML over CDA and true Pentaho CDF framework dashboards."/>
+<style>
+:root{--pdc:#005bb5;--pdc2:#7d3c98;--ink:#10202f;--bg:#f5f7fb;--panel:#fff;--border:#e4e9f2;--muted:#5f7088;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+a{color:var(--pdc)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+header.top{background:linear-gradient(115deg,var(--pdc),var(--pdc2));color:#fff;padding:64px 0 54px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px;opacity:.95}
+.logo{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.18);display:inline-flex;align-items:center;justify-content:center;font-size:19px}
+h1{font-size:40px;line-height:1.12;margin:22px 0 12px;max-width:18ch;font-weight:850}
+.sub{font-size:18px;opacity:.94;max-width:60ch}
+.stats{display:flex;flex-wrap:wrap;gap:30px;margin-top:26px}
+.stat .n{font-size:30px;font-weight:850}.stat .l{font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;opacity:.85}
+.hero-shot{display:block;margin:34px auto -90px;max-width:1060px;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(7,30,60,.34);border:1px solid rgba(255,255,255,.25)}
+.hero-shot img{display:block;width:100%}
+main{padding:120px 0 40px}
+.lead{max-width:74ch;margin:0 auto 8px;font-size:17px;color:#26384b}
+.lead b{color:var(--ink)}
+.pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0 10px}
+.pill{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;color:#2c3e54;box-shadow:0 1px 2px rgba(20,40,80,.05)}
+.pill b{color:var(--pdc)}
+.grp{margin:44px 0}
+.grp h3{font-size:13px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;border-bottom:1px solid var(--border);padding-bottom:10px;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}}
+.card{margin:0;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(20,40,80,.06);transition:transform .16s,box-shadow .16s}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(10,40,80,.16)}
+.shot{display:block;background:#0b1f33;line-height:0;border-bottom:1px solid var(--border);max-height:360px;overflow:hidden}
+.shot img{width:100%;display:block}
+.shot.empty{display:flex;align-items:center;justify-content:center;height:200px;color:#8aa;line-height:1.4;font-size:13px}
+figcaption{padding:15px 18px 18px}
+.ct{font-weight:800;font-size:16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.cb{color:var(--muted);font-size:13.5px;margin-top:6px}
+.badge{font-size:10.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.badge.custom{background:#eaf1fb;color:var(--pdc)}
+.badge.framework{background:#f1e9f7;color:var(--pdc2)}
+.how{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:30px 32px;margin:48px 0}
+.how h2{margin:0 0 14px;font-size:22px}
+.how .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
+@media(max-width:760px){.how .row{grid-template-columns:1fr}}
+.how h4{margin:0 0 6px;font-size:15px;color:var(--pdc)}
+.how p{margin:0;font-size:14px;color:#3a4b60}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
+.tag{display:inline-block;background:#eef3fb;border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:12px;color:#2c3e54}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand"><span class="logo">P</span> Pentaho Data Catalog Analytics</div>
+  <h1>What your data platform already knows, made visible.</h1>
+  <p class="sub">A working demonstration of the Pentaho platform: __N__ analytical dashboards — observability, governance, lineage, cost, and data quality — built on <b>live Pentaho Data Catalog metadata</b>.</p>
+  <div class="stats">
+    <div class="stat"><div class="n">__N__</div><div class="l">Live dashboards</div></div>
+    <div class="stat"><div class="n">CDA · CDF · CDE</div><div class="l">Pentaho-native</div></div>
+    <div class="stat"><div class="n">16.7 TB</div><div class="l">Lineage modeled</div></div>
+    <div class="stat"><div class="n">576</div><div class="l">Glossary terms</div></div>
+  </div>
+  __HERO__
+</div></header>
+<main><div class="wrap">
+  <p class="lead">Every screen below is a <b>real, running Pentaho dashboard</b> over the data catalog — not mockups. Each exists in two builds you can switch between: <b>Custom</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b>) and <b>Framework</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts), so the same insight is delivered the lightweight way and the fully platform-native way.</p>
+  <div class="pills">
+    <span class="pill"><b>Observability</b> across the estate</span>
+    <span class="pill"><b>Governance</b> &amp; sensitivity</span>
+    <span class="pill"><b>Lineage</b> &amp; data movement</span>
+    <span class="pill"><b>Cost</b> &amp; sustainability</span>
+    <span class="pill"><b>Data quality</b> &amp; key discovery</span>
+    <span class="pill">Cross-dashboard <b>drill-through</b></span>
+  </div>
+  __GROUPS__
+  <div class="how">
+    <h2>How it's built — on the Pentaho platform</h2>
+    <p>One metadata warehouse, three Pentaho delivery styles, fully interactive.</p>
+    <div class="row">
+      <div><h4>CDA — the data layer</h4><p>Every dashboard reads <span class="tag">Pentaho CDA</span> queries over a managed JDBC connection to the catalog warehouse. One governed data layer, many front-ends.</p></div>
+      <div><h4>CDF &amp; CDE — the framework</h4><p>The <span class="tag">Framework</span> dashboards are true Pentaho <span class="tag">CDF</span> (CCC charts) and authored <span class="tag">CDE</span> (.wcdf/.cdfde) — editable in the Pentaho CDE designer.</p></div>
+      <div><h4>Interactive by design</h4><p>Cascading filters, light/dark, and click-to-drill that carries the selected filters from one dashboard into the next — the platform connecting the story end to end.</p></div>
+    </div>
+  </div>
+</div></main>
+<footer><div class="wrap">Pentaho Data Catalog Analytics · live dashboards over real platform metadata · updated __DATE__ · <a href="https://github.com/kevinrhaas/solution-engineering">source</a></div></footer>
+</body>
+</html>
+"""
+
+html = (HTML.replace("__N__", str(ndash))
+            .replace("__HERO__", hero)
+            .replace("__GROUPS__", "".join(group(g) for g in M["groups"]))
+            .replace("__DATE__", updated))
+open(os.path.join(ROOT, "index.html"), "w").write(html)
+print("index.html regenerated: %d dashboards, updated %s" % (ndash, updated))
