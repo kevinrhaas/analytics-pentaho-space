@@ -28,7 +28,8 @@
       { "stem": "i-data-integration", "title": "Data Integration Health", "kind": "Custom", "blurb": "Platform-movement matrix, throughput trend, success rate, and top cross-platform flows." }
     ]},
     { "name": "Glossary & Stewardship", "items": [
-      { "stem": "i-term-stewardship", "title": "Glossary Hierarchy & Term Stewardship", "kind": "Custom", "blurb": "Term adoption gap (576 defined vs in-use), hierarchy, types, and reach across 23 business glossaries." }
+      { "stem": "i-term-stewardship", "title": "Glossary Hierarchy & Term Stewardship", "kind": "Custom", "blurb": "Term adoption gap (576 defined vs in-use), hierarchy, types, and reach across 23 business glossaries." },
+      { "stem": "i-cdf-term-stewardship", "title": "Glossary Hierarchy & Term Stewardship", "kind": "Framework", "blurb": "CDF twin — adoption pie, glossary/type/depth bars and reach on the framework." }
     ]}
   ]
 }
