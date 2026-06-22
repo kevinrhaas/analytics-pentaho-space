@@ -108,6 +108,12 @@
           "title": "Column Health & Key Discovery",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 health-mix pie, type bars, and key/dead-column tables on the framework."
+        },
+        {
+          "stem": "i-cdf-profiling",
+          "title": "Column Profiling & Statistics",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 null-% and uniqueness distribution pies, by-source bars, and highest-cardinality columns over 2.9K profiled columns."
         }
       ]
     },
