@@ -202,6 +202,12 @@
           "title": "Glossary Hierarchy & Term Stewardship",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 adoption pie, glossary/type/depth bars and reach on the framework."
+        },
+        {
+          "stem": "i-cdf-ownership",
+          "title": "Ownership & Stewardship Gaps",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 owner-coverage pie, unowned backlog by source, governance coverage, and a per-source stewardship scorecard across 14K assets."
         }
       ]
     }
