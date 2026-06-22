@@ -68,6 +68,12 @@
           "title": "Catalog Adoption",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 how actively the catalog is classified, governed and used: adoption coverage, top apps & policies, and classified assets by source."
+        },
+        {
+          "stem": "i-cdf-pipeline-obs",
+          "title": "Pipeline & Job Observability",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 DataOps reliability: 8.2K runs at 92% success, success & volume trends, event lifecycle, by-integration health, and the top failing jobs."
         }
       ]
     },
