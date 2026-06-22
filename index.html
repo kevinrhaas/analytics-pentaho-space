@@ -60,6 +60,16 @@ figcaption{padding:15px 18px 18px}
 .how h4{margin:0 0 6px;font-size:15px;color:var(--pdc)}
 .how p{margin:0;font-size:14px;color:#3a4b60}
 footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
+footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
+.changelog{max-width:680px;margin:18px auto 0;text-align:left;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:6px 16px}
+.changelog summary{cursor:pointer;font-weight:700;color:var(--pdc);padding:10px 2px;list-style:none;user-select:none;font-size:13.5px}
+.changelog summary::-webkit-details-marker{display:none}
+.changelog summary::before{content:"\25B8  ";color:var(--muted)}
+.changelog[open] summary::before{content:"\25BE  "}
+.changelog .log{list-style:none;margin:0;padding:2px 0 12px;max-height:330px;overflow:auto}
+.changelog .log li{display:flex;gap:14px;padding:8px 2px;border-top:1px solid var(--border);font-size:13px;line-height:1.45}
+.changelog .log .when{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;flex:0 0 116px}
+.changelog .log .what{color:#2c3e54}
 .tag{display:inline-block;background:#eef3fb;border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:12px;color:#2c3e54}
 </style>
 </head>
@@ -98,7 +108,10 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
     </div>
   </div>
 </div></main>
-<footer><div class="wrap">Pentaho Data Catalog Analytics · live dashboards over real platform metadata · updated 2026-06-22 · <a href="https://github.com/kevinrhaas/solution-engineering">source</a></div></footer>
+<footer><div class="wrap">
+  <div class="ftln">Pentaho Data Catalog Analytics · live dashboards over real platform metadata · last refreshed <b>2026-06-22 16:43 CDT</b> · <a href="https://github.com/kevinrhaas/solution-engineering">source</a></div>
+  <details class="changelog"><summary>What's new · recent platform &amp; dashboard improvements</summary><ul class="log"><li><span class="when">2026-06-22 16:11</span><span class="what">Click-to-drill on i-cdf-data-quality completeness-by-source bar -&gt; pdc-ownership (NEXT item 3)</span></li><li><span class="when">2026-06-22 15:11</span><span class="what">Click-to-drill on i-cdf-cost cost-by-source bar -&gt; pdc-storage (NEXT item 3)</span></li><li><span class="when">2026-06-22 14:10</span><span class="what">Click-to-drill on i-cdf-governance governed-%-by-source bar -&gt; pdc-data-quality (NEXT item 3)</span></li><li><span class="when">2026-06-22 13:50</span><span class="what">Rename 'Custom' build label -&gt; 'Classic HTML' across launcher chip/badge/stat + the Custom/Framework header toggle on all dashboar</span></li><li><span class="when">2026-06-22 13:19</span><span class="what">Record 7 standing directives + republish milestone to 193 (CDE render blocked on 193)</span></li><li><span class="when">2026-06-22 13:11</span><span class="what">Click-to-drill on i-cdf-storage source-bar -&gt; pdc-cost (NEXT item 3 rollout)</span></li><li><span class="when">2026-06-22 12:14</span><span class="what">Upgrade i-cdf-lineage — time-range cross-filter + click-to-drill into pdc-pipeline-obs</span></li><li><span class="when">2026-06-22 12:09</span><span class="what">Server-portable DB provisioning (deploy-db.sh) + deploy to 225</span></li><li><span class="when">2026-06-22 11:14</span><span class="what">Upgrade i-cdf-overview — sensitivity cross-filter + click-to-drill into pdc-storage</span></li><li><span class="when">2026-06-22 10:48</span><span class="what">Add CDE stat tile so Dashboards = Custom + Framework + CDE reconciles (24+25+1=50)</span></li><li><span class="when">2026-06-22 10:15</span><span class="what">Fix CDE blank-charts — external-CDA datasources (cde-observability.cda) + launcher card/chip</span></li><li><span class="when">2026-06-22 09:13</span><span class="what">Add Document &amp; Unstructured Insights CDF twin (i-cdf-unstructured) + thumbnail — COMPLETES 24/24 twin parity</span></li><li><span class="when">2026-06-22 08:13</span><span class="what">Add Pipeline &amp; Job Observability CDF twin (i-cdf-pipeline-obs) + its launcher thumbnail</span></li><li><span class="when">2026-06-22 07:12</span><span class="what">Add Catalog Adoption CDF twin (i-cdf-adoption) + its launcher thumbnail</span></li><li><span class="when">2026-06-22 06:12</span><span class="what">Add Sensitive Data &amp; Compliance Radar CDF twin (i-cdf-compliance) + its launcher thumbnail</span></li><li><span class="when">2026-06-22 05:13</span><span class="what">Add Schema &amp; Structure Explorer CDF twin (i-cdf-schema-explorer) + its launcher thumbnail</span></li><li><span class="when">2026-06-22 04:12</span><span class="what">Add Business Glossary &amp; Term Reach CDF twin (i-cdf-glossary) + its launcher thumbnail</span></li><li><span class="when">2026-06-22 03:12</span><span class="what">Add Ownership &amp; Stewardship Gaps CDF twin (i-cdf-ownership) + its launcher thumbnail</span></li></ul></details>
+</div></footer>
 <script>
 (function(){
   var TOTAL=document.querySelectorAll('.card').length;

@@ -4,14 +4,55 @@ ACTUAL Pentaho dashboards (real screenshots from assets/dashboards/). A demonstr
 the platform's analytical value — Custom (self-contained HTML over CDA) and Framework
 (true Pentaho CDF) dashboards built on live Pentaho Data Catalog metadata. Run after shots.js.
 """
-import json, os, datetime
+import json, os, datetime, subprocess
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 M = json.load(open(os.path.join(HERE, "dashboards.json")))
 SHOT = "assets/dashboards/%s.jpg"
 def has(stem): return os.path.exists(os.path.join(ROOT, SHOT % stem))
+_now = datetime.datetime.now().astimezone()
 updated = datetime.date.today().isoformat()
+stamp = _now.strftime("%Y-%m-%d %H:%M %Z")        # precise "last refreshed" time (local tz)
 ndash = sum(len(g["items"]) for g in M["groups"])
+
+def changelog(n=24):
+    """Reverse-chron 'what's new' list, auto-built from the iteration commit history
+    (the real dashboard improvements). Newest first; (time, text) tuples. Never fails the build."""
+    se = os.path.normpath(os.path.join(ROOT, "..", "solution-engineering"))
+    try:
+        out = subprocess.check_output(
+            ["git", "-C", se, "log", "-n", str(n), "--no-merges",
+             "--pretty=format:%cI\x1f%s", "--", "iteration/"],
+            stderr=subprocess.DEVNULL).decode("utf-8", "replace")
+    except Exception:
+        return []
+    items, seen = [], set()
+    for line in out.splitlines():
+        if "\x1f" not in line: continue
+        iso, subj = line.split("\x1f", 1)
+        subj = subj.strip()
+        for pre in ("iteration/v2: ", "iteration/v2 ", "iteration: ", "launcher: ", "showcase: "):
+            if subj.startswith(pre): subj = subj[len(pre):]
+        # drop noisy/duplicate refresh-only commits
+        low = subj.lower()
+        if low.startswith(("refresh dashboard showcase", "merge ")): continue
+        subj = (subj[:1].upper() + subj[1:]).split("\n")[0][:130]
+        if subj in seen: continue
+        seen.add(subj)
+        try:
+            when = datetime.datetime.fromisoformat(iso).strftime("%Y-%m-%d %H:%M")
+        except Exception:
+            when = iso[:16]
+        items.append((when, subj))
+    return items[:18]
+
+def _esc(s):
+    return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+_logs = changelog()
+_log_items = "".join('<li><span class="when">%s</span><span class="what">%s</span></li>'
+                     % (_esc(w), _esc(s)) for (w, s) in _logs)
+changelog_html = (('<details class="changelog"><summary>What\'s new · recent platform &amp; dashboard improvements</summary>'
+                   '<ul class="log">%s</ul></details>') % _log_items) if _logs else ""
 
 KIND_BADGE = {
   "Custom": '<span class="badge custom" title="Self-contained HTML dashboard over Pentaho CDA">Classic HTML</span>',
@@ -117,6 +158,16 @@ figcaption{padding:15px 18px 18px}
 .how h4{margin:0 0 6px;font-size:15px;color:var(--pdc)}
 .how p{margin:0;font-size:14px;color:#3a4b60}
 footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
+footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
+.changelog{max-width:680px;margin:18px auto 0;text-align:left;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:6px 16px}
+.changelog summary{cursor:pointer;font-weight:700;color:var(--pdc);padding:10px 2px;list-style:none;user-select:none;font-size:13.5px}
+.changelog summary::-webkit-details-marker{display:none}
+.changelog summary::before{content:"\\25B8  ";color:var(--muted)}
+.changelog[open] summary::before{content:"\\25BE  "}
+.changelog .log{list-style:none;margin:0;padding:2px 0 12px;max-height:330px;overflow:auto}
+.changelog .log li{display:flex;gap:14px;padding:8px 2px;border-top:1px solid var(--border);font-size:13px;line-height:1.45}
+.changelog .log .when{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;flex:0 0 116px}
+.changelog .log .what{color:#2c3e54}
 .tag{display:inline-block;background:#eef3fb;border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:12px;color:#2c3e54}
 </style>
 </head>
@@ -155,7 +206,10 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
     </div>
   </div>
 </div></main>
-<footer><div class="wrap">Pentaho Data Catalog Analytics · live dashboards over real platform metadata · updated __DATE__ · <a href="https://github.com/kevinrhaas/solution-engineering">source</a></div></footer>
+<footer><div class="wrap">
+  <div class="ftln">Pentaho Data Catalog Analytics · live dashboards over real platform metadata · last refreshed <b>__STAMP__</b> · <a href="https://github.com/kevinrhaas/solution-engineering">source</a></div>
+  __CHANGELOG__
+</div></footer>
 <script>
 (function(){
   var TOTAL=document.querySelectorAll('.card').length;
@@ -199,6 +253,8 @@ html = (HTML.replace("__N__", str(ndash))
             .replace("__HERO__", hero)
             .replace("__TOOLBAR__", toolbar)
             .replace("__GROUPS__", "".join(group(g) for g in M["groups"]))
+            .replace("__STAMP__", stamp)
+            .replace("__CHANGELOG__", changelog_html)
             .replace("__DATE__", updated))
 open(os.path.join(ROOT, "index.html"), "w").write(html)
-print("index.html regenerated: %d dashboards, updated %s" % (ndash, updated))
+print("index.html regenerated: %d dashboards, %d changelog entries, refreshed %s" % (ndash, len(_logs), stamp))
