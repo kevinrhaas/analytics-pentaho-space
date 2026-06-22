@@ -111,6 +111,12 @@
           "blurb": "CDF twin \u2014 PII/classification reach, sensitivity scale, exposure by source, and a privacy term \u00d7 source stacked bar over 625 classified assets."
         },
         {
+          "stem": "pdc-compliance",
+          "title": "Sensitive Data & Compliance Radar",
+          "kind": "Custom",
+          "blurb": "An animated Sankey of sensitive data flow \u2014 which sensitivity levels (Internal/Confidential/Restricted) move into governed vs ungoverned destinations \u2014 plus sensitivity mix, bytes by sensitivity, restricted-flow risk, and a cross-boundary movement trend."
+        },
+        {
           "stem": "i-cdf-compliance",
           "title": "Sensitive Data & Compliance Radar",
           "kind": "Framework",
