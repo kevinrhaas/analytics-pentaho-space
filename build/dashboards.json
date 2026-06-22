@@ -208,6 +208,12 @@
           "title": "Ownership & Stewardship Gaps",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 owner-coverage pie, unowned backlog by source, governance coverage, and a per-source stewardship scorecard across 14K assets."
+        },
+        {
+          "stem": "i-cdf-glossary",
+          "title": "Business Glossary & Term Reach",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 term reach by glossary, classification coverage, terms-per-glossary, and top terms across 161 in-use terms / 12 business glossaries."
         }
       ]
     }
