@@ -14,7 +14,7 @@ updated = datetime.date.today().isoformat()
 ndash = sum(len(g["items"]) for g in M["groups"])
 
 KIND_BADGE = {
-  "Custom": '<span class="badge custom" title="Self-contained HTML dashboard over Pentaho CDA">Custom</span>',
+  "Custom": '<span class="badge custom" title="Self-contained HTML dashboard over Pentaho CDA">Classic HTML</span>',
   "Framework": '<span class="badge framework" title="True Pentaho CDF framework dashboard (CCC charts)">Framework · CDF</span>',
 }
 
@@ -41,7 +41,7 @@ kinds = []
 for g in M["groups"]:
     for it in g["items"]:
         if it["kind"] not in kinds: kinds.append(it["kind"])
-KIND_LABEL = {"Custom": "Custom", "Framework": "Framework · CDF", "CDE": "CDE"}
+KIND_LABEL = {"Custom": "Classic HTML", "Framework": "Framework · CDF", "CDE": "CDE"}
 area_chips = ('<button class="chip active" data-f="group" data-v="">All areas</button>'
               + "".join('<button class="chip" data-f="group" data-v="%s">%s</button>' % (esc(n), esc(n)) for n in group_names))
 kind_chips = ('<button class="chip k active" data-f="kind" data-v="">All builds</button>'
@@ -129,12 +129,12 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
     <div class="stat"><div class="n">__N__</div><div class="l">Live dashboards</div></div>
     <div class="stat"><div class="n">CDA · CDF · CDE</div><div class="l">Pentaho-native</div></div>
     <div class="stat"><div class="n">__NG__</div><div class="l">Catalog domains</div></div>
-    <div class="stat"><div class="n">Custom + Framework</div><div class="l">Every dashboard, two builds</div></div>
+    <div class="stat"><div class="n">Classic HTML + Framework</div><div class="l">Every dashboard, two builds</div></div>
   </div>
   __HERO__
 </div></header>
 <main><div class="wrap">
-  <p class="lead">Every screen below is a <b>real, running Pentaho dashboard</b> over the data catalog — not mockups. Each exists in two builds you can switch between: <b>Custom</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b>) and <b>Framework</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts), so the same insight is delivered the lightweight way and the fully platform-native way.</p>
+  <p class="lead">Every screen below is a <b>real, running Pentaho dashboard</b> over the data catalog — not mockups. Each exists in two builds you can switch between: <b>Classic HTML</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b>) and <b>Framework</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts), so the same insight is delivered the lightweight way and the fully platform-native way.</p>
   <div class="pills">
     <span class="pill"><b>Observability</b> across the estate</span>
     <span class="pill"><b>Governance</b> &amp; sensitivity</span>
