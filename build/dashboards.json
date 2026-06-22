@@ -50,6 +50,12 @@
           "title": "Data Freshness & Staleness",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 scan-freshness pie, modified-age and stale-by-source bars."
+        },
+        {
+          "stem": "i-cdf-growth",
+          "title": "Catalog Growth & Discovery",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 cumulative growth line, assets-by-source pie, per-month discovery bars, and recently-discovered assets."
         }
       ]
     },
