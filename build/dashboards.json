@@ -205,6 +205,12 @@
           "blurb": "Lineage throughput and pipeline reliability (16.7 TB moved) on the CDF framework."
         },
         {
+          "stem": "i-data-flows",
+          "title": "Data Movement Flows (Sankey)",
+          "kind": "Custom",
+          "blurb": "An animated Sankey of cross-platform data movement — 9.3 TB flowing source→destination (S3, Snowflake, Kafka, Postgres, BigQuery…), ribbons sized by volume and colored by source. Click a flow to drill into integration health."
+        },
+        {
           "stem": "i-data-integration",
           "title": "Data Integration Health",
           "kind": "Custom",
