@@ -163,6 +163,12 @@
           "blurb": "CDF twin \u2014 cost by source & sensitivity, reclaimable spend, and CO2e."
         },
         {
+          "stem": "i-cdf-redundancy",
+          "title": "Redundancy & Duplicate Data",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 233 TB reclaimable storage / $27.5K-a-month: reclaimable by source & sensitivity, duplicate assets, and top duplicate objects."
+        },
+        {
           "stem": "i-cdf-lineage",
           "title": "Data Movement Observability",
           "kind": "Framework",
