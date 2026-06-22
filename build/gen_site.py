@@ -18,18 +18,38 @@ KIND_BADGE = {
   "Framework": '<span class="badge framework" title="True Pentaho CDF framework dashboard (CCC charts)">Framework · CDF</span>',
 }
 
-def card(it):
+def esc(s):
+    return str(s).replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
+
+def card(it, gname):
     stem = it["stem"]
     img = (SHOT % stem) if has(stem) else ""
     media = ('<a class="shot" href="%s" target="_blank" rel="noopener"><img loading="lazy" src="%s" alt="%s"/></a>'
-             % (img, img, it["title"])) if img else '<div class="shot empty">screenshot pending</div>'
-    return ('<figure class="card">%s<figcaption><div class="ct">%s %s</div>'
-            '<div class="cb">%s</div></figcaption></figure>'
-            % (media, it["title"], KIND_BADGE.get(it["kind"], ""), it["blurb"]))
+             % (img, img, esc(it["title"]))) if img else '<div class="shot empty">screenshot pending</div>'
+    text = esc((it["title"] + " " + it.get("blurb", "") + " " + gname + " " + it["kind"]).lower())
+    return ('<figure class="card" data-group="%s" data-kind="%s" data-text="%s">%s'
+            '<figcaption><div class="ct">%s %s</div><div class="cb">%s</div></figcaption></figure>'
+            % (esc(gname), esc(it["kind"]), text, media, esc(it["title"]), KIND_BADGE.get(it["kind"], ""), esc(it["blurb"])))
 
 def group(g):
-    return ('<section class="grp"><h3>%s</h3><div class="grid">%s</div></section>'
-            % (g["name"], "".join(card(it) for it in g["items"])))
+    return ('<section class="grp" data-group="%s"><h3>%s</h3><div class="grid">%s</div></section>'
+            % (esc(g["name"]), esc(g["name"]), "".join(card(it, g["name"]) for it in g["items"])))
+
+# Filter toolbar (mimics the in-product launcher console — search + area chips + build-type chips)
+group_names = [g["name"] for g in M["groups"]]
+kinds = []
+for g in M["groups"]:
+    for it in g["items"]:
+        if it["kind"] not in kinds: kinds.append(it["kind"])
+KIND_LABEL = {"Custom": "Custom", "Framework": "Framework · CDF", "CDE": "CDE"}
+area_chips = ('<button class="chip active" data-f="group" data-v="">All areas</button>'
+              + "".join('<button class="chip" data-f="group" data-v="%s">%s</button>' % (esc(n), esc(n)) for n in group_names))
+kind_chips = ('<button class="chip k active" data-f="kind" data-v="">All builds</button>'
+              + "".join('<button class="chip k" data-f="kind" data-v="%s">%s</button>' % (esc(k), esc(KIND_LABEL.get(k, k))) for k in kinds))
+toolbar = ('<div class="filter" id="filter">'
+           '<input id="q" class="search" type="search" placeholder="Search dashboards…" aria-label="Search dashboards" autocomplete="off"/>'
+           '<div class="chiprow">%s</div><div class="chiprow">%s</div>'
+           '<div class="count" id="count"></div></div>') % (area_chips, kind_chips)
 
 hero_img = SHOT % M["launcher"]["stem"]
 hero = ('<a class="hero-shot" href="%s" target="_blank" rel="noopener"><img src="%s" alt="The dashboard suite"/></a>'
@@ -64,7 +84,18 @@ main{padding:120px 0 40px}
 .pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0 10px}
 .pill{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;color:#2c3e54;box-shadow:0 1px 2px rgba(20,40,80,.05)}
 .pill b{color:var(--pdc)}
+.filter{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:30px 0 8px;box-shadow:0 2px 10px rgba(20,40,80,.05)}
+.search{width:100%;font-size:15px;padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:#fbfcfe;color:var(--ink);margin-bottom:13px}
+.search:focus{outline:none;border-color:var(--pdc);background:#fff}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:9px}
+.chip{border:1px solid var(--border);background:#fff;color:#2c3e54;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:650;cursor:pointer;transition:.14s;line-height:1}
+.chip:hover{border-color:var(--pdc)}
+.chip.active{background:var(--pdc);color:#fff;border-color:var(--pdc)}
+.chip.k.active{background:var(--pdc2);border-color:var(--pdc2)}
+.count{font-size:12.5px;color:var(--muted);margin-top:4px}
 .grp{margin:44px 0}
+.grp.hidden{display:none}
+.card.hidden{display:none}
 .grp h3{font-size:13px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;border-bottom:1px solid var(--border);padding-bottom:10px;margin:0 0 20px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 @media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}}
@@ -112,6 +143,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
     <span class="pill"><b>Data quality</b> &amp; key discovery</span>
     <span class="pill">Cross-dashboard <b>drill-through</b></span>
   </div>
+  __TOOLBAR__
   __GROUPS__
   <div class="how">
     <h2>How it's built — on the Pentaho platform</h2>
@@ -124,6 +156,40 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
   </div>
 </div></main>
 <footer><div class="wrap">Pentaho Data Catalog Analytics · live dashboards over real platform metadata · updated __DATE__ · <a href="https://github.com/kevinrhaas/solution-engineering">source</a></div></footer>
+<script>
+(function(){
+  var TOTAL=document.querySelectorAll('.card').length;
+  var state={group:"",kind:"",q:""};
+  var cards=[].slice.call(document.querySelectorAll('.card'));
+  var grps=[].slice.call(document.querySelectorAll('.grp'));
+  var countEl=document.getElementById('count');
+  function apply(){
+    var shown=0;
+    cards.forEach(function(c){
+      var ok=(!state.group||c.getAttribute('data-group')===state.group)
+           &&(!state.kind||c.getAttribute('data-kind')===state.kind)
+           &&(!state.q||c.getAttribute('data-text').indexOf(state.q)>=0);
+      c.classList.toggle('hidden',!ok); if(ok)shown++;
+    });
+    grps.forEach(function(s){
+      var any=s.querySelectorAll('.card:not(.hidden)').length>0;
+      s.classList.toggle('hidden',!any);
+    });
+    countEl.textContent='Showing '+shown+' of '+TOTAL+' dashboards';
+  }
+  document.querySelectorAll('.chip').forEach(function(ch){
+    ch.addEventListener('click',function(){
+      var f=ch.getAttribute('data-f'), v=ch.getAttribute('data-v');
+      state[f]=v;
+      document.querySelectorAll('.chip[data-f="'+f+'"]').forEach(function(x){x.classList.toggle('active',x===ch);});
+      apply();
+    });
+  });
+  var q=document.getElementById('q');
+  q.addEventListener('input',function(){state.q=q.value.trim().toLowerCase();apply();});
+  apply();
+})();
+</script>
 </body>
 </html>
 """
@@ -131,6 +197,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
 html = (HTML.replace("__N__", str(ndash))
             .replace("__NG__", str(len(M["groups"])))
             .replace("__HERO__", hero)
+            .replace("__TOOLBAR__", toolbar)
             .replace("__GROUPS__", "".join(group(g) for g in M["groups"]))
             .replace("__DATE__", updated))
 open(os.path.join(ROOT, "index.html"), "w").write(html)
