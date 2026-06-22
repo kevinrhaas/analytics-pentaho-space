@@ -133,6 +133,12 @@
           "blurb": "Monthly cost by source and sensitivity, reclaimable spend, and CO\u2082e footprint."
         },
         {
+          "stem": "i-cdf-cost",
+          "title": "Cost Optimization & Sustainability",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 cost by source & sensitivity, reclaimable spend, and CO2e."
+        },
+        {
           "stem": "i-cdf-lineage",
           "title": "Data Movement Observability",
           "kind": "Framework",
