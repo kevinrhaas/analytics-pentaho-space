@@ -121,6 +121,12 @@
           "blurb": "TB by source and type, top-heavy objects, and a cumulative storage-growth trend."
         },
         {
+          "stem": "i-cdf-storage",
+          "title": "Storage Footprint & Capacity",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 TB by source, structured/unstructured, size distribution, and cumulative growth."
+        },
+        {
           "stem": "pdc-cost",
           "title": "Cost Optimization & Sustainability",
           "kind": "Custom",
