@@ -132,6 +132,12 @@
           "title": "Column Profiling & Statistics",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 null-% and uniqueness distribution pies, by-source bars, and highest-cardinality columns over 2.9K profiled columns."
+        },
+        {
+          "stem": "i-cdf-schema-explorer",
+          "title": "Schema & Structure Explorer",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 catalog composition, column data types, key coverage, and the largest schemas across 754 tables / 11.5K columns."
         }
       ]
     },
