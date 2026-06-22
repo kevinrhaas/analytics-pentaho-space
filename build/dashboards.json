@@ -56,6 +56,12 @@
           "title": "Catalog Growth & Discovery",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 cumulative growth line, assets-by-source pie, per-month discovery bars, and recently-discovered assets."
+        },
+        {
+          "stem": "i-cdf-applications",
+          "title": "Application & Access Reach",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 which applications touch the catalog: top apps by access, type and source breakdowns, and a reach-detail table across 207 access events / 46.6 TB."
         }
       ]
     },
