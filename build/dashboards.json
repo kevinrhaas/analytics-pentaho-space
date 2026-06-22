@@ -62,6 +62,12 @@
           "title": "Application & Access Reach",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 which applications touch the catalog: top apps by access, type and source breakdowns, and a reach-detail table across 207 access events / 46.6 TB."
+        },
+        {
+          "stem": "i-cdf-adoption",
+          "title": "Catalog Adoption",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 how actively the catalog is classified, governed and used: adoption coverage, top apps & policies, and classified assets by source."
         }
       ]
     },
