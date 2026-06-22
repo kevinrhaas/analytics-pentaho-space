@@ -85,6 +85,12 @@
           "title": "Policy & Governance Coverage",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 coverage pie, governed-by-source bars, policy types, and a 2-series coverage-over-time line."
+        },
+        {
+          "stem": "i-cdf-privacy",
+          "title": "Sensitive Data & Privacy",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 PII/classification reach, sensitivity scale, exposure by source, and a privacy term \u00d7 source stacked bar over 625 classified assets."
         }
       ]
     },
