@@ -149,6 +149,12 @@
           "title": "Data Integration Health",
           "kind": "Custom",
           "blurb": "Platform-movement matrix, throughput trend, success rate, and top cross-platform flows."
+        },
+        {
+          "stem": "i-cdf-data-integration",
+          "title": "Data Integration Health",
+          "kind": "Framework",
+          "blurb": "Platform-movement stacked bar, throughput trend, success rate, and top cross-platform flows on the CDF framework."
         }
       ]
     },
