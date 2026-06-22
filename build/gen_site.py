@@ -92,13 +92,13 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
 <body>
 <header class="top"><div class="wrap">
   <div class="brand"><span class="logo">P</span> Pentaho Data Catalog Analytics</div>
-  <h1>What your data platform already knows, made visible.</h1>
-  <p class="sub">A working demonstration of the Pentaho platform: __N__ analytical dashboards — observability, governance, lineage, cost, and data quality — built on <b>live Pentaho Data Catalog metadata</b>.</p>
+  <h1>Your data catalog, made visible.</h1>
+  <p class="sub">A Pentaho <b>solution-engineering demonstration</b> of what the platform can do: __N__ interactive dashboards — observability, governance, lineage, cost, and data quality — every one driven off a <b>solid, governed data foundation</b> in the Pentaho Data Catalog.</p>
   <div class="stats">
     <div class="stat"><div class="n">__N__</div><div class="l">Live dashboards</div></div>
     <div class="stat"><div class="n">CDA · CDF · CDE</div><div class="l">Pentaho-native</div></div>
-    <div class="stat"><div class="n">16.7 TB</div><div class="l">Lineage modeled</div></div>
-    <div class="stat"><div class="n">576</div><div class="l">Glossary terms</div></div>
+    <div class="stat"><div class="n">__NG__</div><div class="l">Catalog domains</div></div>
+    <div class="stat"><div class="n">Custom + Framework</div><div class="l">Every dashboard, two builds</div></div>
   </div>
   __HERO__
 </div></header>
@@ -129,6 +129,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
 """
 
 html = (HTML.replace("__N__", str(ndash))
+            .replace("__NG__", str(len(M["groups"])))
             .replace("__HERO__", hero)
             .replace("__GROUPS__", "".join(group(g) for g in M["groups"]))
             .replace("__DATE__", updated))
