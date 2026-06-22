@@ -156,6 +156,12 @@
           "title": "Schema & Structure Explorer",
           "kind": "Framework",
           "blurb": "CDF twin \u2014 catalog composition, column data types, key coverage, and the largest schemas across 754 tables / 11.5K columns."
+        },
+        {
+          "stem": "i-cdf-unstructured",
+          "title": "Document & Unstructured Insights",
+          "kind": "Framework",
+          "blurb": "CDF twin \u2014 files by extension, file assets by source, scan-volume trend, and an extension-detail table across 3.1K file assets."
         }
       ]
     },
