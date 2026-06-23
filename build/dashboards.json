@@ -214,7 +214,13 @@
           "stem": "i-data-flows",
           "title": "Data Movement Flows (Sankey)",
           "kind": "Custom",
-          "blurb": "An animated Sankey of cross-platform data movement — 9.3 TB flowing source→destination (S3, Snowflake, Kafka, Postgres, BigQuery…), ribbons sized by volume and colored by source. Click a flow to drill into integration health."
+          "blurb": "An animated Sankey + radial network topology of cross-platform data movement — 9.3 TB flowing source→destination (S3, Snowflake, Kafka, Postgres, BigQuery…), ribbons sized by volume; hover a platform to light its blast radius. Click a flow to drill into integration health."
+        },
+        {
+          "stem": "i-cdf-data-flows",
+          "title": "Data Movement Flows",
+          "kind": "Framework",
+          "blurb": "CDF twin — the same cross-platform flows as a CCC stacked bar (destination stacked by source), outbound-by-source, by-integration, and a top-flows table."
         },
         {
           "stem": "i-data-integration",
