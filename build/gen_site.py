@@ -73,8 +73,9 @@ def card(it, gname):
             % (esc(gname), esc(it["kind"]), text, media, esc(it["title"]), KIND_BADGE.get(it["kind"], ""), esc(it["blurb"])))
 
 def group(g):
-    return ('<section class="grp" data-group="%s"><h3>%s</h3><div class="grid">%s</div></section>'
-            % (esc(g["name"]), esc(g["name"]), "".join(card(it, g["name"]) for it in g["items"])))
+    gv = ('<p class="gv">%s</p>' % esc(g["value"])) if g.get("value") else ""
+    return ('<section class="grp" data-group="%s"><h3>%s</h3>%s<div class="grid">%s</div></section>'
+            % (esc(g["name"]), esc(g["name"]), gv, "".join(card(it, g["name"]) for it in g["items"])))
 
 # Filter toolbar (mimics the in-product launcher console — search + area chips + build-type chips)
 group_names = [g["name"] for g in M["groups"]]
@@ -137,7 +138,8 @@ main{padding:120px 0 40px}
 .grp{margin:44px 0}
 .grp.hidden{display:none}
 .card.hidden{display:none}
-.grp h3{font-size:13px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;border-bottom:1px solid var(--border);padding-bottom:10px;margin:0 0 20px}
+.grp h3{font-size:13px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;border-bottom:1px solid var(--border);padding-bottom:10px;margin:0 0 10px}
+.grp .gv{margin:0 0 20px;font-size:14.5px;line-height:1.5;color:var(--text);max-width:900px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 @media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}}
 .card{margin:0;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(20,40,80,.06);transition:transform .16s,box-shadow .16s}
