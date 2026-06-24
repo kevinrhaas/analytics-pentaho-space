@@ -19,7 +19,7 @@
         },
         {
           "stem": "i-cdf-scorecard",
-          "title": "Executive Scorecard",
+          "title": "Unified Executive Scorecard",
           "kind": "Framework",
           "blurb": "The same board built natively on the Pentaho CDF framework (CCC charts) — toggle Custom ⇄ Framework in the header.",
           "value": "Board-ready KPIs — coverage, sensitivity, governance and reliability at a glance."
@@ -39,7 +39,7 @@
         },
         {
           "stem": "i-cdf-command-center",
-          "title": "Observability Command Center",
+          "title": "Estate Observability Command Center",
           "kind": "Framework",
           "blurb": "The single-pane-of-glass rebuilt natively on Pentaho CDF — KPIs, CCC charts, and a source scorecard.",
           "value": "Single pane of glass to catch catalog, governance and pipeline issues before users do."
