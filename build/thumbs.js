@@ -18,8 +18,12 @@ const stems = fs.readFileSync(listFile, 'utf8').split('\n').map(s => s.trim()).f
   let ok = 0, fail = 0;
   for (const stem of stems) {
     try {
-      await page.goto(`${SERVER}/api/repos/${REPO}${stem}.html/content?cb=${Date.now()}`, { waitUntil: 'networkidle', timeout: 30000 });
-      await page.waitForTimeout(3600);
+      // CDE boards (.wcdf) render via generatedContent; everything else is .html/content.
+      const url = stem.startsWith('cde-')
+        ? `${SERVER}/api/repos/${REPO}${stem}.wcdf/generatedContent?cb=${Date.now()}`
+        : `${SERVER}/api/repos/${REPO}${stem}.html/content?cb=${Date.now()}`;
+      await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.waitForTimeout(stem.startsWith('cde-') ? 5200 : 3600);
       await page.screenshot({ path: path.join(OUT, stem + '.jpg'), type: 'jpeg', quality: 72, clip: { x: 0, y: 0, width: 1200, height: 720 } });
       ok++; process.stdout.write('.');
     } catch (e) { fail++; process.stdout.write('x'); }
