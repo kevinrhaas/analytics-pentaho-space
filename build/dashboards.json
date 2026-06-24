@@ -45,6 +45,13 @@
           "value": "Single pane of glass to catch catalog, governance and pipeline issues before users do."
         },
         {
+          "stem": "i-overview",
+          "title": "Catalog Observability",
+          "kind": "Custom",
+          "blurb": "Single-pane catalog health — assets by source, governance, discovery trend, sensitivity and a per-source scorecard, all from live CDA.",
+          "value": "Monitor catalog health and coverage across every connected source."
+        },
+        {
           "stem": "i-cdf-overview",
           "title": "Catalog Observability",
           "kind": "Framework",
