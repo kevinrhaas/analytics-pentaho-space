@@ -4,7 +4,7 @@
 // of the dashboard). The launcher references these by URL with a graceful fallback.
 const { chromium } = require('playwright');
 const fs = require('fs'); const path = require('path');
-const SERVER = 'http://localhost:8080/pentaho';
+const SERVER = process.env.PENTAHO_SERVER || 'http://localhost:8080/pentaho';
 const REPO = ':public:pdc-iteration:v2:';
 const OUT = path.join(__dirname, '..', 'assets', 'thumbs');
 fs.mkdirSync(OUT, { recursive: true });
