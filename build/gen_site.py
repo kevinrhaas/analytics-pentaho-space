@@ -67,10 +67,11 @@ def card(it, gname):
     img = (SHOT % stem) if has(stem) else ""
     media = ('<a class="shot" href="%s" target="_blank" rel="noopener"><img loading="lazy" src="%s" alt="%s"/></a>'
              % (img, img, esc(it["title"]))) if img else '<div class="shot empty">screenshot pending</div>'
-    text = esc((it["title"] + " " + it.get("blurb", "") + " " + gname + " " + it["kind"]).lower())
+    text = esc((it["title"] + " " + it.get("blurb", "") + " " + it.get("value", "") + " " + gname + " " + it["kind"]).lower())
+    cv = ('<div class="cv">%s</div>' % esc(it["value"])) if it.get("value") else ""
     return ('<figure class="card" data-group="%s" data-kind="%s" data-text="%s">%s'
-            '<figcaption><div class="ct">%s %s</div><div class="cb">%s</div></figcaption></figure>'
-            % (esc(gname), esc(it["kind"]), text, media, esc(it["title"]), KIND_BADGE.get(it["kind"], ""), esc(it["blurb"])))
+            '<figcaption><div class="ct">%s %s</div>%s<div class="cb">%s</div></figcaption></figure>'
+            % (esc(gname), esc(it["kind"]), text, media, esc(it["title"]), KIND_BADGE.get(it["kind"], ""), cv, esc(it["blurb"])))
 
 def group(g):
     gv = ('<p class="gv">%s</p>' % esc(g["value"])) if g.get("value") else ""
@@ -149,7 +150,8 @@ main{padding:120px 0 40px}
 .shot.empty{display:flex;align-items:center;justify-content:center;height:200px;color:#8aa;line-height:1.4;font-size:13px}
 figcaption{padding:15px 18px 18px}
 .ct{font-weight:800;font-size:16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.cb{color:var(--muted);font-size:13.5px;margin-top:6px}
+.cv{color:var(--ink);font-size:13.5px;line-height:1.45;margin-top:7px;font-weight:600}
+.cb{color:var(--muted);font-size:12.5px;margin-top:6px}
 .badge{font-size:10.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:999px}
 .badge.custom{background:#eaf1fb;color:var(--pdc)}
 .badge.framework{background:#f1e9f7;color:var(--pdc2)}
