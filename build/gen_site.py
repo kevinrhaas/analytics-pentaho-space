@@ -65,7 +65,7 @@ def esc(s):
 def card(it, gname):
     stem = it["stem"]
     img = (SHOT % stem) if has(stem) else ""
-    media = ('<a class="shot" href="%s" target="_blank" rel="noopener"><img loading="lazy" src="%s" alt="%s"/></a>'
+    media = ('<a class="shot" href="%s"><img loading="lazy" src="%s" alt="%s"/></a>'
              % (img, img, esc(it["title"]))) if img else '<div class="shot empty">screenshot pending</div>'
     text = esc((it["title"] + " " + it.get("blurb", "") + " " + it.get("value", "") + " " + gname + " " + it["kind"]).lower())
     cv = ('<div class="cv">%s</div>' % esc(it["value"])) if it.get("value") else ""
@@ -94,9 +94,28 @@ toolbar = ('<div class="filter" id="filter">'
            '<div class="chiprow">%s</div><div class="chiprow">%s</div>'
            '<div class="count" id="count"></div></div>') % (area_chips, kind_chips)
 
-hero_img = SHOT % M["launcher"]["stem"]
-hero = ('<a class="hero-shot" href="%s" target="_blank" rel="noopener"><img src="%s" alt="The dashboard suite"/></a>'
-        % (hero_img, hero_img)) if has(M["launcher"]["stem"]) else ""
+# Rotating-montage hero: a few standout shots that auto-crossfade to show the breadth
+# of the suite. Falls back to the single launcher shot if the curated set isn't present.
+MONTAGE = ["lineage-explorer", "pdc-command-center", "pdc-storage", "pdc-pipeline-obs",
+           M["launcher"]["stem"]]
+_mont = [s for s in dict.fromkeys(MONTAGE) if has(s)]   # de-dupe, keep only shot-present
+if len(_mont) >= 2:
+    _spacer = '<img class="m-spacer" src="%s" alt=""/>' % (SHOT % _mont[0])
+    _layers = "".join('<img class="m-layer%s" src="%s" alt="%s"/>'
+                      % (" on" if i == 0 else "", SHOT % s,
+                         esc("Pentaho Data Catalog dashboard")) for i, s in enumerate(_mont))
+    hero = ('<p class="hero-cap">Preview the context, visualize the detail — when you put '
+            '<b>Pentaho</b> into action.</p>'
+            '<a class="hero-shot montage" id="montage" href="%s">%s%s</a>'
+            % (SHOT % _mont[0], _spacer, _layers))
+elif has(M["launcher"]["stem"]):
+    hi = SHOT % M["launcher"]["stem"]
+    hero = ('<p class="hero-cap">Preview the context, visualize the detail — when you put '
+            '<b>Pentaho</b> into action.</p>'
+            '<a class="hero-shot" href="%s"><img src="%s" alt="The dashboard suite"/></a>'
+            % (hi, hi))
+else:
+    hero = ""
 
 HTML = """<!DOCTYPE html>
 <html lang="en">
@@ -119,9 +138,22 @@ h1{font-size:40px;line-height:1.12;margin:22px 0 12px;max-width:18ch;font-weight
 .sub{font-size:18px;opacity:.94;max-width:60ch}
 .stats{display:flex;flex-wrap:wrap;gap:30px;margin-top:26px}
 .stat .n{font-size:30px;font-weight:850}.stat .l{font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;opacity:.85}
-.hero-shot{display:block;margin:34px auto -90px;max-width:1060px;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(7,30,60,.34);border:1px solid rgba(255,255,255,.25)}
+.hero-shot{display:block;margin:14px auto -90px;max-width:1060px;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(7,30,60,.34);border:1px solid rgba(255,255,255,.25);cursor:zoom-in}
 .hero-shot img{display:block;width:100%}
+.montage{position:relative}
+.montage .m-spacer{opacity:0}
+.montage .m-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity 1.1s ease}
+.montage .m-layer.on{opacity:1}
+.hero-cap{text-align:center;color:#fff;opacity:.94;font-size:15.5px;font-weight:600;margin:30px auto 0;max-width:62ch}
+.hero-cap b{font-weight:850}
 main{padding:120px 0 40px}
+.lb{position:fixed;inset:0;background:rgba(8,18,32,.86);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:90;padding:30px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb-img{max-width:96vw;max-height:92vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.55);cursor:default;animation:lbin .18s ease}
+@keyframes lbin{from{transform:scale(.97);opacity:.4}to{transform:scale(1);opacity:1}}
+.lb-x{position:fixed;top:18px;right:22px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:26px;line-height:1;cursor:pointer;z-index:91;transition:.14s}
+.lb-x:hover{background:rgba(255,255,255,.32)}
+.shot{cursor:zoom-in}
 .lead{max-width:74ch;margin:0 auto 8px;font-size:17px;color:#26384b}
 .lead b{color:var(--ink)}
 .pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0 10px}
@@ -214,8 +246,32 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
   <div class="ftln">Pentaho Data Catalog Analytics · live dashboards over real platform metadata · last refreshed <b>__STAMP__</b> · <a href="https://github.com/kevinrhaas/solution-engineering">source</a></div>
   __CHANGELOG__
 </div></footer>
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Dashboard preview">
+  <button class="lb-x" id="lbx" aria-label="Close preview">&times;</button>
+  <img class="lb-img" id="lbimg" src="" alt=""/>
+</div>
 <script>
 (function(){
+  // --- Rotating montage hero: auto-crossfade the stacked layers ---
+  var layers=[].slice.call(document.querySelectorAll('#montage .m-layer'));
+  if(layers.length>1){var mi=0;setInterval(function(){
+    layers[mi].classList.remove('on'); mi=(mi+1)%layers.length; layers[mi].classList.add('on');
+  },4200);}
+  // --- Simple lightbox: pop a thumbnail open bigger; close via ×, backdrop, or Esc ---
+  var lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
+  function openLb(src,alt){ if(!src)return; lbimg.src=src; lbimg.alt=alt||''; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); }
+  function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbimg.src=''; }
+  document.querySelectorAll('.shot[href]').forEach(function(a){
+    a.addEventListener('click',function(e){ e.preventDefault(); var im=a.querySelector('img'); openLb(a.getAttribute('href'), im?im.alt:''); });
+  });
+  var heroA=document.querySelector('.hero-shot');
+  if(heroA)heroA.addEventListener('click',function(e){ e.preventDefault();
+    var on=document.querySelector('#montage .m-layer.on')||heroA.querySelector('img');
+    if(on)openLb(on.getAttribute('src'), on.alt||'Pentaho dashboard'); });
+  document.getElementById('lbx').addEventListener('click',closeLb);
+  lb.addEventListener('click',function(e){ if(e.target===lb)closeLb(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc')closeLb(); });
+
   var TOTAL=document.querySelectorAll('.card').length;
   var state={group:"",kind:"",q:""};
   var cards=[].slice.call(document.querySelectorAll('.card'));
