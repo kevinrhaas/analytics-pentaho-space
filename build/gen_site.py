@@ -221,7 +221,7 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
   __HERO__
 </div></header>
 <main><div class="wrap">
-  <p class="lead">Every screen below is a <b>real, running Pentaho dashboard</b> over the data catalog — not mockups. Each exists in two builds you can switch between: <b>Simple HTML</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b>) and <b>Framework</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts), so the same insight is delivered the lightweight way and the fully platform-native way. A subset are also authored as native <b>CDE</b> dashboards in Pentaho's drag-and-drop editor.</p>
+  <p class="lead">Every screen below is a <b>real, running demonstration dashboard sourced from Pentaho Data Catalog</b> — not mockups. Each exists in two builds you can switch between: <b>Simple HTML</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b>) and <b>Framework</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts), so the same insight is delivered the lightweight way and the fully platform-native way. A subset are also authored as native <b>CDE</b> dashboards in Pentaho's drag-and-drop editor.</p>
   <div class="pills">
     <span class="pill"><b>Observability</b> across the estate</span>
     <span class="pill"><b>Governance</b> &amp; sensitivity</span>
@@ -267,7 +267,7 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
   var heroA=document.querySelector('.hero-shot');
   if(heroA)heroA.addEventListener('click',function(e){ e.preventDefault();
     var on=document.querySelector('#montage .m-layer.on')||heroA.querySelector('img');
-    if(on)openLb(on.getAttribute('src'), on.alt||'Pentaho dashboard'); });
+    if(on)openLb(on.getAttribute('src'), on.alt||'Demonstration dashboard'); });
   document.getElementById('lbx').addEventListener('click',closeLb);
   lb.addEventListener('click',function(e){ if(e.target===lb)closeLb(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc')closeLb(); });
