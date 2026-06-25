@@ -316,7 +316,7 @@
         },
         {
           "stem": "lineage-explorer",
-          "title": "Interactive Lineage Explorer",
+          "title": "Data Lineage Observability",
           "kind": "Custom",
           "blurb": "Source→target lineage flow graph with blast-radius highlighting — trace upstream/downstream dependencies and throughput across the catalog.",
           "value": "Trace how data moves across platforms and which integrations carry the load."
