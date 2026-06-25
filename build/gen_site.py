@@ -15,42 +15,62 @@ updated = datetime.date.today().isoformat()
 stamp = _now.strftime("%Y-%m-%d %H:%M %Z")        # precise "last refreshed" time (local tz)
 ndash = sum(len(g["items"]) for g in M["groups"])
 
-def changelog(n=24):
-    """Reverse-chron 'what's new' list, auto-built from the iteration commit history
-    (the real dashboard improvements). Newest first; (time, text) tuples. Never fails the build."""
+_CL_TRAILERS = ("co-authored-by", "generated with", "co-authored", "\U0001f916")
+_CL_SKIP = ("refresh dashboard showcase", "merge ", "status:", "wip", "fixup")
+def _cl_clean(text):
+    return " ".join(str(text).split()).replace("->", "→").replace(" x ", " × ")
+def changelog(n=24, limit=16):
+    """Reverse-chron 'what's new' list, auto-built from the iteration commit history (the real dashboard
+    improvements). Each entry = a friendly headline (de-jargoned commit subject) + a couple of plain-language
+    detail bullets pulled from the commit body. Newest first; (when, headline, [bullets]). Never fails the build."""
     se = os.path.normpath(os.path.join(ROOT, "..", "solution-engineering"))
     try:
         out = subprocess.check_output(
             ["git", "-C", se, "log", "-n", str(n), "--no-merges",
-             "--pretty=format:%cI\x1f%s", "--", "iteration/"],
+             "--pretty=format:%cI\x1f%s\x1f%b\x1e", "--", "iteration/"],
             stderr=subprocess.DEVNULL).decode("utf-8", "replace")
     except Exception:
         return []
     items, seen = [], set()
-    for line in out.splitlines():
-        if "\x1f" not in line: continue
-        iso, subj = line.split("\x1f", 1)
+    for rec in out.split("\x1e"):
+        rec = rec.strip()
+        if "\x1f" not in rec: continue
+        p = rec.split("\x1f")
+        iso, subj, body = p[0], (p[1] if len(p) > 1 else ""), (p[2] if len(p) > 2 else "")
         subj = subj.strip()
-        for pre in ("iteration/v2: ", "iteration/v2 ", "iteration: ", "launcher: ", "showcase: "):
-            if subj.startswith(pre): subj = subj[len(pre):]
-        # drop noisy/duplicate refresh-only commits
-        low = subj.lower()
-        if low.startswith(("refresh dashboard showcase", "merge ")): continue
-        subj = (subj[:1].upper() + subj[1:]).split("\n")[0][:130]
-        if subj in seen: continue
-        seen.add(subj)
+        if subj.lower().startswith(_CL_SKIP): continue
+        head = subj
+        if ": " in head:
+            pre = head.split(": ", 1)[0]
+            if " " not in pre and pre.replace("-", "").isalnum():     # strip a "stem:" prefix
+                head = head.split(": ", 1)[1]
+        head = _cl_clean(head[:1].upper() + head[1:])[:130]
+        if head.lower() in seen: continue
+        seen.add(head.lower())
+        bullets, body_txt = [], " ".join(l.strip() for l in body.splitlines()
+            if l.strip() and not any(t in l.lower() for t in _CL_TRAILERS))
+        for s in body_txt.split(". "):
+            s = _cl_clean(s).rstrip(".")
+            if len(s) < 8: continue
+            bullets.append(s[:160])
+            if len(bullets) >= 2: break
         try:
             when = datetime.datetime.fromisoformat(iso).strftime("%Y-%m-%d %H:%M")
         except Exception:
             when = iso[:16]
-        items.append((when, subj))
-    return items[:18]
+        items.append((when, head, bullets))
+        if len(items) >= limit: break
+    return items
 
 def _esc(s):
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 _logs = changelog()
-_log_items = "".join('<li><span class="when">%s</span><span class="what">%s</span></li>'
-                     % (_esc(w), _esc(s)) for (w, s) in _logs)
+def _cl_li(w, head, bullets):
+    sub = "".join("<li>%s</li>" % _esc(b) for b in bullets)
+    sub = ('<ul class="clsub">%s</ul>' % sub) if sub else ""
+    return ('<li><span class="when">%s</span><span class="what"><span class="clhl">%s</span>%s</span></li>'
+            % (_esc(w), _esc(head), sub))
+_log_items = "".join(_cl_li(w, h, b) for (w, h, b) in _logs)
 changelog_html = (('<details class="changelog"><summary>What\'s new · recent platform &amp; dashboard improvements</summary>'
                    '<ul class="log">%s</ul></details>') % _log_items) if _logs else ""
 
@@ -200,10 +220,14 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
 .changelog summary::-webkit-details-marker{display:none}
 .changelog summary::before{content:"\\25B8  ";color:var(--muted)}
 .changelog[open] summary::before{content:"\\25BE  "}
-.changelog .log{list-style:none;margin:0;padding:2px 0 12px;max-height:330px;overflow:auto}
-.changelog .log li{display:flex;gap:14px;padding:8px 2px;border-top:1px solid var(--border);font-size:13px;line-height:1.45}
+.changelog .log{list-style:none;margin:0;padding:2px 0 12px;max-height:360px;overflow:auto}
+.changelog .log>li{display:flex;gap:14px;padding:10px 2px;border-top:1px solid var(--border);font-size:13px;line-height:1.45}
 .changelog .log .when{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;flex:0 0 116px}
-.changelog .log .what{color:#2c3e54}
+.changelog .log .what{color:#2c3e54;flex:1;min-width:0}
+.changelog .log .clhl{font-weight:700;color:#1f2d3d}
+.changelog .log .clsub{list-style:none;margin:5px 0 0;padding:0 0 0 16px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.changelog .log .clsub li{margin:1px 0;position:relative}
+.changelog .log .clsub li::before{content:"·";position:absolute;left:-12px;color:var(--pdc)}
 .tag{display:inline-block;background:#eef3fb;border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:12px;color:#2c3e54}
 </style>
 </head>
