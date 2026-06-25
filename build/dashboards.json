@@ -180,7 +180,7 @@
           "stem": "pdc-compliance",
           "title": "Sensitive Data & Compliance Radar",
           "kind": "Custom",
-          "blurb": "An animated Sankey of sensitive data flow — which sensitivity levels (Internal/Confidential/Restricted) move into governed vs ungoverned destinations — plus sensitivity mix, bytes by sensitivity, restricted-flow risk, and a cross-boundary movement trend.",
+          "blurb": "An an animated flow diagram of sensitive data flow — which sensitivity levels (Internal/Confidential/Restricted) move into governed vs ungoverned destinations — plus sensitivity mix, bytes by sensitivity, restricted-flow risk, and a cross-boundary movement trend.",
           "value": "Catch policy and sensitivity gaps that create audit and regulatory risk."
         },
         {
@@ -330,9 +330,9 @@
         },
         {
           "stem": "i-data-flows",
-          "title": "Data Movement Flows (Sankey)",
+          "title": "Data Movement Flows",
           "kind": "Custom",
-          "blurb": "An animated Sankey + radial network topology of cross-platform data movement — 9.3 TB flowing source→destination (S3, Snowflake, Kafka, Postgres, BigQuery…), ribbons sized by volume; hover a platform to light its blast radius. Click a flow to drill into integration health.",
+          "blurb": "An an animated flow diagram + radial network topology of cross-platform data movement — 9.3 TB flowing source→destination (S3, Snowflake, Kafka, Postgres, BigQuery…), ribbons sized by volume; hover a platform to light its blast radius. Click a flow to drill into integration health.",
           "value": "Trace how data moves across platforms and which integrations carry the load."
         },
         {
