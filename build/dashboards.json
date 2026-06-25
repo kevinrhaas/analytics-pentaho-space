@@ -301,20 +301,6 @@
           "value": "Attribute cloud cost and carbon to sources and target the biggest savings."
         },
         {
-          "stem": "pdc-redundancy",
-          "title": "Redundancy & Duplicate Data",
-          "kind": "Custom",
-          "blurb": "Duplicate assets and reclaimable storage by source and sensitivity, with the top duplicate objects — 233 TB reclaimable.",
-          "value": "Reclaim storage and spend by finding duplicate and redundant data."
-        },
-        {
-          "stem": "i-cdf-redundancy",
-          "title": "Redundancy & Duplicate Data",
-          "kind": "Framework",
-          "blurb": "CDF twin — 233 TB reclaimable storage / $27.5K-a-month: reclaimable by source & sensitivity, duplicate assets, and top duplicate objects.",
-          "value": "Reclaim storage and spend by finding duplicate and redundant data."
-        },
-        {
           "stem": "lineage-explorer",
           "title": "Data Lineage Observability",
           "kind": "Custom",
