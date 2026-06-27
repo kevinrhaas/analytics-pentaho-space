@@ -57,7 +57,7 @@ def changelog(n=24, limit=16):
             bullets.append(s[:160])
             if len(bullets) >= 2: break
         try:
-            when = datetime.datetime.fromisoformat(iso).strftime("%Y-%m-%d %H:%M")
+            when = datetime.datetime.fromisoformat(iso).astimezone(CENTRAL).strftime("%Y-%m-%d %H:%M") + " CT"
         except Exception:
             when = iso[:16]
         items.append((when, head, bullets))
