@@ -44,8 +44,9 @@ for (const g of M.groups) for (const it of g.items) targets.push({ stem: it.stem
   await api.post(`${SERVER}/j_spring_security_check`,
     { form: { j_username: 'admin', j_password: PASS }, maxRedirects: 0, failOnStatusCode: false });
   const page = await ctx.newPage();
-  // In the cloud (proxy set) serve every request through the proxy-aware request context + rewrite http->https.
-  if (PROXY) {
+  // Intercept when tunnelling through the egress proxy (cloud) OR when the target is https (to rewrite
+  // the server's http:// script tags so CDF twins clear mixed-content). On a CI runner only the https rewrite applies.
+  if (PROXY || ORIGIN.startsWith('https:')) {
     await page.route('**/*', async (route) => {
       const req = route.request(); const u = req.url();
       if (!u.startsWith(ORIGIN) && !u.startsWith(ORIGIN_H)) return route.continue().catch(() => route.abort());

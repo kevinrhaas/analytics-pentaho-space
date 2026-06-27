@@ -12,7 +12,7 @@ echo "==> Refreshing analytics.pentaho.space"
 if curl -s -o /dev/null --max-time 8 "$SERVER/Login"; then
   # resolve a playwright install (cloud images ship it at /opt/node22; else /tmp/pwshots or local).
   # shots.js takes the server URL as argv[2]; PENTAHO_PASS must be exported for the cloud server.
-  PWPATH="/opt/node22/lib/node_modules:/tmp/pwshots/node_modules:$(npm root 2>/dev/null)"
+  PWPATH="${NODE_PATH:+$NODE_PATH:}/opt/node22/lib/node_modules:/tmp/pwshots/node_modules:$(npm root 2>/dev/null)"
   if NODE_PATH="$PWPATH" node -e "require.resolve('playwright')" 2>/dev/null; then
     NODE_PATH="$PWPATH" node build/shots.js "$SERVER" || echo "   (some shots failed; keeping prior images)"
   else
