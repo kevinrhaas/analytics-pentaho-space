@@ -5,14 +5,16 @@ the platform's analytical value — Custom (self-contained HTML over CDA) and Fr
 (true Pentaho CDF) dashboards built on live Pentaho Data Catalog metadata. Run after shots.js.
 """
 import json, os, datetime, subprocess
+from zoneinfo import ZoneInfo
+CENTRAL = ZoneInfo("America/Chicago")
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 M = json.load(open(os.path.join(HERE, "dashboards.json")))
 SHOT = "assets/dashboards/%s.jpg"
 def has(stem): return os.path.exists(os.path.join(ROOT, SHOT % stem))
-_now = datetime.datetime.now().astimezone()
-updated = datetime.date.today().isoformat()
-stamp = _now.strftime("%Y-%m-%d %H:%M %Z")        # precise "last refreshed" time (local tz)
+_now = datetime.datetime.now(CENTRAL)
+updated = _now.date().isoformat()
+stamp = _now.strftime("%Y-%m-%d %H:%M") + " CT"   # precise "last refreshed" time (Central Time)
 ndash = sum(len(g["items"]) for g in M["groups"])
 
 _CL_TRAILERS = ("co-authored-by", "generated with", "co-authored", "\U0001f916")
