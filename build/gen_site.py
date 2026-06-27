@@ -147,7 +147,8 @@ HTML = """<!DOCTYPE html>
 <title>Pentaho Data Catalog Analytics — live dashboard showcase</title>
 <meta name="description" content="A demonstration of the Pentaho platform: analytical dashboards built on live Pentaho Data Catalog metadata — observability, governance, lineage, cost, and data quality. Custom HTML over CDA and true Pentaho CDF framework dashboards."/>
 <style>
-:root{--pdc:#005bb5;--pdc2:#7d3c98;--ink:#10202f;--bg:#f5f7fb;--panel:#fff;--border:#e4e9f2;--muted:#5f7088;}
+/* Palette aligned to the modern Pentaho console (uikit): primary blue #1775e0 + login blue->purple gradient (#1775e0->#764ba2). */
+:root{--pdc:#1775e0;--pdc2:#764ba2;--ink:#0f1d2e;--bg:#f5f7fb;--panel:#fff;--border:#e4e9f2;--muted:#5f7088;--accent:#e68c17;}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
