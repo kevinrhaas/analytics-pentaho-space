@@ -173,7 +173,7 @@
           "stem": "i-cdf-privacy",
           "title": "Sensitive Data & Privacy",
           "kind": "Framework",
-          "blurb": "CDF twin — PII/classification reach, sensitivity scale, exposure by source, and a privacy term × source stacked bar over 625 classified assets.",
+          "blurb": "CDF twin — PII/classification reach, sensitivity scale, exposure by source, and a privacy term × source stacked bar (625 HIGH/MEDIUM-sensitivity entities of 14K total).",
           "value": "Quantify privacy exposure and focus remediation on the riskiest assets."
         },
         {
@@ -214,7 +214,7 @@
           "stem": "i-column-health",
           "title": "Column Health & Key Discovery",
           "kind": "Custom",
-          "blurb": "Key-candidate detection (cardinality ≈ rows), dead/constant columns, and type mix across 10K+ columns.",
+          "blurb": "Key-candidate detection (cardinality ≈ rows), dead/constant columns, and type mix across 11K+ catalog columns.",
           "value": "Find keys plus dead and constant columns to clean schemas and speed integration."
         },
         {
@@ -235,7 +235,7 @@
           "stem": "i-cdf-profiling",
           "title": "Column Profiling & Statistics",
           "kind": "Framework",
-          "blurb": "CDF twin — null-% and uniqueness distribution pies, by-source bars, and highest-cardinality columns over 2.9K profiled columns.",
+          "blurb": "CDF twin — null-% and uniqueness distribution pies, by-source bars, and highest-cardinality columns (2.9K profiled, of 11K+ total catalog columns).",
           "value": "Profile columns to catch anomalies and validate data before it's consumed."
         },
         {
@@ -373,7 +373,7 @@
           "stem": "i-cdf-ownership",
           "title": "Ownership & Stewardship Gaps",
           "kind": "Framework",
-          "blurb": "CDF twin — owner-coverage pie, unowned backlog by source, governance coverage, and a per-source stewardship scorecard across 14K assets.",
+          "blurb": "CDF twin — owner-coverage pie, unowned backlog by source, governance coverage, and a per-source stewardship scorecard across 14K catalog entities (tables, files, columns and more).",
           "value": "Close ownership gaps so every dataset has an accountable steward."
         },
         {
