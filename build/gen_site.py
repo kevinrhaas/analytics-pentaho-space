@@ -15,7 +15,8 @@ def has(stem): return os.path.exists(os.path.join(ROOT, SHOT % stem))
 _now = datetime.datetime.now(CENTRAL)
 updated = _now.date().isoformat()
 stamp = _now.strftime("%Y-%m-%d %H:%M") + " CT"   # precise "last refreshed" time (Central Time)
-ndash = sum(len(g["items"]) for g in M["groups"])
+ndash = sum(len(g["items"]) for g in M["groups"])   # individual builds
+# nconcepts computed below after detect_pairs is defined
 
 _CL_TRAILERS = ("co-authored-by", "generated with", "co-authored", "\U0001f916")
 _CL_SKIP = ("refresh dashboard showcase", "merge ", "status:", "wip", "fixup")
@@ -95,10 +96,64 @@ def card(it, gname):
             '<figcaption><div class="ct">%s %s</div>%s<div class="cb">%s</div></figcaption></figure>'
             % (esc(gname), esc(it["kind"]), text, media, esc(it["title"]), KIND_BADGE.get(it["kind"], ""), cv, esc(it["blurb"])))
 
+def detect_pairs(items):
+    """Group consecutive Custom+Framework items with the same title into concept pairs."""
+    result = []
+    i = 0
+    while i < len(items):
+        if (i + 1 < len(items)
+                and items[i].get("kind") == "Custom"
+                and items[i+1].get("kind") == "Framework"
+                and items[i]["title"] == items[i+1]["title"]):
+            result.append({"type": "pair", "c": items[i], "f": items[i+1]})
+            i += 2
+        else:
+            result.append({"type": "single", "item": items[i]})
+            i += 1
+    return result
+
+def paired_card(spec, gname):
+    """Render a concept card — paired (with toggle) or singleton."""
+    if spec["type"] == "single":
+        return card(spec["item"], gname)
+    ic, ifw = spec["c"], spec["f"]
+    img_c = (SHOT % ic["stem"]) if has(ic["stem"]) else ""
+    img_f = (SHOT % ifw["stem"]) if has(ifw["stem"]) else ""
+    text = esc((ic["title"] + " " + ic.get("blurb","") + " " + ifw.get("blurb","")
+                + " " + ic.get("value","") + " " + gname
+                + " Custom Simple HTML Framework CDF").lower())
+    cv = ('<div class="cv">%s</div>' % esc(ic["value"])) if ic.get("value") else ""
+    href0 = img_c if img_c else "#"
+    href1 = img_f if img_f else "#"
+    media = ('<a class="shot" href="%s">'
+             '<img class="shot-img" data-idx="0" loading="lazy" src="%s" alt="%s"/>'
+             '<img class="shot-img" data-idx="1" loading="lazy" src="%s" alt="%s" style="display:none"/>'
+             '</a>') % (href0, img_c or "", esc(ic["title"]), img_f or "", esc(ifw["title"]))
+    toggle = ('<div class="bttog">'
+              '<button class="btb active" data-idx="0" data-href="%s" data-badge="custom" '
+              'data-lbl="Simple HTML">Simple HTML</button>'
+              '<button class="btb" data-idx="1" data-href="%s" data-badge="framework" '
+              'data-lbl="Framework &middot; CDF">Framework</button>'
+              '</div>') % (href0, href1)
+    return ('<figure class="card paired" data-group="%s" data-kind="Paired" data-text="%s">'
+            '%s<figcaption>'
+            '<div class="ct">%s <span class="badge custom togbadge">Simple HTML</span></div>'
+            '%s%s'
+            '<div class="cb cb-c">%s</div>'
+            '<div class="cb cb-f" style="display:none">%s</div>'
+            '</figcaption></figure>') % (
+        esc(gname), text, media, esc(ic["title"]),
+        toggle, cv,
+        esc(ic.get("blurb", "")), esc(ifw.get("blurb", ""))
+    )
+
 def group(g):
     gv = ('<p class="gv">%s</p>' % esc(g["value"])) if g.get("value") else ""
+    specs = detect_pairs(g["items"])
     return ('<section class="grp" data-group="%s"><h3>%s</h3>%s<div class="grid">%s</div></section>'
-            % (esc(g["name"]), esc(g["name"]), gv, "".join(card(it, g["name"]) for it in g["items"])))
+            % (esc(g["name"]), esc(g["name"]), gv, "".join(paired_card(spec, g["name"]) for spec in specs)))
+
+nconcepts = sum(len(detect_pairs(g["items"])) for g in M["groups"])
 
 # Filter toolbar (mimics the in-product launcher console — search + area chips + build-type chips)
 group_names = [g["name"] for g in M["groups"]]
@@ -232,23 +287,30 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
 .changelog .log .clsub li{margin:1px 0;position:relative}
 .changelog .log .clsub li::before{content:"·";position:absolute;left:-12px;color:var(--pdc)}
 .tag{display:inline-block;background:#eef3fb;border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:12px;color:#2c3e54}
+/* Build toggle pills — Simple HTML ⇄ Framework within each concept card */
+.bttog{display:flex;gap:5px;margin:8px 0 6px;flex-wrap:wrap}
+.btb{background:#f0f4fb;border:1px solid var(--border);border-radius:999px;padding:4px 12px;font-size:11.5px;font-weight:700;cursor:pointer;color:var(--muted);transition:.13s;white-space:nowrap}
+.btb:hover{border-color:var(--pdc);color:var(--pdc)}
+.btb.active{background:var(--pdc);border-color:var(--pdc);color:#fff}
+.btb.active[data-badge="framework"]{background:var(--pdc2);border-color:var(--pdc2)}
+.togbadge{transition:background .13s,color .13s}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap">
   <div class="brand"><span class="logo">P</span> Pentaho Data Catalog Analytics</div>
   <h1>Your data catalog, made visible.</h1>
-  <p class="sub">A Pentaho <b>solution-engineering demonstration</b> of what the platform can do: __N__ interactive dashboards — observability, governance, lineage, cost, and data quality — every one driven off a <b>solid, governed data foundation</b> in the Pentaho Data Catalog.</p>
+  <p class="sub">A Pentaho <b>solution-engineering demonstration</b> of what the platform can do: __NCONCEPTS__ analytical topics, each available in two builds you can toggle — <b>Simple HTML</b> (self-contained over CDA) and <b>Framework · CDF</b> (native Pentaho). Driven off a <b>solid, governed data foundation</b> in the Pentaho Data Catalog.</p>
   <div class="stats">
-    <div class="stat"><div class="n">__N__</div><div class="l">Live dashboards</div></div>
+    <div class="stat"><div class="n">__NCONCEPTS__</div><div class="l">Dashboard concepts</div></div>
+    <div class="stat"><div class="n">__N__</div><div class="l">Individual builds</div></div>
     <div class="stat"><div class="n">CDA · CDF · CDE</div><div class="l">Pentaho-native</div></div>
     <div class="stat"><div class="n">__NG__</div><div class="l">Catalog domains</div></div>
-    <div class="stat"><div class="n">Simple HTML + Framework</div><div class="l">Every dashboard, two builds</div></div>
   </div>
   __HERO__
 </div></header>
 <main><div class="wrap">
-  <p class="lead">Every screen below is a <b>real, running demonstration dashboard sourced from Pentaho Data Catalog</b> — not mockups. Each exists in two builds you can switch between: <b>Simple HTML</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b>) and <b>Framework</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts), so the same insight is delivered the lightweight way and the fully platform-native way. A subset are also authored as native <b>CDE</b> dashboards in Pentaho's drag-and-drop editor.</p>
+  <p class="lead">Every screen below is a <b>real, running demonstration dashboard sourced from Pentaho Data Catalog</b> — not mockups. Each concept card shows <b>both builds together</b>: toggle between <b>Simple HTML</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b> — embed-anywhere / OEM-ready) and <b>Framework · CDF</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts — no-code authoring in CDE). One platform, two delivery styles, same governed data layer.</p>
   <div class="pills">
     <span class="pill"><b>Observability</b> across the estate</span>
     <span class="pill"><b>Governance</b> &amp; sensitivity</span>
@@ -307,8 +369,11 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
   function apply(){
     var shown=0;
     cards.forEach(function(c){
+      var ck=c.getAttribute('data-kind');
+      // Paired cards always match any kind filter (both builds present via toggle)
+      var kindOk=!state.kind||ck===state.kind||ck==='Paired';
       var ok=(!state.group||c.getAttribute('data-group')===state.group)
-           &&(!state.kind||c.getAttribute('data-kind')===state.kind)
+           &&kindOk
            &&(!state.q||c.getAttribute('data-text').indexOf(state.q)>=0);
       c.classList.toggle('hidden',!ok); if(ok)shown++;
     });
@@ -316,7 +381,7 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
       var any=s.querySelectorAll('.card:not(.hidden)').length>0;
       s.classList.toggle('hidden',!any);
     });
-    countEl.textContent='Showing '+shown+' of '+TOTAL+' dashboards';
+    countEl.textContent='Showing '+shown+' of '+TOTAL+' concepts';
   }
   document.querySelectorAll('.chip').forEach(function(ch){
     ch.addEventListener('click',function(){
@@ -328,6 +393,29 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
   });
   var q=document.getElementById('q');
   q.addEventListener('input',function(){state.q=q.value.trim().toLowerCase();apply();});
+  // Build toggle: Simple HTML ⇄ Framework per concept card
+  document.querySelectorAll('.bttog .btb').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.preventDefault(); e.stopPropagation();
+      var card=btn.closest('.card');
+      card.querySelectorAll('.bttog .btb').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      var idx=parseInt(btn.dataset.idx||'0');
+      // switch visible screenshot
+      card.querySelectorAll('.shot-img').forEach(function(img){
+        img.style.display=(parseInt(img.dataset.idx)===idx)?'block':'none';
+      });
+      // update lightbox href
+      var shot=card.querySelector('.shot');
+      if(shot&&btn.dataset.href&&btn.dataset.href!=='#')shot.href=btn.dataset.href;
+      // update badge
+      var badge=card.querySelector('.togbadge');
+      if(badge){badge.className='badge '+btn.dataset.badge+' togbadge';badge.textContent=btn.dataset.lbl;}
+      // switch blurbs
+      var cbc=card.querySelector('.cb-c'),cbf=card.querySelector('.cb-f');
+      if(cbc&&cbf){cbc.style.display=idx===0?'':'none';cbf.style.display=idx===1?'':'none';}
+    });
+  });
   apply();
 })();
 </script>
@@ -336,6 +424,7 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
 """
 
 html = (HTML.replace("__N__", str(ndash))
+            .replace("__NCONCEPTS__", str(nconcepts))
             .replace("__NG__", str(len(M["groups"])))
             .replace("__HERO__", hero)
             .replace("__TOOLBAR__", toolbar)
@@ -344,4 +433,4 @@ html = (HTML.replace("__N__", str(ndash))
             .replace("__CHANGELOG__", changelog_html)
             .replace("__DATE__", updated))
 open(os.path.join(ROOT, "index.html"), "w").write(html)
-print("index.html regenerated: %d dashboards, %d changelog entries, refreshed %s" % (ndash, len(_logs), stamp))
+print("index.html regenerated: %d concepts (%d builds), %d changelog entries, refreshed %s" % (nconcepts, ndash, len(_logs), stamp))
