@@ -122,17 +122,13 @@ GLOSSARY_TERMS = [
      "The charting library used by Framework (CDF) dashboards. Supports bar, line, scatter, "
      "pie, heat-grid, sunburst, and more — all configured as CDF component definitions. "
      "The Simple HTML builds use D3/SVG directly for charts like Sankey and chord diagrams."),
-    ("PDC-BIDB-EXT", "JNDI Connection",
-     "The named JNDI connection on the Pentaho server pointing to the catalog data warehouse. "
-     "All CDA queries use this connection — no hard-coded credentials or schema prefixes. "
-     "Queries are typically cached server-side (TTL 5–15 min) for sub-second repeat loads."),
 ]
 
 def build_start_here():
     tiles = []
     for p in PERSONAS:
         steps_li = "".join(
-            '<li><a href="%s" target="_blank" rel="noopener">%s &nearr;</a></li>'
+            '<li><a class="lb-link" href="%s">%s</a></li>'
             % (SHOT % stem, label)
             for label, stem in p["steps"]
             if has(stem)
@@ -349,7 +345,7 @@ main{padding:120px 0 40px}
 .grp h3{font-size:13px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;border-bottom:1px solid var(--border);padding-bottom:10px;margin:0 0 10px}
 .grp .gv{margin:0 0 20px;font-size:14.5px;line-height:1.5;color:var(--text);max-width:900px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}.hero-shot{margin-bottom:0}.start-here{position:relative;z-index:1;margin-top:0}main{padding-top:40px}}
 .card{margin:0;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(20,40,80,.06);transition:transform .16s,box-shadow .16s}
 .card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(10,40,80,.16)}
 .shot{display:block;background:#0b1f33;line-height:0;border-bottom:1px solid var(--border);max-height:360px;overflow:hidden}
@@ -459,7 +455,7 @@ __START_HERE__
       <div><h4>CDA — the data layer</h4><p>Every dashboard reads <span class="tag">Pentaho CDA</span> queries over a managed JDBC connection to the catalog warehouse. One governed data layer, many front-ends.</p></div>
       <div><h4>CDF &amp; CDE — the framework</h4><p>The <span class="tag">Framework</span> dashboards are true Pentaho <span class="tag">CDF</span> (CCC charts) and authored <span class="tag">CDE</span> (.wcdf/.cdfde) — editable in the Pentaho CDE designer.</p></div>
       <div><h4>Interactive by design</h4><p>Cascading cross-filters, click-to-drill-through, and detail drawers (click a bar to see every underlying row) — the platform connecting the story end to end.</p></div>
-      <div><h4>Performance &amp; caching</h4><p>CDA queries are cached server-side (5–15 min TTL). Typical query latency &lt;1 s from cache, &lt;3 s cold. 50+ dashboards run concurrently on a single Pentaho server over one <span class="tag">PDC-BIDB-EXT</span> JDBC connection pool.</p></div>
+      <div><h4>Performance &amp; caching</h4><p>CDA queries are cached server-side (5–15 min TTL). Typical query latency &lt;1 s from cache, &lt;3 s cold. 50+ dashboards run concurrently on a single Pentaho server over one managed JDBC connection pool.</p></div>
     </div>
   </div>
 </div></main>
@@ -484,6 +480,9 @@ __START_HERE__
   function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbimg.src=''; }
   document.querySelectorAll('.shot[href]').forEach(function(a){
     a.addEventListener('click',function(e){ e.preventDefault(); var im=a.querySelector('img'); openLb(a.getAttribute('href'), im?im.alt:''); });
+  });
+  document.querySelectorAll('.lb-link[href]').forEach(function(a){
+    a.addEventListener('click',function(e){ e.preventDefault(); openLb(a.getAttribute('href'), a.textContent.trim()||''); });
   });
   var heroA=document.querySelector('.hero-shot');
   if(heroA)heroA.addEventListener('click',function(e){ e.preventDefault();
