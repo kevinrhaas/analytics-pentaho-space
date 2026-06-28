@@ -82,6 +82,101 @@ KIND_BADGE = {
   "Framework": '<span class="badge framework" title="True Pentaho CDF framework dashboard (CCC charts)">Framework · CDF</span>',
 }
 
+PERSONAS = [
+    {"key": "exec",      "label": "Executive",      "color": "#e68c17",
+     "desc": "Estate health, governance risk &amp; cost at a glance",
+     "steps": [("Executive Scorecard","i-exec-scorecard"),("Estate Command Center","pdc-command-center"),
+               ("Policy &amp; Governance","pdc-governance"),("Compliance Radar","pdc-compliance"),("Cost Optimization","pdc-cost")]},
+    {"key": "steward",   "label": "Data Steward",   "color": "#059669",
+     "desc": "Governance coverage, privacy, glossary &amp; freshness",
+     "steps": [("Policy &amp; Governance","pdc-governance"),("Sensitive Data &amp; Privacy","i-privacy"),
+               ("Business Glossary","pdc-glossary"),("Data Freshness","pdc-freshness"),("Catalog Adoption","i-adoption")]},
+    {"key": "engineer",  "label": "Data Engineer",  "color": "#0ea5e9",
+     "desc": "Pipeline health, quality, profiling &amp; integration",
+     "steps": [("Pipeline Observability","pdc-pipeline-obs"),("Data Quality","pdc-data-quality"),
+               ("Column Health","i-column-health"),("Data Integration","i-data-integration"),("Schema Explorer","i-schema-explorer")]},
+    {"key": "architect", "label": "Data Architect", "color": "#764ba2",
+     "desc": "Lineage, data movement, storage &amp; catalog growth",
+     "steps": [("Data Lineage Observability","lineage-explorer"),("Data Movement Flows","i-data-flows"),
+               ("Schema Explorer","i-schema-explorer"),("Storage Footprint","pdc-storage"),("Catalog Growth","i-growth")]},
+]
+
+GLOSSARY_TERMS = [
+    ("Simple HTML", "Self-contained HTML build",
+     "A dashboard built as a single HTML file that calls CDA REST endpoints directly. "
+     "No Pentaho framework required — embeds anywhere: OEM products, portals, static hosting. "
+     "Toggle any concept card to see the Simple HTML build alongside the Framework build."),
+    ("CDA", "Community Data Access",
+     "A Pentaho server-side REST API that wraps SQL queries into named DataAccess entries. "
+     "Dashboards call CDA endpoints to fetch data — no database credentials in the browser; "
+     "one governed data layer, many front-ends."),
+    ("CDF", "Community Dashboard Framework",
+     "The native Pentaho web framework for building interactive dashboards. CDF dashboards "
+     "use CCC for charting and can be authored visually in CDE. Powers the 'Framework · CDF' "
+     "builds — toggle any concept card to see the CDF version side by side."),
+    ("CDE", "Community Dashboard Editor",
+     "A visual drag-and-drop designer inside Pentaho for authoring CDF dashboards without "
+     "hand-coding. Produces .wcdf/.cdfde files stored in the Pentaho repository. "
+     "Not shown in the showcase grid — CDE is noted where available as a footnote."),
+    ("CCC", "Community Chart Components",
+     "The charting library used by Framework (CDF) dashboards. Supports bar, line, scatter, "
+     "pie, heat-grid, sunburst, and more — all configured as CDF component definitions. "
+     "The Simple HTML builds use D3/SVG directly for charts like Sankey and chord diagrams."),
+    ("PDC-BIDB-EXT", "JNDI Connection",
+     "The named JNDI connection on the Pentaho server pointing to the catalog data warehouse. "
+     "All CDA queries use this connection — no hard-coded credentials or schema prefixes. "
+     "Queries are typically cached server-side (TTL 5–15 min) for sub-second repeat loads."),
+]
+
+def build_start_here():
+    tiles = []
+    for p in PERSONAS:
+        steps_li = "".join(
+            '<li><a href="%s" target="_blank" rel="noopener">%s &nearr;</a></li>'
+            % (SHOT % stem, label)
+            for label, stem in p["steps"]
+            if has(stem)
+        )
+        tiles.append(
+            '<div class="sh-tile">'
+            '<div class="sh-head" style="background:%s">'
+            '<div class="sh-role">%s</div>'
+            '<div class="sh-desc">%s</div></div>'
+            '<div class="sh-body">'
+            '<div class="sh-hint">Recommended tour</div>'
+            '<ol class="sh-path">%s</ol>'
+            '</div></div>'
+            % (p["color"], p["label"], p["desc"], steps_li)
+        )
+    return (
+        '<section class="start-here"><div class="wrap">'
+        '<div class="sh-bar">'
+        '<span class="sh-label">Start Here &mdash; choose your role</span>'
+        '<span class="sh-sub">Click a dashboard link to preview its screenshot</span>'
+        '</div>'
+        '<div class="sh-grid">%s</div>'
+        '</div></section>'
+        % "".join(tiles)
+    )
+
+def build_glossary():
+    items = "".join(
+        '<div class="gl-item">'
+        '<div class="gl-abbr">%s</div>'
+        '<div class="gl-full">%s</div>'
+        '<div class="gl-def">%s</div>'
+        '</div>'
+        % (esc(abbr), esc(full), esc(defn))
+        for abbr, full, defn in GLOSSARY_TERMS
+    )
+    return (
+        '<details class="glossary">'
+        '<summary>&#9432;&nbsp;Terminology &mdash; Simple HTML, CDA, CDF, CDE and CCC explained</summary>'
+        '<div class="gl-grid">%s</div>'
+        '</details>'
+        % items
+    )
+
 def esc(s):
     return str(s).replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -154,6 +249,8 @@ def group(g):
             % (esc(g["name"]), esc(g["name"]), gv, "".join(paired_card(spec, g["name"]) for spec in specs)))
 
 nconcepts = sum(len(detect_pairs(g["items"])) for g in M["groups"])
+start_here = build_start_here()
+glossary = build_glossary()
 
 # Filter toolbar (mimics the in-product launcher console — search + area chips + build-type chips)
 group_names = [g["name"] for g in M["groups"]]
@@ -267,8 +364,9 @@ figcaption{padding:15px 18px 18px}
 .badge.framework{background:#f1e9f7;color:var(--pdc2)}
 .how{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:30px 32px;margin:48px 0}
 .how h2{margin:0 0 14px;font-size:22px}
-.how .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:18px}
-@media(max-width:760px){.how .row{grid-template-columns:1fr}}
+.how .row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:18px}
+@media(max-width:900px){.how .row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.how .row{grid-template-columns:1fr}}
 .how h4{margin:0 0 6px;font-size:15px;color:var(--pdc)}
 .how p{margin:0;font-size:14px;color:#3a4b60}
 footer{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 56px}
@@ -294,6 +392,36 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
 .btb.active{background:var(--pdc);border-color:var(--pdc);color:#fff}
 .btb.active[data-badge="framework"]{background:var(--pdc2);border-color:var(--pdc2)}
 .togbadge{transition:background .13s,color .13s}
+/* Persona Start Here strip */
+.start-here{background:var(--panel);border-bottom:2px solid var(--border);padding:26px 0 22px}
+.sh-bar{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.sh-label{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--pdc)}
+.sh-sub{font-size:12px;color:var(--muted)}
+.sh-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:860px){.sh-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.sh-grid{grid-template-columns:1fr}}
+.sh-tile{border:2px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.sh-tile:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(10,40,90,.13)}
+.sh-head{padding:14px 16px 12px;color:#fff}
+.sh-role{font-weight:850;font-size:15px;margin-bottom:4px}
+.sh-desc{font-size:11.5px;opacity:.93;line-height:1.4}
+.sh-body{padding:12px 16px 14px}
+.sh-hint{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px}
+.sh-path{margin:0;padding:0 0 0 16px;list-style:decimal}
+.sh-path li{font-size:12.5px;line-height:1.85}
+.sh-path a{color:var(--pdc);text-decoration:none;font-weight:600}
+.sh-path a:hover{text-decoration:underline}
+/* Terminology Glossary */
+.glossary{max-width:900px;margin:28px auto 0;text-align:left;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:4px 22px}
+.glossary summary{cursor:pointer;font-weight:700;color:var(--pdc);padding:12px 2px;list-style:none;user-select:none;font-size:13.5px}
+.glossary summary::-webkit-details-marker{display:none}
+.glossary summary::before{content:"\\25B8  ";color:var(--muted)}
+.glossary[open] summary::before{content:"\\25BE  "}
+.gl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;padding:4px 2px 18px}
+.gl-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.gl-abbr{font-size:19px;font-weight:850;color:var(--pdc);margin-bottom:3px}
+.gl-full{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+.gl-def{font-size:12.5px;color:var(--ink);line-height:1.55}
 </style>
 </head>
 <body>
@@ -309,8 +437,9 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
   </div>
   __HERO__
 </div></header>
+__START_HERE__
 <main><div class="wrap">
-  <p class="lead">Every screen below is a <b>real, running demonstration dashboard sourced from Pentaho Data Catalog</b> — not mockups. Each concept card shows <b>both builds together</b>: toggle between <b>Simple HTML</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b> — embed-anywhere / OEM-ready) and <b>Framework · CDF</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts — no-code authoring in CDE). One platform, two delivery styles, same governed data layer.</p>
+  <p class="lead">Every screen below is a <b>real, running demonstration dashboard sourced from Pentaho Data Catalog</b> — not mockups. Each concept card shows <b>both builds together</b>: toggle between <b>Simple HTML</b> (a self-contained HTML dashboard over Pentaho <b>CDA</b> — embed-anywhere / OEM-ready) and <b>Framework · CDF</b> (a true Pentaho <b>CDF</b> dashboard with CCC charts — no-code authoring in CDE). One platform, two delivery styles, same governed data layer. Built on <b>representative synthetic demo data</b> in a consistent catalog dataset.</p>
   <div class="pills">
     <span class="pill"><b>Observability</b> across the estate</span>
     <span class="pill"><b>Governance</b> &amp; sensitivity</span>
@@ -318,16 +447,19 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
     <span class="pill"><b>Cost</b> &amp; sustainability</span>
     <span class="pill"><b>Data quality</b> &amp; key discovery</span>
     <span class="pill">Cross-dashboard <b>drill-through</b></span>
+    <span class="pill"><b>One platform</b> — catalog + analytics native, not bolted-on</span>
   </div>
   __TOOLBAR__
   __GROUPS__
+  __GLOSSARY__
   <div class="how">
     <h2>How it's built — on the Pentaho platform</h2>
     <p>One metadata warehouse, three Pentaho delivery styles, fully interactive.</p>
     <div class="row">
       <div><h4>CDA — the data layer</h4><p>Every dashboard reads <span class="tag">Pentaho CDA</span> queries over a managed JDBC connection to the catalog warehouse. One governed data layer, many front-ends.</p></div>
       <div><h4>CDF &amp; CDE — the framework</h4><p>The <span class="tag">Framework</span> dashboards are true Pentaho <span class="tag">CDF</span> (CCC charts) and authored <span class="tag">CDE</span> (.wcdf/.cdfde) — editable in the Pentaho CDE designer.</p></div>
-      <div><h4>Interactive by design</h4><p>Cascading filters, light/dark, and click-to-drill that carries the selected filters from one dashboard into the next — the platform connecting the story end to end.</p></div>
+      <div><h4>Interactive by design</h4><p>Cascading cross-filters, click-to-drill-through, and detail drawers (click a bar to see every underlying row) — the platform connecting the story end to end.</p></div>
+      <div><h4>Performance &amp; caching</h4><p>CDA queries are cached server-side (5–15 min TTL). Typical query latency &lt;1 s from cache, &lt;3 s cold. 50+ dashboards run concurrently on a single Pentaho server over one <span class="tag">PDC-BIDB-EXT</span> JDBC connection pool.</p></div>
     </div>
   </div>
 </div></main>
@@ -427,8 +559,10 @@ html = (HTML.replace("__N__", str(ndash))
             .replace("__NCONCEPTS__", str(nconcepts))
             .replace("__NG__", str(len(M["groups"])))
             .replace("__HERO__", hero)
+            .replace("__START_HERE__", start_here)
             .replace("__TOOLBAR__", toolbar)
             .replace("__GROUPS__", "".join(group(g) for g in M["groups"]))
+            .replace("__GLOSSARY__", glossary)
             .replace("__STAMP__", stamp)
             .replace("__CHANGELOG__", changelog_html)
             .replace("__DATE__", updated))
