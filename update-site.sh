@@ -29,7 +29,7 @@ python3 build/gen_site.py
 if [ -n "$(git status --porcelain)" ]; then
   # explicit paths only (never -A). GitHub Pages serves main/, so publish branch + main.
   BR="$(git branch --show-current)"
-  git add assets/dashboards index.html build/shots.js build/dashboards.json 2>/dev/null
+  git add assets/dashboards index.html build/shots.js build/dashboards.json build/gen_site.py 2>/dev/null
   git commit -q -m "Refresh dashboard showcase ($(date +%Y-%m-%d))" \
     -m "Auto-updated by the PDC Analytics loop — current dashboard screenshots + regenerated index." \
     -m "Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
