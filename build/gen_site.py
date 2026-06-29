@@ -345,7 +345,7 @@ main{padding:120px 0 40px}
 .grp h3{font-size:13px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;border-bottom:1px solid var(--border);padding-bottom:10px;margin:0 0 10px}
 .grp .gv{margin:0 0 20px;font-size:14.5px;line-height:1.5;color:var(--text);max-width:900px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}.hero-shot{margin-bottom:0}.start-here{position:relative;z-index:1;margin-top:0}main{padding-top:40px}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:30px}.hero-shot{margin-bottom:0}.start-here{position:relative;z-index:1;margin-top:0;padding-top:30px}main{padding-top:40px}}
 .card{margin:0;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(20,40,80,.06);transition:transform .16s,box-shadow .16s}
 .card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(10,40,80,.16)}
 .shot{display:block;background:#0b1f33;line-height:0;border-bottom:1px solid var(--border);max-height:360px;overflow:hidden}
@@ -389,7 +389,7 @@ footer .ftln b{color:#3a4b60;font-variant-numeric:tabular-nums}
 .btb.active[data-badge="framework"]{background:var(--pdc2);border-color:var(--pdc2)}
 .togbadge{transition:background .13s,color .13s}
 /* Persona Start Here strip */
-.start-here{background:var(--panel);border-bottom:2px solid var(--border);padding:26px 0 22px}
+.start-here{background:var(--panel);border-bottom:2px solid var(--border);padding:108px 0 22px}
 .sh-bar{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap}
 .sh-label{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--pdc)}
 .sh-sub{font-size:12px;color:var(--muted)}
